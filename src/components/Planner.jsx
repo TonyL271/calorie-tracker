@@ -10,7 +10,7 @@ const Planner = () => {
                 <Typography varient="h2" component="h2" align="center" >Meals</Typography>
 
             </Box>
-            <Box id="Upcoming Plans" sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Box id="Upcoming Plans" sx={{ width: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'background.paper',color:'white' }}>
                 <Typography varient="h2" component="h2" align="center" >Upcoming Plans</Typography>
                 <List >
                     {item.map((item) => <MealPlan />)}
