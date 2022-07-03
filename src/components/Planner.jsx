@@ -1,21 +1,32 @@
 import { Box, Typography, List, Divider, } from "@mui/material"
-import { MealPlan } from "./";
+import { CustomList } from "./";
 
-
-const Planner = () => {
-    const item = [1, 2, 3, 4, 5]
+const Planner = ({ itemList }) => {
     return (
-        <Box sx={{ width: '50%', height: '100%', margin: 'auto', display: 'flex' }}>
-            <Box id="Meals" sx={{ width: '100%' }}>
-                <Typography varient="h2" component="h2" align="center" >Meals</Typography>
-
+        <Box sx={{minHeight:'80%',width:'50%', margin: 'auto', display: 'flex', bgcolor: 'background.default', borderRadius: '12px',boxShadow:'0 0 20px' }}>
+            <Box id="Meals" sx={{
+                bgcolor: 'background.paper',
+                width: '100%', display: 'flex',
+                flexDirection: 'column',
+                color: 'text.primary',
+                margin: '2rem',
+                borderRadius: '10px'
+            }}>
+                <Typography varient="h2" component="h2" align="center" sx={{ color: 'white', fontWeight: 'bold', fontSize: '2rem' }} color="primary.light" >Saved Meals</Typography>
+                <CustomList itemList={[['Apple Juice','200 calories'],['Pizza'],['Toast']]} color='#FFFAF1' />
             </Box>
-            <Box id="Upcoming Plans" sx={{ width: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'background.paper',color:'white' }}>
-                <Typography varient="h2" component="h2" align="center" >Upcoming Plans</Typography>
-                <List >
-                    {item.map((item) => <MealPlan />)}
-                    <Divider />
-                </List>
+
+            <Box id="Upcoming Plans" sx={{
+                bgcolor: 'background.paper',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                color: 'text.primary',
+                margin: '2rem',
+                borderRadius: '10px'
+            }}>
+                <Typography varient="h2" component="h2" align="center" sx={{ color: 'white', fontWeight: 'bold', fontSize: '2rem' }} color="primary.light" >Upcoming Plans</Typography>
+                <CustomList itemList={itemList} color="primary.main" />
             </Box>
 
         </Box>

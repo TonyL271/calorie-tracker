@@ -1,5 +1,5 @@
 import { Box,} from '@mui/material';
-import { CustomAppBar, MealDetails, Summation } from './'
+import { CustomAppBar, MealDetails, Summation } from '.'
 
 const CreateMeal = () => {
   return (

@@ -6,9 +6,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 const CustomAppBar = () => {
     return (
         <AppBar sx={{
-            height: '100%',
-            backgroundColor: '#FFFFFF',
-            color: '#8C8A8C',
+            height: '6%',
+            backgroundColor: 'background.dark',
+            color: 'white',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -28,8 +28,8 @@ const CustomAppBar = () => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontSize: '1.5rem' }}>
-                    Calorie-Tracker
+                <Typography variant="h6" component="div" sx={{textAlign: 'center', flexGrow: 1, fontSize: '1.5rem' }}>
+                    Calorie Tracker
                 </Typography>
                 <Button color="inherit">Login</Button>
             </Toolbar>
