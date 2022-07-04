@@ -25,7 +25,7 @@ const Planner = ({ itemList }) => {
                 margin: '2rem',
                 borderRadius: '10px'
             }}>
-                <Typography varient="h2" component="h2" align="center" sx={{ color: 'white', fontWeight: 'bold', fontSize: '2rem' }} color="primary.light" >Upcoming Plans</Typography>
+                <Typography varient="h2" component="h2" align="center" sx={{ color: 'white', fontWeight: 'bold', fontSize: '2rem' }} color="primary.light" >Upcoming Meals</Typography>
                 <CustomList itemList={itemList} color="primary.main" />
             </Box>
 
