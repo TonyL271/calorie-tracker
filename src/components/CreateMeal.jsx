@@ -12,15 +12,9 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
         gridTemplateColumns: {
           mobile: 'repeat(auto-fit,auto)',
           tablet: 'repeat(2,auto)',
-          desktop: '7% repeat(4,auto)'
+          desktop: 'repeat(2,auto)'
         }
       }}>
-        <Box className="place-holder" sx={{
-          display: {
-            mobile: 'none',
-            desktop: 'block'
-          }
-        }}></Box>
         <MealDetails mealType="Breakfast" foods={breakfast} />
         <MealDetails mealType="Lunch" foods={lunch} />
         <MealDetails mealType="Dinner" foods={dinner} />
