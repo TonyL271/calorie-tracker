@@ -35,6 +35,14 @@ const blueTheme = createTheme({
       fontWeight: 'bold'
     },
   },
+  breakpoints: {
+    values: {
+      mobile: 0,
+      tablet: 650,
+      laptop: 1024,
+      desktop: 1300,
+    },
+  },
 })
 
 const light = createTheme({
@@ -66,7 +74,28 @@ function App() {
   const [lunch, setLunch] = useState([])
   const [dinner, setDinner] = useState([])
   const [snacks, setSnacks] = useState([])
-  useEffect(()=>setBreakfast([{name:'Apple',cal:100,qnty:'1 cup'},{name:'Cereal',cal:150,qnty:'200g'},{name:'beans',cal:70,qnty:'50g'},{name:'bacon',cal:1500,qnty:'5 slice'}]),[])
+  useEffect(() => {
+    setBreakfast([
+      { name: 'Apple', cal: 100, qnty: '1 cup' },
+      { name: 'Cereal', cal: 150, qnty: '200g' },
+      { name: 'Beans', cal: 70, qnty: '50g' },
+      { name: 'Bacon', cal: 1500, qnty: '5 slice' }]
+    )
+
+    setLunch([
+      { name: 'Sandwitch', cal: 500, qnty: '1 cup' },
+      { name: 'Banana', cal: 120, qnty: '5 slice' }]
+    )
+
+    setDinner([
+      { name: 'Pasta', cal: 1000, qnty: '5 slice' }]
+    )
+
+    setSnacks([
+      { name: 'Chips', cal: 300, qnty: '1 cup' },
+      { name: 'Choclate bar', cal: 150, qnty: '5 slice' }]
+    )
+  }, [])
 
   return (
     <ThemeProvider theme={blueTheme}>
@@ -74,7 +103,7 @@ function App() {
         <CustomAppBar />
         <Planner itemList={[['2022, July 1','2000 calories'],['2022, July 1','3000 calories'],['2022, July 1','1000 calories']]} />
       </Box> */}
-      <CreateMeal breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks}/>
+      <CreateMeal breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} />
     </ThemeProvider>
   );
 }

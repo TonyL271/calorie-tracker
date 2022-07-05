@@ -8,25 +8,25 @@ const Summation = ({ breakfast, lunch, dinner, snacks }) => {
   return (
 
     <>
-      <Typography>Total:</Typography>
+      <Typography fontWeight='700'>Total:</Typography>
 
       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'right' }}>
-        <Box sx={{ width: '33.3333%', textAlign: 'center', pr: '1rem' }}>{`${breakfastCals} cals`}</Box>
+        <Box sx={{ width: '33.3333%', textAlign: 'center', pr: '1rem', fontWeight: 700 }}>{`${breakfastCals} cals`}</Box>
       </Box>
 
       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'right' }}>
-        <Box sx={{ width: '33.3333%', textAlign: 'center', pr: '1rem' }}>{`${lunchCals} cals`}</Box>
+        <Box sx={{ width: '33.3333%', textAlign: 'center', pr: '1rem', fontWeight: 700 }}>{`${lunchCals} cals`}</Box>
       </Box>
 
       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'right' }}>
-        <Box sx={{ width: '33.3333%', textAlign: 'center', pr: '1rem' }}>{`${dinnerCals} cals`}</Box>
+        <Box sx={{ width: '33.3333%', textAlign: 'center', pr: '1rem', fontWeight: 700 }}>{`${dinnerCals} cals`}</Box>
       </Box>
 
       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'right' }}>
-        <Box sx={{ width: '33.3333%', textAlign: 'center', pr: '1rem' }}>{`${snacksCals} cals`}</Box>
+        <Box sx={{ width: '33.3333%', textAlign: 'center', pr: '1rem', fontWeight: 700 }}>{`${snacksCals} cals`}</Box>
       </Box>
 
-      <Typography sx={{width:'100%', mt:'1rem'}}>{`Daily total: calories${totalCals}`}</Typography>
+      <Typography sx={{ width: '100%', mt: '1rem',fontWeight:'700' }}>{`Daily total: calories${totalCals}`}</Typography>
 
     </>
   )
