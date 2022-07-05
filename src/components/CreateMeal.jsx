@@ -1,7 +1,7 @@
 import { Box, } from '@mui/material';
 import { CustomAppBar, MealDetails, Summation } from '.'
 
-const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, setDinner, setSnack }) => {
+const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, setDinner, setSnacks }) => {
   return (
     <Box>
       <CustomAppBar />
@@ -15,10 +15,10 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           desktop: 'repeat(2,auto)'
         }
       }}>
-        <MealDetails mealType="Breakfast" foods={breakfast} />
-        <MealDetails mealType="Lunch" foods={lunch} />
-        <MealDetails mealType="Dinner" foods={dinner} />
-        <MealDetails mealType="Snacks" foods={snacks} />
+        <MealDetails mealType="Breakfast" foods={breakfast} setFood={setBreakfast} />
+        <MealDetails mealType="Lunch" foods={lunch}  setFood={setLunch} />
+        <MealDetails mealType="Dinner" foods={dinner}  setFood={setDinner} />
+        <MealDetails mealType="Snacks" foods={snacks}  setFood={setSnacks} />
         <Summation breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} />
       </Box>
     </Box>
