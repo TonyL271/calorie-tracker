@@ -7,7 +7,7 @@ const CustomAppBar = () => {
     return (
         <AppBar sx={{
             height: '6%',
-            backgroundColor: 'background.dark',
+            backgroundColor: '#4EDC8E',
             color: 'white',
             display: 'flex',
             flexDirection: 'column',
@@ -16,7 +16,7 @@ const CustomAppBar = () => {
             position: 'sticky',
             top: '0',
             left: '0',
-            mb:'5rem'
+            mb:'3rem'
         }} >
             <Toolbar sx={{ width: '100%', height: '100%', }}>
                 <IconButton
