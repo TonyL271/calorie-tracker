@@ -106,7 +106,6 @@ function App() {
         <Planner itemList={[['2022, July 1','2000 calories'],['2022, July 1','3000 calories'],['2022, July 1','1000 calories']]} />
       </Box> */}
       <Box sx={{bgcolor:'#E1E1E1',height:'100vh'}}>
-
       <CreateMeal breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} />
       </Box>
     </ThemeProvider>

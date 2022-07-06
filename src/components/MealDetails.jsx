@@ -5,19 +5,22 @@ import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 
-const MealDetails = ({ mealType, foods, setFood }) => {
+const MealDetails = ({ mealType, foods, setFood, Icon }) => {
   return (
-    <Box className="meal-details" sx={{ width: '100%', border: 'solid 5px #4EDC8E',p:'1rem', pt: '0rem' }}>
-      <Typography variant='h4' component="h2" align='center' sx={{
+    <Box className="meal-details" sx={{ width: '100%', border: 'solid 5px #4EDC8E', p: '1rem', pt: '0rem' }}>
+      <Box sx={{
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
         bgcolor: '#4EDC8E',
         color: 'white',
         gridColumn: '1/-1',
-        fontWeight: '900',
-        mb:'1rem',
-        mx:'-19px'
+        mb: '1rem',
+        mx: '-19px'
       }}>
-        {mealType}
-      </Typography>
+        {Icon}
+        <Typography variant='h4' component="h2" align='center' sx={{fontWeight: '800',}}>{mealType}</Typography>
+      </Box>
       <Box sx={{ width: '100%', display: 'grid', gridTemplateColumns: 'repeat(6,auto)' }}>
         <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
         <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, }}>Serving Size</Typography>
@@ -32,10 +35,10 @@ const MealDetails = ({ mealType, foods, setFood }) => {
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.name}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.qnty}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.cal} cal`}</Typography>
-              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', color: '#4e80dc',fontWeight:'500' }}>details</Typography>
+              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', color: '#4e80dc', fontWeight: '500' }}>details</Typography>
               <IconButton
                 list-id={index}
-                sx={{ zIndex: '10', display: 'flex', justifyContent: 'center', alignContent: 'center', flexWrap: 'wrap',p:0 }}
+                sx={{ zIndex: '10', display: 'flex', justifyContent: 'center', alignContent: 'center', flexWrap: 'wrap', p: 0 }}
                 onClick={(e) => {
                   const idx = e.currentTarget.getAttribute('list-id');
                   foods.pop(idx)

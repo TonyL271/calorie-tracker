@@ -1,6 +1,7 @@
 import { Box, AppBar, Toolbar, Typography, Button, IconButton, } from '@mui/material';
 import React from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 
 
 const CustomAppBar = () => {
@@ -29,6 +30,7 @@ const CustomAppBar = () => {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" component="div" sx={{textAlign: 'center', flexGrow: 1, fontSize: '1.5rem' }}>
+                    <FastfoodIcon sx={{mr:'1rem'}}/>
                     Calorie Tracker
                 </Typography>
                 <Button color="inherit">Login</Button>
