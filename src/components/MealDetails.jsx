@@ -1,9 +1,11 @@
 import React from 'react'
 import { Box, Typography, Divider, IconButton, Button } from '@mui/material'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import AddButton from './AddButton';
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
+
 
 
 const MealDetails = ({ mealType, foods, setFood, Icon }) => {
@@ -21,10 +23,7 @@ const MealDetails = ({ mealType, foods, setFood, Icon }) => {
         height: '3.5rem',
         position: 'relative'
       }}>
-
-        <IconButton sx={{ position: 'absolute', height: '2.5rem', width: '2.5rem', left: '1rem', }}>
-          <AddCircleTwoToneIcon size='large' sx={{ position: 'absolute', height: '2.5rem', width: '2.5rem', left: '1rem', }} />
-        </IconButton>
+        <AddButton/>
         {Icon}
         <Typography variant='h4' component="h2" align='center' sx={{ fontWeight: '800', }}>{mealType}</Typography>
       </Box>

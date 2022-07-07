@@ -1,5 +1,5 @@
 
-import {Menu,MenuItem} from "@mui/material/"
+import {Menu,MenuItem} from "@mui/material/";
 
 const AddMenu = () => {
   return (
@@ -19,4 +19,4 @@ const AddMenu = () => {
   )
 }
 
-export default AddMenu
+export default AddMenu;
