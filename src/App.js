@@ -78,25 +78,24 @@ function App() {
   const [snacks, setSnacks] = useState([])
   useEffect(() => {
     setBreakfast([
-      { name: 'Apple', cal: 100, qnty: '1 cup' },
-      { name: 'Cereal', cal: 150, qnty: '200g' },
-      { name: 'Beans', cal: 70, qnty: '50g' },
-      { name: 'Bacon', cal: 1500, qnty: '5 slice' }]
-    )
+      { imgSrc:'https://nix-tag-images.s3.amazonaws.com/384_highres.jpg',name: 'Apple', cal: 100, qnty: '1 cup', },
+      { imgSrc:'https://nix-tag-images.s3.amazonaws.com/564_highres.jpg',name: 'Cereal', cal: 150, qnty: '200g' },
+      { imgSrc:'https://nix-tag-images.s3.amazonaws.com/869_highres.jpg',name: 'Beans', cal: 70, qnty: '50g' },
+      { imgSrc:'https://nix-tag-images.s3.amazonaws.com/384_highres.jpg',name: 'Bacon', cal: 1500, qnty: '5 slice' }
+    ])
 
     setLunch([
-      { name: 'Sandwitch', cal: 500, qnty: '1 cup' },
-      { name: 'Banana', cal: 120, qnty: '5 slice' }]
-    )
+      {imgSrc:'https://nix-tag-images.s3.amazonaws.com/384_highres.jpg', name: 'Sandwitch', cal: 500, qnty: '1 cup' },
+      {imgSrc:'https://nix-tag-images.s3.amazonaws.com/384_highres.jpg', name: 'Banana', cal: 120, qnty: '5 slice' }
+    ])
 
     setDinner([
-      { name: 'Pasta', cal: 1000, qnty: '5 slice' }]
-    )
+    ])
 
     setSnacks([
-      { name: 'Chips', cal: 300, qnty: '1 cup' },
-      { name: 'Choclate bar', cal: 150, qnty: '5 slice' }]
-    )
+      {imgSrc:'https://nix-tag-images.s3.amazonaws.com/384_highres.jpg', name: 'Chips', cal: 300, qnty: '1 cup' },
+      {imgSrc:'https://nix-tag-images.s3.amazonaws.com/384_highres.jpg', name: 'Choclate bar', cal: 150, qnty: '5 slice' }
+    ])
   }, [])
 
   return (

@@ -3,23 +3,30 @@ import { Box, Typography, Divider, IconButton, Button } from '@mui/material'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 
 
 const MealDetails = ({ mealType, foods, setFood, Icon }) => {
   return (
-    <Box className="meal-details" sx={{ width: '100%', border: 'solid 5px #4EDC8E', p: '1rem', pt: '0rem' }}>
+    <Box className="meal-details" sx={{ width: '100%', border: 'solid 6px #4EDC8E', borderTop: '0', p: '1rem', pt: '0rem', }}>
       <Box sx={{
-        display:'flex',
-        alignItems:'center',
-        justifyContent:'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         bgcolor: '#4EDC8E',
         color: 'white',
         gridColumn: '1/-1',
         mb: '1rem',
-        mx: '-19px'
+        mx: '-19px',
+        height: '3.5rem',
+        position: 'relative'
       }}>
+
+        <IconButton sx={{ position: 'absolute', height: '2.5rem', width: '2.5rem', left: '1rem', }}>
+          <AddCircleTwoToneIcon size='large' sx={{ position: 'absolute', height: '2.5rem', width: '2.5rem', left: '1rem', }} />
+        </IconButton>
         {Icon}
-        <Typography variant='h4' component="h2" align='center' sx={{fontWeight: '800',}}>{mealType}</Typography>
+        <Typography variant='h4' component="h2" align='center' sx={{ fontWeight: '800', }}>{mealType}</Typography>
       </Box>
       <Box sx={{ width: '100%', display: 'grid', gridTemplateColumns: 'repeat(6,auto)' }}>
         <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
@@ -29,8 +36,8 @@ const MealDetails = ({ mealType, foods, setFood, Icon }) => {
         {
           foods.map((food, index) =>
             <React.Fragment key={index}>
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <Box component="img" alt="The house from the offer." src="https://nix-tag-images.s3.amazonaws.com/384_highres.jpg" sx={{ height: '1.5rem', width: '1.5rem', }} />
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '2rem' }}>
+                <Box component="img" alt="The house from the offer." src={food.imgSrc} sx={{ height: '1.5rem', width: '1.5rem', }} />
               </Box>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.name}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.qnty}</Typography>
@@ -68,6 +75,13 @@ const MealDetails = ({ mealType, foods, setFood, Icon }) => {
             <Typography sx={{ gridColumn: '-4/-3', textAlign: 'center', fontWeight: '700' }}>{foods.map((food) => food.cal).reduce((rsf, curr) => rsf + curr, 0) + ' cal'}</Typography>
           </>
         }
+
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gridColumn: '1/2' }}>
+          <AddCircleTwoToneIcon size='large' sx={{ color: 'blue', height: '2.5rem', width: '2.5rem', }} />
+        </Box>
+        <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontWeight: '700', gridColumn: '2/3' }}>Add food </Typography>
+
+
 
       </Box>
 

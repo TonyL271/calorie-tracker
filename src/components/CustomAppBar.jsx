@@ -29,7 +29,7 @@ const CustomAppBar = () => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" component="div" sx={{textAlign: 'center', flexGrow: 1, fontSize: '1.5rem' }}>
+                <Typography variant="h1" component="h1" sx={{fontWeight:'600',textAlign: 'center', flexGrow: 1, fontSize: '1.5rem' }}>
                     <FastfoodIcon sx={{mr:'1rem'}}/>
                     Calorie Tracker
                 </Typography>

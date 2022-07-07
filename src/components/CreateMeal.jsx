@@ -25,32 +25,11 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
         columnGap: '2rem',
         rowGap: '2rem',
         padding: '2rem',
-        // '& > div.meal-details:nth-of-type(1)>h2': {
-        //   borderRadius:'12px 0 0 0'
-        // },
-        // '& > div.meal-details:nth-of-type(2)>h2': {
-        //   borderRadius:'0 12px 0 0'
-        // },
         gridTemplateColumns: {
           mobile: 'repeat(auto-fit,auto)',
           tablet: 'repeat(2,auto)',
           desktop: 'repeat(2,auto)'
         },
-        // '& > div.meal-details:nth-of-type(1)': {
-        //   borderradius:'12px 0 0 0',
-        // },
-        // '& > div.meal-details:nth-of-type(2)': {
-        //   borderradius:'0 12px 0 0',
-        // },
-        // '& > div.meal-details:nth-of-type(3)': {
-        //   borderBottom: 0,
-        //   borderLeft: 0,
-        // },
-        // '& > div.meal-details:nth-of-type(4)': {
-        //   borderBottom: 0,
-        //   borderRight: 0,
-        // },
-
       }}>
         <MealDetails mealType="Breakfast" Icon={<FreeBreakfastIcon sx={{ mr: '1rem' }} />} foods={breakfast} setFood={setBreakfast} />
         <MealDetails mealType="Lunch" Icon={<LunchDiningIcon sx={{ mr: '1rem' }} />} foods={lunch} setFood={setLunch} />
