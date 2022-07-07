@@ -1,4 +1,4 @@
-import { Box, Typography, Divider, IconButton, Menu, MenuItem } from '@mui/material';
+import { Box, Typography, IconButton, Menu, MenuItem, Autocomplete, TextField } from '@mui/material';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import { useState, Fragment } from 'react'
 
@@ -21,7 +21,7 @@ const AddButton = () => {
         height: '2.5rem',
         width: '2.5rem',
         left: '1rem',
-        color:'white'
+        color: 'white'
       }}
         onClick={handleClick}
       >
@@ -34,12 +34,29 @@ const AddButton = () => {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
+        sx={{
+          "& .MuiPaper-root": {
+            height:'20rem',
+            backgroundColor: "white"
+          }
+        }}
       >
-        <MenuItem sx={{color:'white'}} onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={top100Films}
+          sx={{ width: 300 }}
+          renderInput={(params) => <TextField {...params} label="Movie" />}
+        />
       </Menu>
     </Fragment>
   )
+
 }
+
+const top100Films = [
+  { label: 'The Shawshank Redemption', year: 1994 },
+  { label: 'The Godfather', year: 1972 },
+]
 
 export default AddButton;
