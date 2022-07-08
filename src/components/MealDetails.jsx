@@ -74,16 +74,7 @@ const MealDetails = ({ mealType, foods, setFood, Icon }) => {
             <Typography sx={{ gridColumn: '-4/-3', textAlign: 'center', fontWeight: '700' }}>{foods.map((food) => food.cal).reduce((rsf, curr) => rsf + curr, 0) + ' cal'}</Typography>
           </>
         }
-
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gridColumn: '1/2' }}>
-          <AddCircleTwoToneIcon size='large' sx={{ color: 'blue', height: '2.5rem', width: '2.5rem', }} />
-        </Box>
-        <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontWeight: '700', gridColumn: '2/3' }}>Add food </Typography>
-
-
-
       </Box>
-
     </Box>
   )
 }
