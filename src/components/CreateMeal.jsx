@@ -27,7 +27,7 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
         padding: '2rem',
         gridTemplateColumns: {
           mobile: 'repeat(auto-fit,auto)',
-          tablet: 'repeat(2,auto)',
+          labtop: 'repeat(2,auto)',
           desktop: 'repeat(2,auto)'
         },
       }}>
