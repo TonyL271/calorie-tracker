@@ -1,4 +1,6 @@
-import { Box, Typography, IconButton, Menu, MenuItem, Autocomplete, TextField } from '@mui/material';
+import { Box, Typography, IconButton, Menu, MenuItem, Paper, InputBase } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import { useState, Fragment } from 'react'
 
@@ -22,7 +24,8 @@ const AddButton = () => {
     setAnchorEl(null);
   }
 
-  const getSearchSuggestion = (e, val) => {
+  const getSearchSuggestion = (e) => {
+    const val = e.currentTarget.value;
     if (val.length > 0) {
       fetch(url + `?query=${val}`, { headers }).then(function (response) {
         return response.json();
@@ -41,7 +44,6 @@ const AddButton = () => {
           setSuggestion({ common: [], branded: [] })
         }
       });
-
     }
   }
 
@@ -72,14 +74,20 @@ const AddButton = () => {
           }
         }}
       >
-        <Autocomplete
-          disablePortal
-          onInputChange={getSearchSuggestion}
-          id="combo-box-demo"
-          options={top100Films}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Movie" />}
-        />
+        <Box
+          component="form"
+          sx={{ p: '2px 4px',mx:'1rem',width:'20rem',height:'3rem', display: 'flex', alignItems: 'center',boxShadow:'0 1px 3px',borderRadius:'5px' }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1,height:'100%' }}
+            placeholder="Search food"
+            inputProps={{ 'aria-label': 'search google maps' }}
+            onChange={getSearchSuggestion}
+          />
+          <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </Box>
         {
           suggestion.common.map((food, idx) => <MenuItem key={idx}>{food.food_name}</MenuItem>)
         }
