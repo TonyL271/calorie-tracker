@@ -17,7 +17,7 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
   return (
     <Box >
       <CustomAppBar />
-      <Box className="main" sx={{
+      <Box className="main" sx={theme => ({
         display: 'grid',
         width: '80%',
         margin: 'auto',
@@ -29,10 +29,11 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
         padding: '2rem',
         gridTemplateColumns: {
           mobile: 'repeat(auto-fit,auto)',
-          labtop: 'repeat(2,auto)',
           desktop: 'repeat(2,auto)'
         },
-      }}>
+
+
+      })}>
         <MealDetails
           mealType="Breakfast"
           Icon={<FreeBreakfastIcon sx={{ mr: '1rem' }} />}
@@ -44,9 +45,9 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           mealType="Lunch"
           Icon={<LunchDiningIcon sx={{ mr: '1rem' }} />}
           foods={lunch}
-          setFood={setLunch} 
+          setFood={setLunch}
           setAddFood={setAddFood}
-          />
+        />
         <MealDetails
           mealType="Dinner"
           Icon={<RestaurantIcon sx={{ mr: '1rem' }} />}
@@ -58,13 +59,13 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           mealType="Snacks"
           Icon={<IcecreamIcon sx={{ mr: '1rem' }} />}
           foods={snacks}
-          setFood={setSnacks} 
+          setFood={setSnacks}
           setAddFood={setAddFood}
-          />
+        />
         <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals} calories`}</Typography>
       </Box>
-      <AddFoodMenu addFood={addFood} setAddFood={setAddFood}/>
-    </Box>
+      <AddFoodMenu addFood={addFood} setAddFood={setAddFood} />
+    </Box >
   )
 }
 

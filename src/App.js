@@ -48,24 +48,12 @@ const blueTheme = createTheme({
 })
 
 const light = createTheme({
-  palette: {
-    type: 'dark',
-    primary: {
-      main: '#cbe4f9',
-      light: '#feffff',
-      dark: '#9ab2c6',
-    },
-    secondary: {
-      main: '#ccf3f4',
-    },
-    background: {
-      paper: '#28282A',
-      default: '#1C1C1E',
-      dark: '#16181D',
-    },
-    typography: {
-      fontFamily: ['Roboto'],
-      fontWeight: 'bold'
+  breakpoints: {
+    values: {
+      mobile: 0,
+      tablet: 650,
+      laptop: 1024,
+      desktop: 1300,
     },
   },
 })
@@ -99,7 +87,7 @@ function App() {
   }, [])
 
   return (
-    <Box >
+    <ThemeProvider theme={light} >
       {/* <Box sx={{ width: '100vw', height: '100vh', background: 'linear-gradient(#4E7593,#000000)' }}>
         <CustomAppBar />
         <Planner itemList={[['2022, July 1','2000 calories'],['2022, July 1','3000 calories'],['2022, July 1','1000 calories']]} />
@@ -107,7 +95,7 @@ function App() {
       <Box sx={{ bgcolor: '#E1E1E1', height: '100vh' }}>
         <CreateMeal breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} />
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 }
 
