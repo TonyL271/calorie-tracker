@@ -3,12 +3,7 @@ import { Box, Typography, Divider, IconButton, Button } from '@mui/material'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import AddButton from './AddButton';
 
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
-
-
-
-const MealDetails = ({ mealType, foods, setFood, Icon }) => {
+const MealDetails = ({ mealType, foods, setFood, Icon, setAddFood }) => {
   return (
     <Box className="meal-details" sx={{ width: '100%', border: 'solid 6px #4EDC8E', borderTop: '0', p: '1rem', pt: '0rem', }}>
       <Box sx={{
@@ -23,7 +18,7 @@ const MealDetails = ({ mealType, foods, setFood, Icon }) => {
         height: '3.5rem',
         position: 'relative'
       }}>
-        <AddButton/>
+        <AddButton setAddFood={setAddFood} />
         {Icon}
         <Typography variant='h4' component="h2" align='center' sx={{ fontWeight: '800', }}>{mealType}</Typography>
       </Box>
@@ -66,7 +61,6 @@ const MealDetails = ({ mealType, foods, setFood, Icon }) => {
         }
         {foods.length > 0 &&
           <>
-
             <Box align='center' sx={{ width: '100%', gridColumn: '-4 / -3' }} >
               <Divider sx={{ mt: '0.5rem', borderBottomWidth: 2, bgcolor: 'black' }}></Divider>
             </Box>

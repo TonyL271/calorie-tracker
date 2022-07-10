@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import { CustomAppBar, MealDetails, } from '.'
+import { CustomAppBar, MealDetails, AddFoodMenu } from '.'
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import IcecreamIcon from '@mui/icons-material/Icecream';
 
 const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, setDinner, setSnacks }) => {
+  const [addFood, setAddFood] = useState('');
 
   const breakfastCals = breakfast.reduce((total, food) => (total + food.cal), 0);
   const lunchCals = lunch.reduce((total, food) => (total + food.cal), 0);
@@ -31,12 +33,37 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           desktop: 'repeat(2,auto)'
         },
       }}>
-        <MealDetails mealType="Breakfast" Icon={<FreeBreakfastIcon sx={{ mr: '1rem' }} />} foods={breakfast} setFood={setBreakfast} />
-        <MealDetails mealType="Lunch" Icon={<LunchDiningIcon sx={{ mr: '1rem' }} />} foods={lunch} setFood={setLunch} />
-        <MealDetails mealType="Dinner" Icon={<RestaurantIcon sx={{ mr: '1rem' }} />} foods={dinner} setFood={setDinner} />
-        <MealDetails mealType="Snacks" Icon={<IcecreamIcon sx={{ mr: '1rem' }} />} foods={snacks} setFood={setSnacks} />
+        <MealDetails
+          mealType="Breakfast"
+          Icon={<FreeBreakfastIcon sx={{ mr: '1rem' }} />}
+          foods={breakfast}
+          setFood={setBreakfast}
+          setAddFood={setAddFood}
+        />
+        <MealDetails
+          mealType="Lunch"
+          Icon={<LunchDiningIcon sx={{ mr: '1rem' }} />}
+          foods={lunch}
+          setFood={setLunch} 
+          setAddFood={setAddFood}
+          />
+        <MealDetails
+          mealType="Dinner"
+          Icon={<RestaurantIcon sx={{ mr: '1rem' }} />}
+          foods={dinner}
+          setFood={setDinner}
+          setAddFood={setAddFood}
+        />
+        <MealDetails
+          mealType="Snacks"
+          Icon={<IcecreamIcon sx={{ mr: '1rem' }} />}
+          foods={snacks}
+          setFood={setSnacks} 
+          setAddFood={setAddFood}
+          />
         <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals} calories`}</Typography>
       </Box>
+      <AddFoodMenu addFood={addFood} setAddFood={setAddFood}/>
     </Box>
   )
 }
