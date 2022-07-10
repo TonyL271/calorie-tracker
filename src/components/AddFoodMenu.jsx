@@ -1,15 +1,16 @@
 import { Box, Typography, Divider, Input, Select, MenuItem, FormControl, InputLabel, Button } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Nutrients } from '../apiCalls';
 
 const AddFoodMenu = ({ addFood, setAddFood }) => {
+  const [foodInfo, setFoodInfo] = useState({});
   const handleChange = (e) => {
   };
   useEffect(
     () => {
       if (addFood.length > 0) {
-        Nutrients(addFood).then((resp) => {
-          console.log(resp);
+        Nutrients(addFood).then((nutrition) => {
+          setFoodInfo(nutrition.foods[0])
         })
       }
     }
@@ -47,32 +48,34 @@ const AddFoodMenu = ({ addFood, setAddFood }) => {
           <Typography variant='h3' component="h3">{addFood.charAt(0).toUpperCase() + addFood.slice(1)}</Typography>
           <Typography variant='h3' component="h3">Qnty</Typography>
           <Typography variant='h3' component="h3">Unit</Typography>
-          <Box sx={{ width: '3rem', gridColumn: '1/2' }} component="img" src="https://via.placeholder.com/150" />
+          <Box sx={{ width: '3rem', gridColumn: '1/2' }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
           <Input defaultValue="1" />
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Age"
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
+
+            <InputLabel id="demo-simple-select-label">Unit</InputLabel>
+            {foodInfo.hasOwnProperty('alt_measures') &&
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Age"
+                onChange={handleChange}
+              >
+                {foodInfo.alt_measures.map((elem, idx) => (
+                  <MenuItem key={idx} value={idx}>{elem.measure}</MenuItem>
+                ))}
+              </Select>}
           </FormControl>
 
         </Box>
         <Box className="add-nutrient" sx={{ display: 'grid', gridTemplateColumns: 'repeat(4,auto)' }}>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', gridColumn: '1/-1' }}>
             <Typography>Total Calories: </Typography>
-            <Typography>{`${109} cals`}</Typography>
+            <Typography>{`${foodInfo.nf_calories} cals`}</Typography>
           </Box>
-          <Typography sx={{ gridColumn: '1/2' }}>{`${0} Protein`}</Typography>
-          <Typography>{`${0} Carbs`}</Typography>
-          <Typography>{`${0} Fat`}</Typography>
-          <Typography>{`${0} Sodium`}</Typography>
+          <Typography sx={{ gridColumn: '1/2' }}>{`${foodInfo.nf_protein} Protein`}</Typography>
+          <Typography>{`${foodInfo.nf_total_carbohydrate} Carbs`}</Typography>
+          <Typography>{`${foodInfo.nf_total_fat} Fat`}</Typography>
+          <Typography>{`${foodInfo.nf_sodium} Sodium`}</Typography>
         </Box>
         <Button variant="contained">Add</Button>
       </Box>

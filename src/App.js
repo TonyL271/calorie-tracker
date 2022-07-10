@@ -99,7 +99,7 @@ function App() {
   }, [])
 
   return (
-    <ThemeProvider theme={blueTheme}>
+    <Box >
       {/* <Box sx={{ width: '100vw', height: '100vh', background: 'linear-gradient(#4E7593,#000000)' }}>
         <CustomAppBar />
         <Planner itemList={[['2022, July 1','2000 calories'],['2022, July 1','3000 calories'],['2022, July 1','1000 calories']]} />
@@ -107,7 +107,7 @@ function App() {
       <Box sx={{ bgcolor: '#E1E1E1', height: '100vh' }}>
         <CreateMeal breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} />
       </Box>
-    </ThemeProvider>
+    </Box>
   );
 }
 
