@@ -1,5 +1,5 @@
-import { Box, Typography, IconButton, Menu, MenuItem, InputBase, Divider, ListItemText } from '@mui/material';
-const FoodMenuItem = ({food,setAddFood,setOpen}) => {
+import { Box, MenuItem, Divider, ListItemText } from '@mui/material';
+const FoodMenuItem = ({food,setAddFood,setOpen,onAdd}) => {
     return (
         <Box >
             <MenuItem onClick={(e) => {

@@ -1,9 +1,13 @@
 import React from 'react'
 import { Box, Typography, Divider, IconButton, Button } from '@mui/material'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
-import AddButton from './AddButton';
+import { AddButton, AddFoodMenu } from './';
 
-const MealDetails = ({ mealType, foods, setFood, Icon, setAddFood }) => {
+const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood }) => {
+  const handleAddFood = (foodInfo, ) => {
+    
+
+  }
   return (
     <Box className="meal-details" sx={{ width: '100%', border: 'solid 6px #4EDC8E', borderTop: '0', p: '1rem', pt: '0rem', }}>
       <Box sx={{
@@ -18,7 +22,7 @@ const MealDetails = ({ mealType, foods, setFood, Icon, setAddFood }) => {
         height: '3.5rem',
         position: 'relative'
       }}>
-        <AddButton setAddFood={setAddFood} />
+        <AddButton foodList={foodList} setFoodList={setFoodList} setAddFood={setAddFood} />
         {Icon}
         <Typography variant='h4' component="h2" align='center' sx={{ fontWeight: '800', }}>{mealType}</Typography>
       </Box>
@@ -28,7 +32,7 @@ const MealDetails = ({ mealType, foods, setFood, Icon, setAddFood }) => {
         <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, }} >Calories</Typography>
         <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, gridColumn: '-2/-1' }} ></Typography>
         {
-          foods.map((food, index) =>
+          foodList.map((food, index) =>
             <React.Fragment key={index}>
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '2rem' }}>
                 <Box component="img" alt="The house from the offer." src={food.imgSrc} sx={{ height: '1.5rem', width: '1.5rem', }} />
@@ -42,8 +46,8 @@ const MealDetails = ({ mealType, foods, setFood, Icon, setAddFood }) => {
                 sx={{ zIndex: '10', display: 'flex', justifyContent: 'center', alignContent: 'center', flexWrap: 'wrap', p: 0 }}
                 onClick={(e) => {
                   const idx = e.currentTarget.getAttribute('list-id');
-                  foods.pop(idx)
-                  setFood([...foods])
+                  foodList.pop(idx)
+                  setFoodList([...foodList])
                 }}>
                 <ClearRoundedIcon sx={{
                   color: 'red',
@@ -59,16 +63,17 @@ const MealDetails = ({ mealType, foods, setFood, Icon, setAddFood }) => {
             </React.Fragment>
           )
         }
-        {foods.length > 0 &&
+        {foodList.length > 0 &&
           <>
             <Box align='center' sx={{ width: '100%', gridColumn: '-4 / -3' }} >
               <Divider sx={{ mt: '0.5rem', borderBottomWidth: 2, bgcolor: 'black' }}></Divider>
             </Box>
             <Typography sx={{ gridColumn: '-5/-4', textAlign: 'center', fontWeight: '700' }}>Sum: </Typography>
-            <Typography sx={{ gridColumn: '-4/-3', textAlign: 'center', fontWeight: '700' }}>{foods.map((food) => food.cal).reduce((rsf, curr) => rsf + curr, 0) + ' cal'}</Typography>
+            <Typography sx={{ gridColumn: '-4/-3', textAlign: 'center', fontWeight: '700' }}>{foodList.map((food) => food.cal).reduce((rsf, curr) => rsf + curr, 0) + ' cal'}</Typography>
           </>
         }
       </Box>
+      <AddFoodMenu addFood={addFood} setAddFood={setAddFood} />
     </Box>
   )
 }

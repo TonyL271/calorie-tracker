@@ -5,7 +5,7 @@ import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import { Search } from '../apiCalls'
 import { FoodMenuItem } from './';
 
-const AddButton = ({ setAddFood }) => {
+const AddButton = ({ foods, setFoods, setAddFood }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(Boolean(anchorEl));
   const [suggestion, setSuggestion] = useState({ common: [], branded: [] })

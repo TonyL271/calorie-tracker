@@ -31,40 +31,41 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           mobile: 'repeat(auto-fit,auto)',
           desktop: 'repeat(2,auto)'
         },
-
-
       })}>
         <MealDetails
           mealType="Breakfast"
           Icon={<FreeBreakfastIcon sx={{ mr: '1rem' }} />}
-          foods={breakfast}
-          setFood={setBreakfast}
+          foodList={breakfast}
+          addFood={addFood}
+          setFoodList={setBreakfast}
           setAddFood={setAddFood}
         />
         <MealDetails
           mealType="Lunch"
           Icon={<LunchDiningIcon sx={{ mr: '1rem' }} />}
-          foods={lunch}
-          setFood={setLunch}
+          foodList={lunch}
+          addFood={addFood}
+          setFoodList={setLunch}
           setAddFood={setAddFood}
         />
         <MealDetails
           mealType="Dinner"
           Icon={<RestaurantIcon sx={{ mr: '1rem' }} />}
-          foods={dinner}
-          setFood={setDinner}
+          foodList={dinner}
+          addFood={addFood}
+          setFoodList={setDinner}
           setAddFood={setAddFood}
         />
         <MealDetails
           mealType="Snacks"
           Icon={<IcecreamIcon sx={{ mr: '1rem' }} />}
-          foods={snacks}
-          setFood={setSnacks}
+          foodList={snacks}
+          addFood={addFood}
+          setFoodList={setSnacks}
           setAddFood={setAddFood}
         />
         <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals} calories`}</Typography>
       </Box>
-      <AddFoodMenu addFood={addFood} setAddFood={setAddFood} />
     </Box >
   )
 }

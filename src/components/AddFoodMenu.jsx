@@ -26,7 +26,7 @@ const AddFoodMenu = ({ addFood, setAddFood }) => {
         display: addFood.length ? 'flex' : 'none',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
+        width: '100vw',
         height: '100vh',
         zIndex: 11
       }}>
