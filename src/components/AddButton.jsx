@@ -3,14 +3,16 @@ import { Box, Typography, IconButton, Menu, MenuItem, InputBase, Divider, ListIt
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import { Search } from '../apiCalls'
+import { FoodMenuItem } from './';
 
 const AddButton = ({ setAddFood }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [open, setOpen] = useState(Boolean(anchorEl));
   const [suggestion, setSuggestion] = useState({ common: [], branded: [] })
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
+    setOpen(true);
   }
 
   const handleClose = () => {
@@ -20,18 +22,17 @@ const AddButton = ({ setAddFood }) => {
   const getSearchSuggestion = (e) => {
     const val = e.currentTarget.value;
     if (val.length > 0) {
-      Search(val)
-        .then(function (data) {
-          if (data.hasOwnProperty('common')) {
-            const suggestion = {
-              common: data.common.slice(0, 5),
-              branded: data.branded.slice(0, 3)
-            }
-            setSuggestion(suggestion)
-          } else {
-            setSuggestion({ common: [], branded: [] })
+      Search(val).then(function (data) {
+        if (data.hasOwnProperty('common')) {
+          const suggestion = {
+            common: data.common.slice(0, 5),
+            branded: data.branded.slice(0, 3)
           }
-        });
+          setSuggestion(suggestion)
+        } else {
+          setSuggestion({ common: [], branded: [] })
+        }
+      });
     }
   }
 
@@ -66,7 +67,16 @@ const AddButton = ({ setAddFood }) => {
       >
         <Box
           component="form"
-          sx={{ p: '2px 4px', width: '100%', maxWidth: '20rem', height: '3rem', display: 'flex', alignItems: 'center', boxShadow: '0 1px 3px', borderRadius: '5px' }}
+          sx={{
+            p: '2px 4px',
+            width: '100%',
+            maxWidth: '20rem',
+            height: '3rem',
+            display: 'flex',
+            alignItems: 'center',
+            boxShadow: '0 1px 3px',
+            borderRadius: '5px'
+          }}
         >
           <InputBase
             sx={{ ml: 1, flex: 1, height: '100%' }}
@@ -82,37 +92,19 @@ const AddButton = ({ setAddFood }) => {
         <Divider sx={{ my: '0!important' }} />
         {
           suggestion.common.map((food, idx) =>
-            <Box key={idx} sx={{}}>
-              <MenuItem onClick={(e) => { setAddFood(food.food_name) }} sx={{ whiteSpace: 'initial', py: 0 }} >
-                <Box component="img" sx={{ maxWidth: '2rem', mr: '1rem' }} src={food.photo.thumb} />
-                <ListItemText primary={food.food_name} />
-              </MenuItem>
-              <Divider sx={{ my: '0!important' }} />
-            </Box>
+            <FoodMenuItem key={idx} food={food} setAddFood={setAddFood} setOpen={setOpen} />
           )
         }
         <Typography variant="h6" component="h6" sx={{ pt: '0.5rem', fontSize: '0.7rem', fontColor: 'grey' }}>BRANDED FOODS {`(${Math.min(suggestion.branded.length, 3)})`}</Typography>
         <Divider sx={{ my: '0!important' }} />
         {
           suggestion.branded.map((food, idx) =>
-            <Box key={idx} sx={{}}>
-              <MenuItem onClick={(e) => { setAddFood(food.food_name) }} sx={{ whiteSpace: 'initial', py: 0 }} >
-                <Box component="img" sx={{ maxWidth: '2rem', mr: '1rem' }} src={food.photo.thumb} />
-                <ListItemText primary={food.food_name} />
-              </MenuItem>
-              <Divider sx={{ my: '0!important' }} />
-            </Box>
+            <FoodMenuItem key={idx} food={food} setAddFood={setAddFood} setOpen={setOpen} />
           )
         }
       </Menu>
     </Fragment>
   )
-
 }
-
-const top100Films = [
-  { label: 'The Shawshank Redemption', year: 1994 },
-  { label: 'The Godfather', year: 1972 },
-]
 
 export default AddButton;

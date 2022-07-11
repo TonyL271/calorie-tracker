@@ -15,3 +15,7 @@ code {
 *{
   box-sizing: border-box;
 }
+
+.MuiMenu-paper {
+  transition-duration: 0 !important;
+}

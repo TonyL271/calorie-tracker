@@ -59,6 +59,7 @@ const AddFoodMenu = ({ addFood, setAddFood }) => {
                 id="demo-simple-select"
                 label="Age"
                 onChange={handleChange}
+                defaultValue=""
               >
                 {foodInfo.alt_measures.map((elem, idx) => (
                   <MenuItem key={idx} value={idx}>{elem.measure}</MenuItem>

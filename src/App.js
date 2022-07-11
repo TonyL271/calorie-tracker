@@ -55,6 +55,7 @@ const light = createTheme({
       laptop: 1024,
       desktop: 1300,
     },
+
   },
 })
 
