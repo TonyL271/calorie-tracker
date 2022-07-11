@@ -1,10 +1,10 @@
 import { Box, MenuItem, Divider, ListItemText } from '@mui/material';
-const FoodMenuItem = ({food,setAddFood,setOpen}) => {
+const FoodMenuItem = ({food,setAddFood,handleClose}) => {
     return (
         <Box >
             <MenuItem onClick={(e) => {
                 setAddFood(food.food_name);
-                setOpen(false)
+                handleClose();
             }} sx={{
                 whiteSpace: 'initial',
                 py: 0

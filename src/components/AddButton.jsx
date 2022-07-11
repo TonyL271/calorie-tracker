@@ -1,11 +1,11 @@
-import React, { useState, Fragment } from 'react'
-import { Box, Typography, IconButton, Menu, MenuItem, InputBase, Divider, ListItemText } from '@mui/material';
+import { useState, Fragment } from 'react'
+import { Box, Typography, IconButton, Menu,  InputBase, Divider,} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import { Search } from '../apiCalls'
 import { FoodMenuItem } from './';
 
-const AddButton = ({ foods, setFoods, setAddFood }) => {
+const AddButton = ({ setAddFood }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(Boolean(anchorEl));
   const [suggestion, setSuggestion] = useState({ common: [], branded: [] })
@@ -17,6 +17,7 @@ const AddButton = ({ foods, setFoods, setAddFood }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+    setOpen(false);
   }
 
   const getSearchSuggestion = (e) => {
@@ -92,14 +93,14 @@ const AddButton = ({ foods, setFoods, setAddFood }) => {
         <Divider sx={{ my: '0!important' }} />
         {
           suggestion.common.map((food, idx) =>
-            <FoodMenuItem key={idx} food={food} setAddFood={setAddFood} setOpen={setOpen} />
+            <FoodMenuItem key={idx} food={food} setAddFood={setAddFood} handleClose={handleClose} />
           )
         }
         <Typography variant="h6" component="h6" sx={{ pt: '0.5rem', fontSize: '0.7rem', fontColor: 'grey' }}>BRANDED FOODS {`(${Math.min(suggestion.branded.length, 3)})`}</Typography>
         <Divider sx={{ my: '0!important' }} />
         {
           suggestion.branded.map((food, idx) =>
-            <FoodMenuItem key={idx} food={food} setAddFood={setAddFood} setOpen={setOpen} />
+            <FoodMenuItem key={idx} food={food} setAddFood={setAddFood} handleClose={handleClose} />
           )
         }
       </Menu>

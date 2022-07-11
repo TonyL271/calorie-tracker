@@ -20,7 +20,6 @@ const Nutrients = async (query) => {
         .then(function (response) {
             return response.json();
         })
-
 }
 
 export { Search, Nutrients }

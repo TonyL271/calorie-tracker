@@ -51,17 +51,18 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
           <Input defaultValue="1" />
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Unit</InputLabel>
-            {foodInfo.hasOwnProperty('alt_measures') &&
+            {foodInfo.alt_measures &&
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                label="Age"
-                defaultValue=""
+                label="Unit"
+                defaultValue={Object.entries(foodInfo.length) ? foodInfo.serving_unit : ''}
               >
                 {foodInfo.alt_measures.map((elem, idx) => (
                   <MenuItem key={idx} value={idx}>{elem.measure}</MenuItem>
                 ))}
-              </Select>}
+              </Select>
+            }
           </FormControl>
 
         </Box>
@@ -75,7 +76,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
           <Typography>{`${foodInfo.nf_total_fat} Fat`}</Typography>
           <Typography>{`${foodInfo.nf_sodium} Sodium`}</Typography>
         </Box>
-        <Button variant="contained" onClick={()=>{
+        <Button variant="contained" onClick={() => {
           handleAddFood(foodInfo);
           setFoodInfo({});
         }}>Add</Button>

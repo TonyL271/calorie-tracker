@@ -5,7 +5,6 @@ import { AddButton, AddFoodMenu } from './';
 
 const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood }) => {
   const handleAddFood = (food) => {
-    console.log(food);
     setFoodList([...foodList, food]);
     setAddFood('');
   }
