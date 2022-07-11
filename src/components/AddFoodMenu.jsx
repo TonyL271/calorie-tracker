@@ -4,6 +4,40 @@ import { Nutrients } from '../apiCalls';
 
 const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
   const [foodInfo, setFoodInfo] = useState({});
+  const [foodQty, setFoodQty] = useState(1);
+  const [selectedUnit, setSelectedUnit] = useState('')
+
+
+  const scaleFood = (food) => {
+    // let scaleAmount;
+    // if (selectedUnit === food.serving_unit) {
+    //   scaleAmount = foodQty
+    // } else {
+    //   console.log(food.alt_measures);
+    //   const servingWeight = food.alt_measures.filter(
+    //     (altMeasure) => altMeasure.measure === selectedUnit
+    //   )
+    //   [0];
+    //   let a = 2;
+    //   scaleAmount = foodQty * servingWeight / food.serving_weight.grams
+    // }
+    // let newFoods = { ...food }
+    // const nutrientKeys = Object.entries(food).filter((entry) => entry.substring(0, 2) === "nf")
+    // nutrientKeys.forEach((key) => {
+    //   newFoods[key + '_scaled'] = food[key] * scaleAmount
+    // })
+    return food
+  }
+
+
+
+  useEffect(() => {
+    // console.log(selectedUnit);
+    // if (selectedUnit.length == 0) {
+    //   setSelectedUnit(foodInfo.serving_unit)
+    // }
+  }, [foodInfo])
+
 
   useEffect(
     () => {
@@ -48,7 +82,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
           <Typography variant='h3' component="h3">Qnty</Typography>
           <Typography variant='h3' component="h3">Unit</Typography>
           <Box sx={{ width: '3rem', gridColumn: '1/2' }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
-          <Input defaultValue="1" />
+          <Input defaultValue={1} onChange={(e) => setFoodQty(e.currentTarget.value)} />
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Unit</InputLabel>
             {foodInfo.alt_measures &&
@@ -56,15 +90,15 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="Unit"
-                defaultValue={Object.entries(foodInfo.length) ? foodInfo.serving_unit : ''}
+                value={Object.entries(foodInfo).length? foodInfo.serving_unit : ''}
+                onChange={(e) => { setSelectedUnit(e.target.value) }}
               >
                 {foodInfo.alt_measures.map((elem, idx) => (
-                  <MenuItem key={idx} value={idx}>{elem.measure}</MenuItem>
+                  <MenuItem key={idx} value={elem.measure}>{elem.measure}</MenuItem>
                 ))}
               </Select>
             }
           </FormControl>
-
         </Box>
         <Box className="add-nutrient" sx={{ display: 'grid', gridTemplateColumns: 'repeat(4,auto)' }}>
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', gridColumn: '1/-1' }}>
@@ -77,6 +111,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
           <Typography>{`${foodInfo.nf_sodium} Sodium`}</Typography>
         </Box>
         <Button variant="contained" onClick={() => {
+          const scaledFoodInfo = scaleFood(foodInfo)
           handleAddFood(foodInfo);
           setFoodInfo({});
         }}>Add</Button>

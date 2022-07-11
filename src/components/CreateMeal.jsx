@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Box, Typography } from '@mui/material';
-import { CustomAppBar, MealDetails, AddFoodMenu } from '.'
+import { Box, Typography, Button, ButtonGroup } from '@mui/material';
+import { CustomAppBar, MealDetails } from '.'
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
@@ -17,10 +17,18 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
   const dinnerCals = dinner.reduce((total, food) => (total + food.cal), 0);
   const snacksCals = snacks.reduce((total, food) => (total + food.cal), 0);
   const totalCals = breakfastCals + lunchCals + dinnerCals + snacksCals;
+
+  const handleClear = () => {
+    setBreakfast([]);
+    setLunch([]);
+    setDinner([]);
+    setSnacks([]);
+  }
+
   return (
     <Box >
       <CustomAppBar />
-      <Box className="main" sx={theme => ({
+      <Box className="main" sx={{
         display: 'grid',
         width: '80%',
         margin: 'auto',
@@ -34,7 +42,7 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           mobile: 'repeat(auto-fit,auto)',
           desktop: 'repeat(2,auto)'
         },
-      })}>
+      }}>
         <MealDetails
           mealType="Breakfast"
           Icon={<FreeBreakfastIcon sx={{ mr: '1rem' }} />}
@@ -68,6 +76,13 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           setAddFood={setAddSnacks}
         />
         <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals} calories`}</Typography>
+        <ButtonGroup variant="contained" sx={{
+          display: 'flex',
+          justifyContent: 'right'
+        }}>
+          <Button onClick={handleClear}>Clear</Button>
+          <Button>Add To <br /> Calender</Button>
+        </ButtonGroup>
       </Box>
     </Box >
   )
