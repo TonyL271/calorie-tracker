@@ -4,9 +4,10 @@ import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import { AddButton, AddFoodMenu } from './';
 
 const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood }) => {
-  const handleAddFood = (foodInfo, ) => {
-    
-
+  const handleAddFood = (food) => {
+    console.log(food);
+    setFoodList([...foodList, food]);
+    setAddFood('');
   }
   return (
     <Box className="meal-details" sx={{ width: '100%', border: 'solid 6px #4EDC8E', borderTop: '0', p: '1rem', pt: '0rem', }}>
@@ -35,11 +36,11 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
           foodList.map((food, index) =>
             <React.Fragment key={index}>
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '2rem' }}>
-                <Box component="img" alt="The house from the offer." src={food.imgSrc} sx={{ height: '1.5rem', width: '1.5rem', }} />
+                <Box component="img" alt="The house from the offer." src={food.photo.thumb} sx={{ height: '1.5rem', width: '1.5rem', }} />
               </Box>
-              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.name}</Typography>
-              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.qnty}</Typography>
-              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.cal} cal`}</Typography>
+              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.food_name}</Typography>
+              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.serving_qty}</Typography>
+              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.nf_calories} cal`}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', color: '#4e80dc', fontWeight: '500' }}>details</Typography>
               <IconButton
                 list-id={index}
@@ -69,11 +70,14 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
               <Divider sx={{ mt: '0.5rem', borderBottomWidth: 2, bgcolor: 'black' }}></Divider>
             </Box>
             <Typography sx={{ gridColumn: '-5/-4', textAlign: 'center', fontWeight: '700' }}>Sum: </Typography>
-            <Typography sx={{ gridColumn: '-4/-3', textAlign: 'center', fontWeight: '700' }}>{foodList.map((food) => food.cal).reduce((rsf, curr) => rsf + curr, 0) + ' cal'}</Typography>
+            <Typography sx={{ gridColumn: '-4/-3', textAlign: 'center', fontWeight: '700' }}>
+              {
+                foodList.reduce((prev, curr) => prev + curr.nf_calories, 0)
+              }</Typography>
           </>
         }
       </Box>
-      <AddFoodMenu addFood={addFood} setAddFood={setAddFood} />
+      <AddFoodMenu addFood={addFood} setAddFood={setAddFood} handleAddFood={handleAddFood} />
     </Box>
   )
 }

@@ -7,7 +7,10 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import IcecreamIcon from '@mui/icons-material/Icecream';
 
 const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, setDinner, setSnacks }) => {
-  const [addFood, setAddFood] = useState('');
+  const [addBreakFast, setAddBreakFast] = useState('');
+  const [addLunch, setAddLunch] = useState('');
+  const [addDinner, setAddDinner] = useState('');
+  const [addSnacks, setAddSnacks] = useState('');
 
   const breakfastCals = breakfast.reduce((total, food) => (total + food.cal), 0);
   const lunchCals = lunch.reduce((total, food) => (total + food.cal), 0);
@@ -36,33 +39,33 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           mealType="Breakfast"
           Icon={<FreeBreakfastIcon sx={{ mr: '1rem' }} />}
           foodList={breakfast}
-          addFood={addFood}
+          addFood={addBreakFast}
           setFoodList={setBreakfast}
-          setAddFood={setAddFood}
+          setAddFood={setAddBreakFast}
         />
         <MealDetails
           mealType="Lunch"
           Icon={<LunchDiningIcon sx={{ mr: '1rem' }} />}
           foodList={lunch}
-          addFood={addFood}
+          addFood={addLunch}
           setFoodList={setLunch}
-          setAddFood={setAddFood}
+          setAddFood={setAddLunch}
         />
         <MealDetails
           mealType="Dinner"
           Icon={<RestaurantIcon sx={{ mr: '1rem' }} />}
           foodList={dinner}
-          addFood={addFood}
+          addFood={addDinner}
           setFoodList={setDinner}
-          setAddFood={setAddFood}
+          setAddFood={setAddDinner}
         />
         <MealDetails
           mealType="Snacks"
           Icon={<IcecreamIcon sx={{ mr: '1rem' }} />}
           foodList={snacks}
-          addFood={addFood}
+          addFood={addSnacks}
           setFoodList={setSnacks}
-          setAddFood={setAddFood}
+          setAddFood={setAddSnacks}
         />
         <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals} calories`}</Typography>
       </Box>

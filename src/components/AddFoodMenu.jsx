@@ -2,10 +2,9 @@ import { Box, Typography, Divider, Input, Select, MenuItem, FormControl, InputLa
 import React, { useEffect, useState } from 'react'
 import { Nutrients } from '../apiCalls';
 
-const AddFoodMenu = ({ addFood, setAddFood }) => {
+const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
   const [foodInfo, setFoodInfo] = useState({});
-  const handleChange = (e) => {
-  };
+
   useEffect(
     () => {
       if (addFood.length > 0) {
@@ -51,14 +50,12 @@ const AddFoodMenu = ({ addFood, setAddFood }) => {
           <Box sx={{ width: '3rem', gridColumn: '1/2' }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
           <Input defaultValue="1" />
           <FormControl fullWidth>
-
             <InputLabel id="demo-simple-select-label">Unit</InputLabel>
             {foodInfo.hasOwnProperty('alt_measures') &&
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="Age"
-                onChange={handleChange}
                 defaultValue=""
               >
                 {foodInfo.alt_measures.map((elem, idx) => (
@@ -78,7 +75,10 @@ const AddFoodMenu = ({ addFood, setAddFood }) => {
           <Typography>{`${foodInfo.nf_total_fat} Fat`}</Typography>
           <Typography>{`${foodInfo.nf_sodium} Sodium`}</Typography>
         </Box>
-        <Button variant="contained">Add</Button>
+        <Button variant="contained" onClick={()=>{
+          handleAddFood(foodInfo);
+          setFoodInfo({});
+        }}>Add</Button>
       </Box>
     </Box>
   )
