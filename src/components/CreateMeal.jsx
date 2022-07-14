@@ -12,10 +12,10 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
   const [addDinner, setAddDinner] = useState('');
   const [addSnacks, setAddSnacks] = useState('');
 
-  const breakfastCals = breakfast.reduce((total, food) => (total + food.cal), 0);
-  const lunchCals = lunch.reduce((total, food) => (total + food.cal), 0);
-  const dinnerCals = dinner.reduce((total, food) => (total + food.cal), 0);
-  const snacksCals = snacks.reduce((total, food) => (total + food.cal), 0);
+  const breakfastCals = breakfast.reduce((total, food) => (total + food.nf_calories_scaled), 0);
+  const lunchCals = lunch.reduce((total, food) => (total + food.nf_calories_scaled), 0);
+  const dinnerCals = dinner.reduce((total, food) => (total + food.nf_calories_scaled), 0);
+  const snacksCals = snacks.reduce((total, food) => (total + food.nf_calories_scaled), 0);
   const totalCals = breakfastCals + lunchCals + dinnerCals + snacksCals;
 
   const handleClear = () => {

@@ -39,7 +39,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
               </Box>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.food_name}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.serving_qty}</Typography>
-              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.nf_calories} cal`}</Typography>
+              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.nf_calories_scaled} cal`}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', color: '#4e80dc', fontWeight: '500' }}>details</Typography>
               <IconButton
                 list-id={index}
@@ -71,7 +71,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
             <Typography sx={{ gridColumn: '-5/-4', textAlign: 'center', fontWeight: '700' }}>Sum: </Typography>
             <Typography sx={{ gridColumn: '-4/-3', textAlign: 'center', fontWeight: '700' }}>
               {
-                foodList.reduce((prev, curr) => prev + curr.nf_calories, 0)
+                foodList.reduce((prev, curr) => prev + curr.nf_calories_scaled, 0) + ' cal'
               }</Typography>
           </>
         }
