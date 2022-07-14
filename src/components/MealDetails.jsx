@@ -35,7 +35,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
           foodList.map((food, index) =>
             <React.Fragment key={index}>
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '2rem' }}>
-                <Box component="img" alt="The house from the offer." src={food.photo.thumb} sx={{ height: '1.5rem', width: '1.5rem', }} />
+                <Box component="img" alt="The house from the offer." src={food.photo.thumb} sx={{  width: '2.0rem', }} />
               </Box>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.food_name}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.qty} ${food.selectedUnit}`}</Typography>

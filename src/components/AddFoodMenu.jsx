@@ -35,7 +35,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
     if (Object.entries(foodInfo).length && !selectedUnit.length) {
       setSelectedUnit(foodInfo.serving_unit)
     }
-  }, [foodInfo])
+  }, [foodInfo,selectedUnit])
 
   useEffect(() => {
     if (Object.entries(foodInfo) && selectedUnit.length) {
@@ -128,6 +128,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
           <Button variant="contained" onClick={() => {
             handleAddFood(foodInfo);
             setFoodInfo({});
+            setSelectedUnit('');
           }}>Add</Button>
         </Box>
       </Box>

@@ -42,9 +42,9 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
         columnGap: '2rem',
         rowGap: '2rem',
         padding: '2rem',
-        height:{
-          mobile:'94vh',
-          tablet:'auto'
+        height: {
+          mobile: '94vh',
+          tablet: 'auto'
         },
         gridTemplateColumns: {
           mobile: 'repeat(auto-fit,auto)',
@@ -84,13 +84,17 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           setAddFood={setAddSnacks}
         />
         <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
-        <ButtonGroup variant="contained" sx={{
-          display: 'flex',
-          justifyContent: 'right'
-        }}>
-          <Button onClick={handleClear}>Clear</Button>
-          <Button>Add To <br /> Calender</Button>
-        </ButtonGroup>
+        <Box sx={{position:'relative'}}>
+          <ButtonGroup variant="contained" sx={{
+            position:'absolute',
+            right:'0',
+            bgcolor:'ghostwhite',
+            boxShadow:'0'
+          }}>
+            <Button sx={{mr:'1rem'}} onClick={handleClear}>Clear</Button>
+            <Button>Add To <br /> Calender</Button>
+          </ButtonGroup>
+        </Box>
       </Box>
     </Box >
   )
