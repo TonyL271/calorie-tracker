@@ -30,7 +30,11 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
       <CustomAppBar />
       <Box className="main" sx={{
         display: 'grid',
-        width: '80%',
+        width:
+        {
+          mobile: '100%',
+          tablet: '80%'
+        },
         margin: 'auto',
         bgcolor: 'ghostwhite',
         boxShadow: '0 0 8px',
@@ -38,6 +42,10 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
         columnGap: '2rem',
         rowGap: '2rem',
         padding: '2rem',
+        height:{
+          mobile:'94vh',
+          tablet:'auto'
+        },
         gridTemplateColumns: {
           mobile: 'repeat(auto-fit,auto)',
           desktop: 'repeat(2,auto)'
@@ -75,7 +83,7 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           setFoodList={setSnacks}
           setAddFood={setAddSnacks}
         />
-        <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals} calories`}</Typography>
+        <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
         <ButtonGroup variant="contained" sx={{
           display: 'flex',
           justifyContent: 'right'

@@ -17,7 +17,10 @@ const CustomAppBar = () => {
             position: 'sticky',
             top: '0',
             left: '0',
-            mb:'3rem'
+            mb: {
+                mobile: '0rem',
+                tablet: '3rem'
+            }
         }} >
             <Toolbar sx={{ width: '100%', height: '100%', }}>
                 <IconButton
@@ -29,8 +32,8 @@ const CustomAppBar = () => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h1" component="h1" sx={{fontWeight:'600',textAlign: 'center', flexGrow: 1, fontSize: '1.5rem' }}>
-                    <FastfoodIcon sx={{mr:'1rem'}}/>
+                <Typography variant="h1" component="h1" sx={{ fontWeight: '600', textAlign: 'center', flexGrow: 1, fontSize: '1.5rem' }}>
+                    <FastfoodIcon sx={{ mr: '1rem' }} />
                     Calorie Tracker
                 </Typography>
                 <Button color="inherit">Login</Button>

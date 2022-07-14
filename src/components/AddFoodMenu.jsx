@@ -1,6 +1,7 @@
-import { Box, Typography, Divider, Input, Select, MenuItem, FormControl, InputLabel, Button } from '@mui/material'
+import { Box, Typography, Divider, Select, MenuItem, FormControl, InputLabel, Button, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Nutrients } from '../apiCalls';
+import CloseIcon from '@mui/icons-material/Close';
 
 const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
   const [foodInfo, setFoodInfo] = useState({});
@@ -10,13 +11,14 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
 
   const scaleFood = (food) => {
     let scaleAmount;
+    food.qty = foodQty;
+    food.selectedUnit = selectedUnit;
     if (selectedUnit === food.serving_unit) {
       scaleAmount = foodQty;
     } else {
       const servingWeight = food.alt_measures.filter(
         (altMeasure) => altMeasure.measure === selectedUnit
       )[0];
-      let a = 2;
       scaleAmount = foodQty * servingWeight.serving_weight / food.serving_weight_grams / servingWeight.qty;
     }
     let newFoods = { ...food };
@@ -41,7 +43,6 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
     }
   }, [selectedUnit, foodQty])
 
-  //Add nf_{nutrient}_scaled to foodInfo
   useEffect(
     () => {
       if (addFood.length > 0) {
@@ -78,24 +79,23 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
         <Box onClick={(e) => e.stopPropagation()}
           sx={{
             display: 'flex',
-            width: '30%',
-            height: '60%',
+            width: '350px',
+            height: '400px',
             backgroundColor: '#FFFFFF',
             flexDirection: 'column',
-            px: '1rem'
+            px: '1rem',
+            position: 'relative'
           }}>
-          <Box>
-            <Typography variant="h2" component="h2">Add Item</Typography>
-            {/* add close icon  */}
+          <Box >
+            <CloseIcon onClick={(e) => setAddFood('')} sx={{ position: 'absolute', top: 0, right: 0, m: '0.2rem' }} />
+            <Typography variant="h4" component="h2" textAlign="center" sx={{ mt: '1rem' }}>Add Item</Typography>
           </Box>
-          <Divider />
-          <Box className="add-options" sx={{ display: 'grid', justifyContent: 'space-between', gridTemplateColumns: 'repeat(4,auto)' }}>
-            <Typography variant='h3' component="h3">{addFood.charAt(0).toUpperCase() + addFood.slice(1)}</Typography>
-            <Typography variant='h3' component="h3">Qnty</Typography>
-            <Typography variant='h3' component="h3">Unit</Typography>
-            <Box sx={{ width: '3rem', gridColumn: '1/2' }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
-            <Input defaultValue={1} onChange={(e) => setFoodQty(parseInt(e.currentTarget.value))} />
-            <FormControl fullWidth>
+          <Divider sx={{mb:'1rem'}}/>
+          <Typography variant='h5' component="h5">{addFood.charAt(0).toUpperCase() + addFood.slice(1)}</Typography>
+          <Box className="add-options" sx={{ display: 'flex', justifyContent: 'space-between', mb:'2rem' }}>
+            <Box sx={{ width: '3rem', }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
+            <TextField variant="outlined" label="qty" sx={{ width: '3rem', mr: '-2rem' }} defaultValue={1} onChange={(e) => setFoodQty(parseInt(e.currentTarget.value))} />
+            <FormControl >
               <InputLabel id="demo-simple-select-label">Unit</InputLabel>
               {foodInfo.alt_measures &&
                 <Select
@@ -114,16 +114,17 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
               }
             </FormControl>
           </Box>
-          <Box className="add-nutrient" sx={{ display: 'grid', gridTemplateColumns: 'repeat(4,auto)' }}>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', gridColumn: '1/-1' }}>
-              <Typography>Total Calories: </Typography>
-              <Typography>{`${foodInfo.nf_calories_scaled.toPrecision(3)} cals`}</Typography>
-            </Box>
-            <Typography sx={{ gridColumn: '1/2' }}>{`${foodInfo.nf_protein_scaled.toPrecision(3)} Protein`}</Typography>
-            <Typography>{`${foodInfo.nf_total_carbohydrate_scaled.toPrecision(3)} Carbs`}</Typography>
-            <Typography>{`${foodInfo.nf_total_fat_scaled.toPrecision(3)} Fat`}</Typography>
-            <Typography>{`${foodInfo.nf_sodium_scaled.toPrecision(3)} Sodium`}</Typography>
+          <Box sx={{ width: '100%', display: 'flex',mb:'1rem' }}>
+            <Typography>Total Calories: </Typography>
+            <Typography>{`${foodInfo.nf_calories_scaled.toPrecision(3)} cals`}</Typography>
           </Box>
+          <Box className="add-nutrient" sx={{ display: 'flex', mb:'1rem' }}>
+            <Typography textAlign='center' sx={{}}>{`${foodInfo.nf_protein_scaled.toPrecision(3)} Protein`}</Typography>
+            <Typography textAlign='center'>{`${foodInfo.nf_total_carbohydrate_scaled.toPrecision(3)} Carbs`}</Typography>
+            <Typography textAlign='center'>{`${foodInfo.nf_total_fat_scaled.toPrecision(3)} Fat`}</Typography>
+            <Typography textAlign='center'>{`${foodInfo.nf_sodium_scaled.toPrecision(3)} Sodium`}</Typography>
+          </Box>
+          <Typography sx={{color:'blue', pb:'1rem'}} textAlign='center'>Details</Typography>
           <Button variant="contained" onClick={() => {
             handleAddFood(foodInfo);
             setFoodInfo({});

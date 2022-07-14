@@ -28,7 +28,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
       </Box>
       <Box sx={{ width: '100%', display: 'grid', gridTemplateColumns: 'repeat(6,auto)' }}>
         <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
-        <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, }}>Serving Size</Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, }}>Amount</Typography>
         <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, }} >Calories</Typography>
         <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, gridColumn: '-2/-1' }} ></Typography>
         {
@@ -38,8 +38,8 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
                 <Box component="img" alt="The house from the offer." src={food.photo.thumb} sx={{ height: '1.5rem', width: '1.5rem', }} />
               </Box>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.food_name}</Typography>
-              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.serving_qty}</Typography>
-              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.nf_calories_scaled} cal`}</Typography>
+              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.qty} ${food.selectedUnit}`}</Typography>
+              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.nf_calories_scaled.toPrecision(3)} cal`}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', color: '#4e80dc', fontWeight: '500' }}>details</Typography>
               <IconButton
                 list-id={index}
@@ -71,7 +71,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
             <Typography sx={{ gridColumn: '-5/-4', textAlign: 'center', fontWeight: '700' }}>Sum: </Typography>
             <Typography sx={{ gridColumn: '-4/-3', textAlign: 'center', fontWeight: '700' }}>
               {
-                foodList.reduce((prev, curr) => prev + curr.nf_calories_scaled, 0) + ' cal'
+                foodList.reduce((prev, curr) => prev + curr.nf_calories_scaled, 0).toPrecision(3) + ' cal'
               }</Typography>
           </>
         }
