@@ -123,14 +123,18 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
             </Box>
           </Box>
           <Box sx={{ width: '100%', display: 'flex', mb: '1rem' }}>
-            <Typography>Total Calories: </Typography>
-            <Typography>{`${foodInfo.nf_calories_scaled.toPrecision(3)} cals`}</Typography>
+            <Typography sx={{mr:'0.5rem'}}>Total Calories: </Typography>
+            <Typography>{`${foodInfo.nf_calories_scaled.toPrecision(3)} cal`}</Typography>
           </Box>
-          <Box className="add-nutrient" sx={{ display: 'flex', mb: '1rem' }}>
-            <Typography textAlign='center' sx={{}}>{`${foodInfo.nf_protein_scaled.toPrecision(3)} Protein`}</Typography>
-            <Typography textAlign='center'>{`${foodInfo.nf_total_carbohydrate_scaled.toPrecision(3)} Carbs`}</Typography>
-            <Typography textAlign='center'>{`${foodInfo.nf_total_fat_scaled.toPrecision(3)} Fat`}</Typography>
-            <Typography textAlign='center'>{`${foodInfo.nf_sodium_scaled.toPrecision(3)} Sodium`}</Typography>
+          <Box className="add-nutrient" sx={{ display: 'grid', mb: '1rem',gridTemplateColumns:'1fr 1fr 1fr 1fr',columnGap:'1rem' }}>
+            <Typography textAlign='left' >{`Protein: `}</Typography>
+            <Typography textAlign='right' >{`${foodInfo.nf_protein_scaled.toPrecision(3)}`}</Typography>
+            <Typography textAlign='left' >{`Carbs: `}</Typography>
+            <Typography textAlign='right'>{`${foodInfo.nf_total_carbohydrate_scaled.toPrecision(3)}`}</Typography>
+            <Typography textAlign='left' >{`Fat: `}</Typography>
+            <Typography textAlign='right'>{`${foodInfo.nf_total_fat_scaled.toPrecision(3)}`}</Typography>
+            <Typography textAlign='left' >{`Sodium: `}</Typography>
+            <Typography textAlign='right'>{`${foodInfo.nf_sodium_scaled.toPrecision(3)}`}</Typography>
           </Box>
           <Typography sx={{ color: 'blue', pb: '1rem' }} textAlign='center'>Details</Typography>
           <Button variant="contained" onClick={() => {
