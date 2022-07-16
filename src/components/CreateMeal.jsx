@@ -26,7 +26,7 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
   }
 
   return (
-    <Box >
+    <Box sx={{height:'100%',width:'100%'}}>
       <CustomAppBar />
       <Box className="main" sx={{
         display: 'grid',
@@ -43,7 +43,7 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
         rowGap: '2rem',
         padding: '2rem',
         height: {
-          mobile: '94vh',
+          mobile: '94%',
           tablet: 'auto'
         },
         gridTemplateColumns: {
@@ -83,17 +83,19 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           setFoodList={setSnacks}
           setAddFood={setAddSnacks}
         />
-        <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
-        <Box sx={{position:'relative'}}>
-          <ButtonGroup variant="contained" sx={{
-            position:'absolute',
-            right:'0',
-            bgcolor:'ghostwhite',
-            boxShadow:'0'
-          }}>
-            <Button sx={{mr:'1rem'}} onClick={handleClear}>Clear</Button>
-            <Button>Add To <br /> Calender</Button>
-          </ButtonGroup>
+        <Box sx={{height:'100px',gridColumn:'1/-1'}}>
+          <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
+          <Box sx={{ position: 'relative' }}>
+            <ButtonGroup variant="contained" sx={{
+              position: 'absolute',
+              right: '0',
+              bgcolor: 'ghostwhite',
+              boxShadow: '0'
+            }}>
+              <Button sx={{ mr: '1rem' }} onClick={handleClear}>Clear</Button>
+              <Button>Add To <br /> Calender</Button>
+            </ButtonGroup>
+          </Box>
         </Box>
       </Box>
     </Box >

@@ -8,6 +8,10 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
   const [foodQty, setFoodQty] = useState(1);
   const [selectedUnit, setSelectedUnit] = useState('');
 
+  const clearFood = ()=>{
+    setFoodInfo({});
+    setSelectedUnit('')
+  }
 
   const scaleFood = (food) => {
     let scaleAmount;
@@ -35,7 +39,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
     if (Object.entries(foodInfo).length && !selectedUnit.length) {
       setSelectedUnit(foodInfo.serving_unit)
     }
-  }, [foodInfo,selectedUnit])
+  }, [foodInfo, selectedUnit])
 
   useEffect(() => {
     if (Object.entries(foodInfo) && selectedUnit.length) {
@@ -63,7 +67,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
   return (
 
     !Object.entries(foodInfo).length ? <div></div> :
-      <Box onClick={(e) => setAddFood('')}
+      <Box onClick={(e) => clearFood()}
         sx={{
           position: 'absolute',
           top: '0',
@@ -79,7 +83,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
         <Box onClick={(e) => e.stopPropagation()}
           sx={{
             display: 'flex',
-            width: '350px',
+            minWidth: '350px',
             height: '400px',
             backgroundColor: '#FFFFFF',
             flexDirection: 'column',
@@ -90,45 +94,46 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
             <CloseIcon onClick={(e) => setAddFood('')} sx={{ position: 'absolute', top: 0, right: 0, m: '0.2rem' }} />
             <Typography variant="h4" component="h2" textAlign="center" sx={{ mt: '1rem' }}>Add Item</Typography>
           </Box>
-          <Divider sx={{mb:'1rem'}}/>
+          <Divider sx={{ mb: '1rem' }} />
           <Typography variant='h5' component="h5">{addFood.charAt(0).toUpperCase() + addFood.slice(1)}</Typography>
-          <Box className="add-options" sx={{ display: 'flex', justifyContent: 'space-between', mb:'2rem' }}>
-            <Box sx={{ width: '3rem', }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
-            <TextField variant="outlined" label="qty" sx={{ width: '3rem', mr: '-2rem' }} defaultValue={1} onChange={(e) => setFoodQty(parseInt(e.currentTarget.value))} />
-            <FormControl >
-              <InputLabel id="demo-simple-select-label">Unit</InputLabel>
-              {foodInfo.alt_measures &&
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  label="Unit"
-                  value={selectedUnit.length ? selectedUnit : Object.entries(foodInfo).length ? foodInfo.serving_unit : ''}
-                  onChange={(e) => {
-                    setSelectedUnit(e.target.value)
-                  }}
-                >
-                  {foodInfo.alt_measures.map((elem, idx) => (
-                    <MenuItem key={idx} value={elem.measure}>{elem.measure}</MenuItem>
-                  ))}
-                </Select>
-              }
-            </FormControl>
+          <Box className="add-options" sx={{ display: 'flex', mb: '2rem' }}>
+            <Box sx={{ width: '3rem',mr:'1rem' }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', }}>
+              <TextField variant="outlined" label="qty" sx={{ width: '3rem', }} defaultValue={1} onChange={(e) => setFoodQty(parseInt(e.currentTarget.value))} />
+              <FormControl >
+                <InputLabel id="demo-simple-select-label">Unit</InputLabel>
+                {foodInfo.alt_measures &&
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Unit"
+                    value={selectedUnit.length ? selectedUnit : Object.entries(foodInfo).length ? foodInfo.serving_unit : ''}
+                    onChange={(e) => {
+                      setSelectedUnit(e.target.value)
+                    }}
+                  >
+                    {foodInfo.alt_measures.map((elem, idx) => (
+                      <MenuItem key={idx} value={elem.measure}>{elem.measure}</MenuItem>
+                    ))}
+                  </Select>
+                }
+              </FormControl>
+            </Box>
           </Box>
-          <Box sx={{ width: '100%', display: 'flex',mb:'1rem' }}>
+          <Box sx={{ width: '100%', display: 'flex', mb: '1rem' }}>
             <Typography>Total Calories: </Typography>
             <Typography>{`${foodInfo.nf_calories_scaled.toPrecision(3)} cals`}</Typography>
           </Box>
-          <Box className="add-nutrient" sx={{ display: 'flex', mb:'1rem' }}>
+          <Box className="add-nutrient" sx={{ display: 'flex', mb: '1rem' }}>
             <Typography textAlign='center' sx={{}}>{`${foodInfo.nf_protein_scaled.toPrecision(3)} Protein`}</Typography>
             <Typography textAlign='center'>{`${foodInfo.nf_total_carbohydrate_scaled.toPrecision(3)} Carbs`}</Typography>
             <Typography textAlign='center'>{`${foodInfo.nf_total_fat_scaled.toPrecision(3)} Fat`}</Typography>
             <Typography textAlign='center'>{`${foodInfo.nf_sodium_scaled.toPrecision(3)} Sodium`}</Typography>
           </Box>
-          <Typography sx={{color:'blue', pb:'1rem'}} textAlign='center'>Details</Typography>
+          <Typography sx={{ color: 'blue', pb: '1rem' }} textAlign='center'>Details</Typography>
           <Button variant="contained" onClick={() => {
             handleAddFood(foodInfo);
-            setFoodInfo({});
-            setSelectedUnit('');
+            clearFood();
           }}>Add</Button>
         </Box>
       </Box>

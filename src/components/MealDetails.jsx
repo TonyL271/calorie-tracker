@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Typography, Divider, IconButton, Button } from '@mui/material'
+import { Box, Typography, Divider, IconButton} from '@mui/material'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import { AddButton, AddFoodMenu } from './';
 
