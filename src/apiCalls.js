@@ -9,8 +9,13 @@ const headers = {
 
 const Search = async (query) => {
     return fetch(url + '/search/instant' + `?query=${query}`, { headers })
-        .then(function (response) {
+        .then((response) => {
             return response.json();
+        })
+        .catch((err)=>{
+            console.log('failed api request search')
+            console.log(err)
+            return {}
         })
 }
 
@@ -19,6 +24,11 @@ const Nutrients = async (query) => {
     return fetch(url + '/natural/nutrients', { method: 'POST', headers: head, body: JSON.stringify({query: query }) })
         .then(function (response) {
             return response.json();
+        })
+        .catch((err)=>{
+            console.log('failed api request nutrients')
+            console.log(err)
+            return {}
         })
 }
 

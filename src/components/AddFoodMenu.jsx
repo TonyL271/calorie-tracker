@@ -8,7 +8,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
   const [foodQty, setFoodQty] = useState(1);
   const [selectedUnit, setSelectedUnit] = useState('');
 
-  const clearFood = ()=>{
+  const clearFood = () => {
     setFoodInfo({});
     setSelectedUnit('')
   }
@@ -51,14 +51,16 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
     () => {
       if (addFood.length > 0) {
         Nutrients(addFood).then((nutrition) => {
-          const foodInfo = nutrition.foods[0];
-          let nutrientKeys = Object.entries(foodInfo).filter((entry) => entry[0].substring(0, 2) === "nf");
-          nutrientKeys = nutrientKeys.map((entry) => entry[0]);
-          nutrientKeys.forEach((key) => {
-            foodInfo[key + '_scaled'] = foodInfo[key]
-          })
-          foodInfo.scale = 1
-          setFoodInfo(foodInfo);
+          if (Object.entries(nutrition).length) {
+            const foodInfo = nutrition.foods[0];
+            let nutrientKeys = Object.entries(foodInfo).filter((entry) => entry[0].substring(0, 2) === "nf");
+            nutrientKeys = nutrientKeys.map((entry) => entry[0]);
+            nutrientKeys.forEach((key) => {
+              foodInfo[key + '_scaled'] = foodInfo[key]
+            })
+            foodInfo.scale = 1
+            setFoodInfo(foodInfo);
+          }
         })
       }
     }
@@ -97,7 +99,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
           <Divider sx={{ mb: '1rem' }} />
           <Typography variant='h5' component="h5">{addFood.charAt(0).toUpperCase() + addFood.slice(1)}</Typography>
           <Box className="add-options" sx={{ display: 'flex', mb: '2rem' }}>
-            <Box sx={{ width: '3rem',mr:'1rem' }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
+            <Box sx={{ width: '3rem', mr: '1rem' }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', }}>
               <TextField variant="outlined" label="qty" sx={{ width: '3rem', }} defaultValue={1} onChange={(e) => setFoodQty(parseInt(e.currentTarget.value))} />
               <FormControl >
