@@ -6,6 +6,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import '@fontsource/roboto/900.css';
 import { useEffect, useState } from "react";
+import Calendar from "./components/calendar/Calendar";
 
 const darkTheme = createTheme({
   palette: {
@@ -71,9 +72,11 @@ function App() {
 
   return (
     <ThemeProvider theme={light} >
-      <Box sx={{ bgcolor: '#E1E1E1', height: '100vh' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: '#E1E1E1', }}>
+        <CustomAppBar />
         <CreateMeal breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} />
       </Box>
+      <Calendar />
     </ThemeProvider>
   );
 }

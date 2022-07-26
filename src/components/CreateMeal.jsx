@@ -5,6 +5,7 @@ import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import IcecreamIcon from '@mui/icons-material/Icecream';
+import Calendar from './calendar/Calendar';
 
 const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, setDinner, setSnacks }) => {
   const [addBreakFast, setAddBreakFast] = useState('');
@@ -27,7 +28,6 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
 
   return (
     <Box sx={{height:'100%',width:'100%'}}>
-      <CustomAppBar />
       <Box className="main" sx={{
         display: 'grid',
         width:
@@ -43,7 +43,7 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
         rowGap: '2rem',
         padding: '2rem',
         height: {
-          mobile: '94%',
+          mobile: '94vh',
           tablet: 'auto'
         },
         gridTemplateColumns: {
@@ -98,6 +98,7 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           </Box>
         </Box>
       </Box>
+      
     </Box >
   )
 }

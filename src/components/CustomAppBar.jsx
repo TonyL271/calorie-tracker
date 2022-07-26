@@ -7,7 +7,7 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 const CustomAppBar = () => {
     return (
         <AppBar sx={{
-            height: '6%',
+            height: '6vh',
             backgroundColor: '#4EDC8E',
             color: 'white',
             display: 'flex',
