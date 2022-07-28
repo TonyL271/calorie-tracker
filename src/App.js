@@ -66,6 +66,7 @@ function App() {
   const [lunch, setLunch] = useState([])
   const [dinner, setDinner] = useState([])
   const [snacks, setSnacks] = useState([])
+  const [dailyMeals, setDailyMeals] = useState([])
   useEffect(() => {
     //set example of what the food list looks like when it is populated
   }, [])
@@ -74,7 +75,10 @@ function App() {
     <ThemeProvider theme={light} >
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: '#E1E1E1', }}>
         <CustomAppBar />
-        <CreateMeal breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} />
+        <CreateMeal
+          breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} dailyMeals={dailyMeals}
+          setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} setDailyMeals={setDailyMeals}
+        />
       </Box>
       <Calendar />
     </ThemeProvider>

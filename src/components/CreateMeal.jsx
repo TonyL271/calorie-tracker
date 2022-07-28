@@ -1,17 +1,21 @@
 import { useState } from 'react';
-import { Box, Typography, Button, ButtonGroup } from '@mui/material';
-import { CustomAppBar, MealDetails } from '.'
+import { Box, Typography, Button, ButtonGroup, TextField, FormGroup } from '@mui/material';
+import { MealDetails } from '.'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import IcecreamIcon from '@mui/icons-material/Icecream';
-import Calendar from './calendar/Calendar';
 
-const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, setDinner, setSnacks }) => {
+
+const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, setDinner, setSnacks, dailyMeals, setDailyMeals }) => {
   const [addBreakFast, setAddBreakFast] = useState('');
   const [addLunch, setAddLunch] = useState('');
   const [addDinner, setAddDinner] = useState('');
   const [addSnacks, setAddSnacks] = useState('');
+  const [date, setDate] = useState(new Date());
 
   const breakfastCals = breakfast.reduce((total, food) => (total + food.nf_calories_scaled), 0);
   const lunchCals = lunch.reduce((total, food) => (total + food.nf_calories_scaled), 0);
@@ -27,7 +31,7 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
   }
 
   return (
-    <Box sx={{height:'100%',width:'100%'}}>
+    <Box sx={{ height: '100%', width: '100%' }}>
       <Box className="main" sx={{
         display: 'grid',
         width:
@@ -83,22 +87,43 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
           setFoodList={setSnacks}
           setAddFood={setAddSnacks}
         />
-        <Box sx={{height:'100px',gridColumn:'1/-1'}}>
+        <Box sx={{ height: '100px', gridColumn: '1/-1' }}>
           <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
           <Box sx={{ position: 'relative' }}>
-            <ButtonGroup variant="contained" sx={{
+            <FormGroup variant="contained" sx={{
+              display: 'flex',
+              flexDirection: 'row',
               position: 'absolute',
               right: '0',
               bgcolor: 'ghostwhite',
               boxShadow: '0'
             }}>
-              <Button sx={{ mr: '1rem' }} onClick={handleClear}>Clear</Button>
-              <Button>Add To <br /> Calender</Button>
-            </ButtonGroup>
+
+              <LocalizationProvider dateAdapter={AdapterDateFns} >
+                <MobileDatePicker
+                  label="Date"
+                  inputFormat="MM/dd/yyyy"
+                  value={date}
+                  onChange={
+                    (newValue) => {
+                      setDate(newValue);
+                    }
+                  }
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+              <Button variant="contained" sx={{ ml: '1rem', mr: '1rem' }} onClick={handleClear}>Clear</Button>
+              <Button variant="contained"
+                onClick={() => {
+                  let dailyMeal = { breakfast, lunch, dinner, snacks, date }
+                  setDailyMeals([...dailyMeals, dailyMeal])
+                }}
+              >
+                Add To <br /> Calender</Button>
+            </FormGroup>
           </Box>
         </Box>
       </Box>
-      
     </Box >
   )
 }

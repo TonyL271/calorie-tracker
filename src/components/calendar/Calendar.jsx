@@ -2,7 +2,7 @@ import { Box, Button, ButtonGroup } from '@mui/material'
 import { styled } from '@mui/system'
 import React from 'react'
 import { useState } from 'react';
-import { getYear, getMonth, getDay, format } from 'date-fns'
+import { getDay, format } from 'date-fns'
 import { useEffect } from 'react';
 
 
@@ -20,11 +20,10 @@ const Calendar = () => {
 
 
   useEffect(() => {
-
     lastDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     let firstDay = new Date(date.getFullYear(), date.getMonth(), 0);
     console.log('object: ' + getDay(firstDay));
-    firstDay = (getDay(firstDay)+1) % 7 + 1
+    firstDay = (getDay(firstDay) + 1) % 7 + 1
 
     lastDate = lastDate.getDate();
     setFirstDay(firstDay)
