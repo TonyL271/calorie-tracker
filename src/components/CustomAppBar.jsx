@@ -2,9 +2,13 @@ import { Box, AppBar, Toolbar, Typography, Button, IconButton, } from '@mui/mate
 import React from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
+import { Link,useLocation } from 'react-router-dom';
+
 
 
 const CustomAppBar = () => {
+    const location = useLocation();
+    const isRoot = location.pathname === '/';
     return (
         <AppBar sx={{
             height: '6vh',
@@ -32,6 +36,7 @@ const CustomAppBar = () => {
                 >
                     <MenuIcon />
                 </IconButton>
+                <Link style={{backgroundColor:'red'}} to={isRoot ? '/calendar' : '/'}>{isRoot ? 'Calendar' : 'Add Food'}</Link>
                 <Typography variant="h1" component="h1" sx={{ fontWeight: '600', textAlign: 'center', flexGrow: 1, fontSize: '1.5rem' }}>
                     <FastfoodIcon sx={{ mr: '1rem' }} />
                     Calorie Tracker

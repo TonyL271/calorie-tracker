@@ -8,6 +8,9 @@ import '@fontsource/roboto/900.css';
 import { useEffect, useState } from "react";
 import Calendar from "./components/calendar/Calendar";
 
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { DailyMeal } from "./components/DailyMeal";
+
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -66,22 +69,42 @@ function App() {
   const [lunch, setLunch] = useState([])
   const [dinner, setDinner] = useState([])
   const [snacks, setSnacks] = useState([])
-  const [dailyMeals, setDailyMeals] = useState([])
+  let dailyMeal = new DailyMeal(new Date,[],[],[],[])
+  let meals = {}
+  meals[dailyMeal.getDate()] = {lunch:dailyMeal.getLunch(),};
+  console.log(dailyMeal)
+  
+  
+  const [dailyMeals, setDailyMeals] = useState(dailyMeal)
   useEffect(() => {
     //set example of what the food list looks like when it is populated
   }, [])
 
   return (
-    <ThemeProvider theme={light} >
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: '#E1E1E1', }}>
-        <CustomAppBar />
-        <CreateMeal
-          breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} dailyMeals={dailyMeals}
-          setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} setDailyMeals={setDailyMeals}
-        />
-      </Box>
-      <Calendar />
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={light} >
+        <Routes>
+          <Route path="/"
+            element={
+              <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: '#E1E1E1',margin:'auto' }}>
+                <CustomAppBar />
+                <Outlet />
+              </Box>
+            }
+          >
+            <Route index
+              element={
+                <CreateMeal
+                  breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} dailyMeals={dailyMeals}
+                  setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} setDailyMeals={setDailyMeals}
+                />
+              }
+            />
+            <Route path="calendar" element={<Calendar dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} />} />
+          </Route>
+        </Routes>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
