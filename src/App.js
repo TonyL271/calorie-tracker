@@ -69,13 +69,12 @@ function App() {
   const [lunch, setLunch] = useState([])
   const [dinner, setDinner] = useState([])
   const [snacks, setSnacks] = useState([])
-  let dailyMeal = new DailyMeal(new Date,[],[],[],[])
-  let meals = {}
-  meals[dailyMeal.getDate()] = {lunch:dailyMeal.getLunch(),};
-  console.log(dailyMeal)
-  
-  
-  const [dailyMeals, setDailyMeals] = useState(dailyMeal)
+
+  const [dailyMeals, setDailyMeals] = useState([
+    new DailyMeal(new Date(2022, 7, 3), [], [], [], []),
+    new DailyMeal(new Date(2022, 6, 3), [], [], [], []),
+    new DailyMeal(new Date(2022, 7, 1), [], [], [], []),
+  ])
   useEffect(() => {
     //set example of what the food list looks like when it is populated
   }, [])
@@ -86,7 +85,7 @@ function App() {
         <Routes>
           <Route path="/"
             element={
-              <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: '#E1E1E1',margin:'auto' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: '#E1E1E1', margin: 'auto' }}>
                 <CustomAppBar />
                 <Outlet />
               </Box>

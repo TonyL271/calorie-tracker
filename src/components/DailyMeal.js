@@ -1,6 +1,6 @@
 class DailyMeal{
     constructor(date,breakfast,lunch,dinner,snacks){
-        this.date = `${date.getFullYear()}/${date.getMonth()}/${this.getDate()}`;
+        this.date = date;
         this.breakfast = breakfast;
         this.lunch = lunch;
         this.dinner = dinner;
