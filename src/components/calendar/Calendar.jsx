@@ -46,15 +46,15 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
 
   return (
     <Box sx={{ height: '100%', width: '100%' }}>
-      <Box id="calender" sx={{ width: '30vw', height: '30vh', margin: 'auto' }}>
-        <Box sx={{ mb: '2rem', position: 'relative' }}>
+      <Box id="calender" sx={{ 'width': '450px', height: '30vh', margin: 'auto' }}>
+        <Box sx={{ mb: '2rem', position: 'relative'  }}>
           <CenteredBox id="month">{`${months[date.getMonth()]}  ${format(date, 'Y')}`}</CenteredBox>
           <ButtonGroup sx={{ position: 'absolute', top: '0', right: '2rem' }}>
             <Button onClick={() => { setDate(new Date(date.getFullYear(), date.getMonth() - 1, 1)) }}>{'<'}</Button>
             <Button onClick={() => { setDate(new Date(date.getFullYear(), date.getMonth() + 1, 1)) }}>{'>'}</Button>
           </ButtonGroup>
         </Box>
-        <Box id="week-days" sx={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', mb: '1rem' }}>
+        <Box id="week-days" sx={{width:'450px', display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', mb: '1rem' }}>
           <CenteredBox >Su</CenteredBox>
           <CenteredBox >Mo</CenteredBox>
           <CenteredBox >Tu</CenteredBox>
@@ -65,7 +65,7 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
         </Box>
 
         <Box id="days" sx={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)' }}>
-          <Button sx={{display:firstDay ? 'inline-flex':'none', gridColumn: `1 / ${firstDay + 1}`, bgcolor: 'white' }}><time></time></Button>
+          <Button sx={{ display: firstDay ? 'inline-flex' : 'none', gridColumn: `1 / ${firstDay + 1}`, bgcolor: 'white' }}><time></time></Button>
           {
             dates.map((date, idx) => (
               dailyMeals.filter((meal) => sameDay(meal.getDate(), date)).length
@@ -78,7 +78,7 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
                     {date.getDate()}
                   </time>
                 </Button>
-                : <Button sx={{ bgcolor: 'white', borderRadius: 0 }} key={idx + 1}>
+                : <Button sx={{ bgcolor: 'white', borderRadius: 0,}} key={idx + 1}>
                   <time>
                     {date.getDate()}
                   </time>
