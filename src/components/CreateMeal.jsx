@@ -8,6 +8,7 @@ import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import IcecreamIcon from '@mui/icons-material/Icecream';
+import { DailyMeal } from './DailyMeal';
 
 
 const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, setDinner, setSnacks, dailyMeals, setDailyMeals }) => {
@@ -115,8 +116,9 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
               <Button variant="contained" sx={{ ml: '1rem', mr: '1rem' }} onClick={handleClear}>Clear</Button>
               <Button variant="contained"
                 onClick={() => {
-                  let dailyMeal = { breakfast, lunch, dinner, snacks, date }
-                  setDailyMeals([...dailyMeals, dailyMeal])
+                  setDailyMeals([...dailyMeals, new DailyMeal(date, [...breakfast], [...lunch], [...dinner], [...snacks])]);
+                  
+                  handleClear();
                 }}
               >
                 Add To <br /> Calender</Button>

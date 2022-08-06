@@ -71,9 +71,6 @@ function App() {
   const [snacks, setSnacks] = useState([])
 
   const [dailyMeals, setDailyMeals] = useState([
-    new DailyMeal(new Date(2022, 7, 3), [], [], [], []),
-    new DailyMeal(new Date(2022, 6, 3), [], [], [], []),
-    new DailyMeal(new Date(2022, 7, 1), [], [], [], []),
   ])
   useEffect(() => {
     //set example of what the food list looks like when it is populated
