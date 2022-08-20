@@ -3,6 +3,7 @@ import React from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import { Link,useLocation } from 'react-router-dom';
+import LoginForm from './LoginForm';
 
 
 
@@ -41,7 +42,7 @@ const CustomAppBar = () => {
                     <FastfoodIcon sx={{ mr: '1rem' }} />
                     Calorie Tracker
                 </Typography>
-                <Button color="inherit">Login</Button>
+                <LoginForm/>
             </Toolbar>
         </AppBar>
     )

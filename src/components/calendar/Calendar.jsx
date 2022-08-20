@@ -1,10 +1,7 @@
 import { Box, Button, ButtonGroup, Typography } from '@mui/material'
 import { styled } from '@mui/system'
-import React from 'react'
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import MealPlan from './MealPlan';
-
 
 const CenteredBox = styled('div')({
   display: 'flex',
@@ -13,9 +10,13 @@ const CenteredBox = styled('div')({
   color: 'white',
   fontWeight: '700',
 })
+
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-const sameDay = (date1, date2) => date1.getDate() === date2.getDate()
+const sameDay = (date1, date2) =>
+  date1.getDate() === date2.getDate() &&
+  date1.getMonth() === date2.getMonth() &&
+  date1.getFullYear() === date2.getFullYear();
 
 const Calendar = ({ dailyMeals, setDailyMeals }) => {
   const [date, setDate] = useState(new Date());
@@ -33,8 +34,6 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
     let lastDay = lastDate.getDay();
     setLastDay(lastDay)
     setFirstDay(firstDay)
-    console.log('head', firstDay)
-    console.log('tail', 6 - lastDay)
 
     const dates = [];
     for (let i = 1; i <= lastDate.getDate(); i += 1) {
@@ -44,13 +43,13 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
   }, [date])
 
   return (
-    <Box sx={{ height: '100%', width: '100%' }}>
-      <Box id="calender" sx={{ 'width': '40vw', height: '50vh', margin: 'auto' }}>
-        <Box sx={{ mb: '2rem', position: 'relative' }}>
+    <Box sx={{ height: '100%', width: '100%', }}>
+      <Box id="calender" sx={{ 'width': '50vw', margin: 'auto', bgcolor: 'rgba(0,0,0,0.80)', px: '10rem', py: '5rem' }}>
+        <Box sx={{ mb: '2rem', position: 'relative', }}>
           <CenteredBox id="month">{`${months[date.getMonth()]}  ${date.getFullYear()}`}</CenteredBox>
-          <ButtonGroup sx={{ position: 'absolute', top: '0', right: '2rem' }}>
-            <Button onClick={() => { setDate(new Date(date.getFullYear(), date.getMonth() - 1, 1)) }}>{'<'}</Button>
-            <Button onClick={() => { setDate(new Date(date.getFullYear(), date.getMonth() + 1, 1)) }}>{'>'}</Button>
+          <ButtonGroup sx={{ position: 'absolute', top: '0', right: '5rem', bgcolor: 'white' }}>
+            <Button sx={{ color: 'black', borderColor: 'red' }} onClick={() => { setDate(new Date(date.getFullYear(), date.getMonth() - 1, 1)) }}>{'<'}</Button>
+            <Button sx={{ color: 'black', borderColor: 'red' }} onClick={() => { setDate(new Date(date.getFullYear(), date.getMonth() + 1, 1)) }}>{'>'}</Button>
           </ButtonGroup>
         </Box>
         <Box id="week-days"
@@ -69,7 +68,7 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
           <CenteredBox>Fr</CenteredBox>
           <CenteredBox sx={{ border: 0 }}>Sa</CenteredBox>
         </Box>
-        <Box id="days" sx={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', bgcolor: '#50dc8c', gridGap: '2px', }}>
+        <Box id="days" sx={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', bgcolor: '#50dc8c', gridGap: '2px', border: 'solid 3px #4EDC8E', }}>
           {
             [...Array(firstDay)].map(
               (elem, idx) => (<Button key={idx} sx={{ display: firstDay ? 'inline-flex' : 'none', bgcolor: idx === 0 ? 'gray' : 'white', borderRadius: 0 }}><time></time></Button>)
@@ -95,18 +94,15 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
                   </Typography>
                 </Button>
               )
-            }
-            )
+            })
           }
           {
             [...Array(6 - lastDay)].map(
               (elem, idx) => {
-                console.log(6-lastDay);
-                return <Button key={idx} sx={{width:'100%',height:'100%',  bgcolor: idx === 5-lastDay ? 'gray' : 'white', borderRadius: 0 }}></Button>
+                return <Button key={idx} sx={{ width: '100%', height: '100%', bgcolor: idx === 5 - lastDay ? 'gray' : 'white', borderRadius: 0 }}></Button>
               }
             )
           }
-
         </Box>
         <MealPlan showDietPlan={showDietPlan} setShowDietPlan={setShowDietPlan} />
       </Box>
