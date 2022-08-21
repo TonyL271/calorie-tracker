@@ -10,6 +10,7 @@ import Calendar from "./components/calendar/Calendar";
 
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { DailyMeal } from "./components/DailyMeal";
+import CreateAccount from "./components/CreateAccount";
 
 const darkTheme = createTheme({
   palette: {
@@ -97,6 +98,7 @@ function App() {
               }
             />
             <Route path="calendar" element={<Calendar dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} />} />
+            <Route path="register" element={<CreateAccount />} />
           </Route>
         </Routes>
       </ThemeProvider>
