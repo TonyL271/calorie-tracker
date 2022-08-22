@@ -1,16 +1,16 @@
-import { Planner, CreateMeal, CustomAppBar, MealDetails } from "./components";
+import { useEffect, useState } from "react";
+import { CreateMeal, CustomAppBar, } from "./components";
 import { Box } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import '@fontsource/roboto/900.css';
-import { useEffect, useState } from "react";
 import Calendar from "./components/calendar/Calendar";
 
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import { DailyMeal } from "./components/DailyMeal";
-import CreateAccount from "./components/CreateAccount";
+import CreateAccount from "./components/User/CreateAccount";
+import { UserProvider } from "./components/User/UserContext";
 
 const darkTheme = createTheme({
   palette: {
@@ -70,9 +70,7 @@ function App() {
   const [lunch, setLunch] = useState([])
   const [dinner, setDinner] = useState([])
   const [snacks, setSnacks] = useState([])
-
-  const [dailyMeals, setDailyMeals] = useState([
-  ])
+  const [dailyMeals, setDailyMeals] = useState([])
   useEffect(() => {
     //set example of what the food list looks like when it is populated
   }, [])
@@ -80,27 +78,29 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={light} >
-        <Routes>
-          <Route path="/"
-            element={
-              <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: '#E1E1E1', margin: 'auto' }}>
-                <CustomAppBar />
-                <Outlet />
-              </Box>
-            }
-          >
-            <Route index
+        <UserProvider>
+          <Routes>
+            <Route path="/"
               element={
-                <CreateMeal
-                  breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} dailyMeals={dailyMeals}
-                  setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} setDailyMeals={setDailyMeals}
-                />
+                <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: '#E1E1E1', margin: 'auto' }}>
+                  <CustomAppBar />
+                  <Outlet />
+                </Box>
               }
-            />
-            <Route path="calendar" element={<Calendar dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} />} />
-            <Route path="register" element={<CreateAccount />} />
-          </Route>
-        </Routes>
+            >
+              <Route index
+                element={
+                  <CreateMeal
+                    breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} dailyMeals={dailyMeals}
+                    setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} setDailyMeals={setDailyMeals}
+                  />
+                }
+              />
+              <Route path="calendar" element={<Calendar dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} />} />
+              <Route path="register" element={<CreateAccount />} />
+            </Route>
+          </Routes>
+        </UserProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

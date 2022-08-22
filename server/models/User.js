@@ -15,23 +15,38 @@ const UserSchema = new mongoose.Schema({
         default: {},
         required: true
     }
-},{minimize: false});
+}, { minimize: false });
+
+UserSchema.methods.login = function () {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const userModel = mongoose.model('User', UserSchema);
+            const user = await userModel.findOne({ username: this.username })
+            if (!user) {
+                reject({ message: 'User not found' });
+                return;
+            }
+            const passwordMatch = await bcrypt.compare(this.password, user.password);
+            if (!passwordMatch) {
+                reject({ message: 'Invalid password' });
+                return;
+            }
+            resolve({ message: 'User logged in successfully' });
+        } catch (error) {
+            console.log(error);
+        }
+    })
+}
 
 UserSchema.methods.register = function () {
-    return new Promise((resolve, reject) => {
-        const userModel = mongoose.model('User', UserSchema);
-        const user = new userModel({
-            username: this.username,
-            password: this.password,
-            data: this.data
-        });
-        user.save()
-            .then(() => {
-                resolve();
-            })
-            .catch(err => {
-                reject(err);
-            });
+    return new Promise(async (resolve, reject) => {
+        try {
+            this.password = await bcrypt.hash(this.password, 10);
+            await this.save()
+            resolve({ message: 'User created successfully' });
+        } catch (error) {
+            reject(error);
+        }
     })
 }
 
