@@ -8,5 +8,6 @@ router.get('/', (req, res) => {
 
 router.post('/login', userController.login);
 router.post('/register', userController.register);
+router.patch('/addMeal', userController.addMeal);
 
 module.exports = router;

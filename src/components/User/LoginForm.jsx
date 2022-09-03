@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import { Box, TextField, Button, styled } from '@mui/material';
+import { Box, TextField, Button, styled, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import UserContext from './UserContext';
+import UserContext from '../../context/UserContext';
 
 
 
@@ -21,9 +21,9 @@ const LoginForm = () => {
                 password: e.target.password.value
             })
         })
-            .then(res => {
-                console.log(res.message);
-                saveUser('saved')
+            .then(res => res.json())
+            .then(data => {
+                saveUser(data.user)
             })
             .catch(err => console.log(err.message))
     }
@@ -78,7 +78,10 @@ const LoginForm = () => {
                     </Box>
                 </form>
             ) :
-            <Button type="button" variant="contained" onClick={handleLogout}>Logout</Button>
+            <Box>
+                <Typography>Welcome {`${user.username}`}</Typography>
+                <Button type="button" variant="contained" onClick={handleLogout}>Logout</Button>
+            </Box>
     )
 }
 

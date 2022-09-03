@@ -10,7 +10,7 @@ import Calendar from "./components/calendar/Calendar";
 
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import CreateAccount from "./components/User/CreateAccount";
-import { UserProvider } from "./components/User/UserContext";
+import { UserProvider } from "./context/UserContext";
 
 const darkTheme = createTheme({
   palette: {

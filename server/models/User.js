@@ -10,9 +10,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    data: {
-        type: {},
-        default: {},
+    dailyMeal: {
+        type: [mongoose.Schema.Types.Mixed],
+        default: [],
         required: true
     }
 }, { minimize: false });
@@ -31,7 +31,7 @@ UserSchema.methods.login = function () {
                 reject({ message: 'Invalid password' });
                 return;
             }
-            resolve({ message: 'User logged in successfully' });
+            resolve({ user: user, message: 'User logged in successfully' });
         } catch (error) {
             console.log(error);
         }
@@ -46,6 +46,24 @@ UserSchema.methods.register = function () {
             resolve({ message: 'User created successfully' });
         } catch (error) {
             reject(error);
+        }
+    })
+}
+UserSchema.methods.addMeal = function (meal) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const userModel = mongoose.model('User', UserSchema);
+            const user = await userModel.findOne({ username: this.username })
+            if (!user) {
+                reject({ message: 'User not found' });
+                return;
+            }
+            const meals = user.dailyMeal;
+            meals.push(meal);
+            await user.save();
+            resolve({ sucess: true, message: 'Meal added successfully' });
+        } catch (error) {
+            reject({ success: false, error });
         }
     })
 }

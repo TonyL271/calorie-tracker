@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Box, Typography, Button, ButtonGroup, TextField, FormGroup } from '@mui/material';
 import { MealDetails } from '.'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -9,9 +9,10 @@ import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import IcecreamIcon from '@mui/icons-material/Icecream';
 import { DailyMeal } from './DailyMeal';
-
+import UserContext from '../context/UserContext';
 
 const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, setDinner, setSnacks, dailyMeals, setDailyMeals }) => {
+  const { user, saveUser } = useContext(UserContext);
   const [addBreakFast, setAddBreakFast] = useState('');
   const [addLunch, setAddLunch] = useState('');
   const [addDinner, setAddDinner] = useState('');
@@ -30,6 +31,31 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
     setDinner([]);
     setSnacks([]);
   }
+  const saveDailyMeal = () => {
+    //TODO: Save meal to database
+    console.log(user)
+    if (user) {
+      fetch('/addMeal', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: user.username,
+          dailyMeal: new DailyMeal(date, breakfast, lunch, dinner, snacks)
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          setDailyMeals([...dailyMeals, data])
+        })
+        .catch(err => console.log(err.message))
+    } else {
+      setDailyMeals([...dailyMeals, new DailyMeal(date, breakfast, lunch, dinner, snacks)]);
+    }
+  }
+
 
   return (
     <Box sx={{ height: '100%', width: '100%' }}>
@@ -116,8 +142,8 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
               <Button variant="contained" sx={{ ml: '1rem', mr: '1rem' }} onClick={handleClear}>Clear</Button>
               <Button variant="contained"
                 onClick={() => {
-                  setDailyMeals([...dailyMeals, new DailyMeal(date, [...breakfast], [...lunch], [...dinner], [...snacks])]);
-                  
+                  console.log("clicked")
+                  saveDailyMeal();
                   handleClear();
                 }}
               >
