@@ -1,7 +1,8 @@
 import { Box, Button, ButtonGroup, Typography } from '@mui/material'
 import { styled } from '@mui/system'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import MealPlan from './MealPlan';
+import UserContext from '../../context/UserContext';
 
 const CenteredBox = styled('div')({
   display: 'flex',
@@ -24,7 +25,9 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
   const [firstDay, setFirstDay] = useState(1);
   const [lastDay, setLastDay] = useState(0);
   const [showDietPlan, setShowDietPlan] = useState({});
+  const { user, setUser } = useContext(UserContext);
 
+  // Generate corresponding dates for corresponding calender month
   useEffect(() => {
     let lastDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     let firstDate = new Date(date.getFullYear(), date.getMonth());
@@ -69,14 +72,15 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
           <CenteredBox sx={{ border: 0 }}>Sa</CenteredBox>
         </Box>
         <Box id="days" sx={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', bgcolor: '#50dc8c', gridGap: '2px', border: 'solid 3px #4EDC8E', }}>
-          {
-            [...Array(firstDay)].map(
-              (elem, idx) => (<Button key={idx} sx={{ display: firstDay ? 'inline-flex' : 'none', bgcolor: idx === 0 ? 'gray' : 'white', borderRadius: 0 }}><time></time></Button>)
-            )
+          {[...Array(firstDay)].map(
+            (elem, idx) => (<Button key={idx} sx={{ display: firstDay ? 'inline-flex' : 'none', bgcolor: idx === 0 ? 'gray' : 'white', borderRadius: 0 }}><time></time></Button>)
+          )
           }
           {
             dates.map((date, idx) => {
-              const match = dailyMeals.filter((meal) => sameDay(meal.getDate(), date));
+              const match = user ?
+                user.dailyMeals.filter((meal) => sameDay(new Date(meal.date), date)) :
+                dailyMeals.filter((meal) => sameDay(meal.getDate(), date));
               const color = match.length ? 'red' : (idx + firstDay) % 7 === 0 || (idx + firstDay) % 7 === 6 ? 'gray' : 'white';
               const onClick = match.length ?
                 () => {

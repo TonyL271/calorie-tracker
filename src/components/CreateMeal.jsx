@@ -47,12 +47,11 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
       })
         .then(res => res.json())
         .then(data => {
-          console.log(data);
-          setDailyMeals([...dailyMeals, data])
+          saveUser(data.user)
         })
         .catch(err => console.log(err.message))
     } else {
-      setDailyMeals([...dailyMeals, new DailyMeal(date, breakfast, lunch, dinner, snacks)]);
+      setDailyMeals([...dailyMeals, new DailyMeal([...date], [...breakfast], [...lunch], [...dinner], [...snacks])]);
     }
   }
 
@@ -142,7 +141,6 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
               <Button variant="contained" sx={{ ml: '1rem', mr: '1rem' }} onClick={handleClear}>Clear</Button>
               <Button variant="contained"
                 onClick={() => {
-                  console.log("clicked")
                   saveDailyMeal();
                   handleClear();
                 }}

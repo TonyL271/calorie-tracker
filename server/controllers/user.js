@@ -35,9 +35,8 @@ module.exports.addMeal = (req, res, next) => {
     const user = new UserModel({
         username: req.body.username,
         password: req.body.password,
-        data: req.body.dailyMeal
     });
-    user.addMeal()
+    user.addMeal(req.body.dailyMeal)
         .then((response) => {
             res.send(response);
         })

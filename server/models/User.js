@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    dailyMeal: {
+    dailyMeals: {
         type: [mongoose.Schema.Types.Mixed],
         default: [],
         required: true
@@ -58,10 +58,10 @@ UserSchema.methods.addMeal = function (meal) {
                 reject({ message: 'User not found' });
                 return;
             }
-            const meals = user.dailyMeal;
+            const meals = user.dailyMeals;
             meals.push(meal);
             await user.save();
-            resolve({ sucess: true, message: 'Meal added successfully' });
+            resolve({user, sucess: true, message: 'Meal added successfully' });
         } catch (error) {
             reject({ success: false, error });
         }

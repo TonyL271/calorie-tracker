@@ -23,7 +23,7 @@ const LoginForm = () => {
         })
             .then(res => res.json())
             .then(data => {
-                saveUser(data.user)
+                saveUser({ ...data.user })
             })
             .catch(err => console.log(err.message))
     }
@@ -78,8 +78,8 @@ const LoginForm = () => {
                     </Box>
                 </form>
             ) :
-            <Box>
-                <Typography>Welcome {`${user.username}`}</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography variant="h5" component="h2" sx={{ mr: '7rem' }}>Welcome {`${user.username}`}</Typography>
                 <Button type="button" variant="contained" onClick={handleLogout}>Logout</Button>
             </Box>
     )
