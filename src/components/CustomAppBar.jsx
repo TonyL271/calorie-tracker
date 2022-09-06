@@ -1,8 +1,9 @@
 import { Box, AppBar, Toolbar, Typography, Button, IconButton, } from '@mui/material';
 import React from 'react'
-import MenuIcon from '@mui/icons-material/Menu';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AddIcon from '@mui/icons-material/Add';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
-import { Link,useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import LoginForm from './User/LoginForm';
 
 
@@ -10,6 +11,17 @@ import LoginForm from './User/LoginForm';
 const CustomAppBar = () => {
     const location = useLocation();
     const isRoot = location.pathname === '/';
+    const NavButton = () => (isRoot ? (
+        <Button component={Link} to="/calendar" variant="contained" color="secondary" startIcon={<CalendarMonthIcon />}>
+            Calendar
+        </Button>
+    ) : (
+        <Button component={Link} to="/" variant="contained" color="secondary" startIcon={<AddIcon />}>
+            Add Meal
+        </Button>
+    ))
+    const CustomButton = () => (<Button>hello</Button>);
+
     return (
         <AppBar sx={{
             height: '6vh',
@@ -22,27 +34,14 @@ const CustomAppBar = () => {
             position: 'sticky',
             top: '0',
             left: '0',
-            mb: {
-                mobile: '0rem',
-                tablet: '3rem'
-            }
         }} >
             <Toolbar sx={{ width: '100%', height: '100%', }}>
-                <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    sx={{ mr: 2 }}
-                >
-                    <MenuIcon />
-                </IconButton>
-                <Link style={{backgroundColor:'red'}} to={isRoot ? '/calendar' : '/'}>{isRoot ? 'Calendar' : 'Add Food'}</Link>
+                <NavButton />
                 <Typography variant="h1" component="h1" sx={{ fontWeight: '600', textAlign: 'center', flexGrow: 1, fontSize: '1.5rem' }}>
                     <FastfoodIcon sx={{ mr: '1rem' }} />
                     Calorie Tracker
                 </Typography>
-                <LoginForm/>
+                <LoginForm />
             </Toolbar>
         </AppBar>
     )

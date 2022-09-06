@@ -1,6 +1,6 @@
 import { Box, Button, ButtonGroup, Typography } from '@mui/material'
 import { styled } from '@mui/system'
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import MealPlan from './MealPlan';
 import UserContext from '../../context/UserContext';
 
@@ -10,6 +10,7 @@ const CenteredBox = styled('div')({
   alignItems: 'center',
   color: 'white',
   fontWeight: '700',
+  width: '100%'
 })
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -26,6 +27,13 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
   const [lastDay, setLastDay] = useState(0);
   const [showDietPlan, setShowDietPlan] = useState({});
   const { user, setUser } = useContext(UserContext);
+  const [minDim,setMinDim] = useState(0);
+  const ref = useRef(null);
+
+
+  useEffect(() => {
+    setMinDim(Math.min(ref.current.offsetWidth,ref.current.offsetHeight)*0.9);
+  },[ref.current])
 
   // Generate corresponding dates for corresponding calender month
   useEffect(() => {
@@ -46,9 +54,16 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
   }, [date])
 
   return (
-    <Box sx={{ height: '100%', width: '100%', }}>
-      <Box id="calender" sx={{ 'width': '50vw', margin: 'auto', bgcolor: 'rgba(0,0,0,0.80)', px: '10rem', py: '5rem' }}>
-        <Box sx={{ mb: '2rem', position: 'relative', }}>
+    <Box ref={ref} sx={{ height: '100%', width: '100%', display:'flex',alignItems:'center',justifyContent:'center' }}>
+      {/* //TODO change from width to min-width, width use to be 50vw */}
+      <Box id="calendar" sx={{
+        width: `${minDim}px`,
+        height: `${minDim}px`,
+        bgcolor: 'rgba(0,0,0,0.80)',
+        display:'flex',
+        flexDirection:'column',
+      }}>
+        <Box id="calendar-header" sx={{ mb: '2rem', position: 'relative', }}>
           <CenteredBox id="month">{`${months[date.getMonth()]}  ${date.getFullYear()}`}</CenteredBox>
           <ButtonGroup sx={{ position: 'absolute', top: '0', right: '5rem', bgcolor: 'white' }}>
             <Button sx={{ color: 'black', borderColor: 'red' }} onClick={() => { setDate(new Date(date.getFullYear(), date.getMonth() - 1, 1)) }}>{'<'}</Button>
@@ -71,11 +86,13 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
           <CenteredBox>Fr</CenteredBox>
           <CenteredBox sx={{ border: 0 }}>Sa</CenteredBox>
         </Box>
-        <Box id="days" sx={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', bgcolor: '#50dc8c', gridGap: '2px', border: 'solid 3px #4EDC8E', }}>
+        <Box id="days" sx={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', bgcolor: '#50dc8c', gridGap: '2px', border: 'solid 3px #4EDC8E', height: '80%' }}>
+          {/* empty padding for when days don't start on sunday */}
           {[...Array(firstDay)].map(
-            (elem, idx) => (<Button key={idx} sx={{ display: firstDay ? 'inline-flex' : 'none', bgcolor: idx === 0 ? 'gray' : 'white', borderRadius: 0 }}><time></time></Button>)
+            (elem, idx) => (<Button key={idx} sx={{ display: firstDay ? 'inline-flex' : 'none',height:'100%',minHeight:'100%', minWidth: '100%', width: '100%', bgcolor: idx === 0 ? 'gray' : 'white', borderRadius: 0 }}><time></time></Button>)
           )
           }
+          {/* day 1 begins here */}
           {
             dates.map((date, idx) => {
               const match = user ?
@@ -89,7 +106,7 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
                 () => { };
               return (
                 <Button
-                  sx={{ bgcolor: color, borderRadius: 0, color: 'black', height: '8rem', display: 'flex', justifyContent: 'end', alignContent: 'start', }}
+                  sx={{ bgcolor: color, borderRadius: 0, color: 'black', minHeight: '100%', height: '100%', minWidth: '100%', width: '100%', display: 'flex', justifyContent: 'end', alignContent: 'start', }}
                   key={idx + 1}
                   onClick={onClick}
                 >
@@ -100,10 +117,11 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
               )
             })
           }
+          {/* padding for when days don't end on saturday */}
           {
             [...Array(6 - lastDay)].map(
               (elem, idx) => {
-                return <Button key={idx} sx={{ width: '100%', height: '100%', bgcolor: idx === 5 - lastDay ? 'gray' : 'white', borderRadius: 0 }}></Button>
+                return <Button key={idx} sx={{ minWidth: '100%', width: '100%', height: '100%', bgcolor: idx === 5 - lastDay ? 'gray' : 'white', borderRadius: 0 }}></Button>
               }
             )
           }

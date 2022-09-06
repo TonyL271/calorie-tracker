@@ -57,8 +57,10 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
 
 
   return (
-    <Box sx={{ height: '100%', width: '100%' }}>
+    <Box sx={{ height: '100%', width: '100%', }}>
       <Box className="main" sx={{
+        position: 'relative',
+        top:'10%',
         display: 'grid',
         width:
         {
