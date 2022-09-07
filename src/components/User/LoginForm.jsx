@@ -23,7 +23,11 @@ const LoginForm = () => {
         })
             .then(res => res.json())
             .then(data => {
-                saveUser({ ...data.user })
+                if (data.success) {
+                    saveUser({ ...data.user })
+                }else{
+                    alert(data.message)
+                }
             })
             .catch(err => console.log(err.message))
     }

@@ -23,7 +23,11 @@ const CreateAccount = () => {
         })
             .then(res => {
                 res.json().then(data => {
-                    console.log(data.message)
+                    if (data.success) {
+                        setAlert('Account created successfully')
+                    }else{
+                        setAlert(data.message)
+                    }
                 })
             })
             .catch(err => console.log(err))
@@ -42,7 +46,7 @@ const CreateAccount = () => {
         if (alert.length) {
             setTimeout(() => {
                 setAlert('')
-            }, 3000)
+            }, 4000)
         }
     }, [alert])
 

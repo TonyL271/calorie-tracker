@@ -27,6 +27,7 @@ module.exports.register = (req, res, next) => {
             res.send(response);
         })
         .catch(err => {
+            console.log(err)
             res.send(err);
         })
 }

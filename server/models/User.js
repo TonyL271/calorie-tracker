@@ -23,17 +23,17 @@ UserSchema.methods.login = function () {
             const userModel = mongoose.model('User', UserSchema);
             const user = await userModel.findOne({ username: this.username })
             if (!user) {
-                reject({ message: 'User not found' });
+                resolve({ success: false, message: 'User not found' });
                 return;
             }
             const passwordMatch = await bcrypt.compare(this.password, user.password);
             if (!passwordMatch) {
-                reject({ message: 'Invalid password' });
+                resolve({ success: false, message: 'Invalid password' });
                 return;
             }
-            resolve({ user: user, message: 'User logged in successfully' });
+            resolve({ success: true, user: user, message: 'User logged in successfully' });
         } catch (error) {
-            console.log(error);
+            resolve({ success: false, error });
         }
     })
 }
@@ -43,9 +43,14 @@ UserSchema.methods.register = function () {
         try {
             this.password = await bcrypt.hash(this.password, 10);
             await this.save()
-            resolve({ message: 'User created successfully' });
+            resolve({ success: true, message: 'User created successfully' });
         } catch (error) {
-            reject(error);
+            if (error.code === 11000) {
+                resolve({ success: false, message: 'Username already exists' });
+            }
+            else {
+                reject({ ...error, message: 'internal server error' })
+            }
         }
     })
 }
@@ -55,13 +60,13 @@ UserSchema.methods.addMeal = function (meal) {
             const userModel = mongoose.model('User', UserSchema);
             const user = await userModel.findOne({ username: this.username })
             if (!user) {
-                reject({ message: 'User not found' });
+                reject({ sucess: false, message: 'User not found' });
                 return;
             }
             const meals = user.dailyMeals;
             meals.push(meal);
             await user.save();
-            resolve({user, sucess: true, message: 'Meal added successfully' });
+            resolve({ user, sucess: true, message: 'Meal added successfully' });
         } catch (error) {
             reject({ success: false, error });
         }
