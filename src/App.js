@@ -60,20 +60,12 @@ const light = createTheme({
       laptop: 1024,
       desktop: 1300,
     },
-
   },
 })
 
 
 function App() {
-  const [breakfast, setBreakfast] = useState([])
-  const [lunch, setLunch] = useState([])
-  const [dinner, setDinner] = useState([])
-  const [snacks, setSnacks] = useState([])
   const [dailyMeals, setDailyMeals] = useState([])
-  useEffect(() => {
-    //set example of what the food list looks like when it is populated
-  }, [])
 
   return (
     <BrowserRouter>
@@ -86,16 +78,8 @@ function App() {
                   <CustomAppBar />
                   <Outlet />
                 </Box>
-              }
-            >
-              <Route index
-                element={
-                  <CreateMeal
-                    breakfast={breakfast} lunch={lunch} dinner={dinner} snacks={snacks} dailyMeals={dailyMeals}
-                    setBreakfast={setBreakfast} setLunch={setLunch} setDinner={setDinner} setSnacks={setSnacks} setDailyMeals={setDailyMeals}
-                  />
-                }
-              />
+              }>
+              <Route index element={<CreateMeal dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} />} />
               <Route path="calendar" element={<Calendar dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} />} />
               <Route path="register" element={<CreateAccount />} />
             </Route>

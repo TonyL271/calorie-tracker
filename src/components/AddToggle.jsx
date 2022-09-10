@@ -3,9 +3,9 @@ import { Box, Typography, IconButton, Menu,  InputBase, Divider,} from '@mui/mat
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import { Search } from '../apiCalls'
-import { FoodMenuItem } from './';
+import { FoodMenuItem } from '.';
 
-const AddButton = ({ setAddFood }) => {
+const AddToggle = ({ setAddFood }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(Boolean(anchorEl));
   const [suggestion, setSuggestion] = useState({ common: [], branded: [] })
@@ -108,4 +108,4 @@ const AddButton = ({ setAddFood }) => {
   )
 }
 
-export default AddButton;
+export default AddToggle;

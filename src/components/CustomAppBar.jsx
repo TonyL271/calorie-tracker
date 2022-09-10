@@ -20,7 +20,6 @@ const CustomAppBar = () => {
             Add Meal
         </Button>
     ))
-    const CustomButton = () => (<Button>hello</Button>);
 
     return (
         <AppBar sx={{

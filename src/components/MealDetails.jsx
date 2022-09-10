@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Typography, Divider, IconButton} from '@mui/material'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
-import { AddButton, AddFoodMenu } from './';
+import { AddToggle, AddFoodMenu } from './';
 
 const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood }) => {
   const handleAddFood = (food) => {
@@ -22,7 +22,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         height: '3.5rem',
         position: 'relative'
       }}>
-        <AddButton foodList={foodList} setFoodList={setFoodList} setAddFood={setAddFood} />
+        <AddToggle foodList={foodList} setFoodList={setFoodList} setAddFood={setAddFood} />
         {Icon}
         <Typography variant='h4' component="h2" align='center' sx={{ fontWeight: '800', }}>{mealType}</Typography>
       </Box>

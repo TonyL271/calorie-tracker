@@ -11,12 +11,19 @@ import IcecreamIcon from '@mui/icons-material/Icecream';
 import { DailyMeal } from './DailyMeal';
 import UserContext from '../context/UserContext';
 
-const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, setDinner, setSnacks, dailyMeals, setDailyMeals }) => {
+const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   const { user, saveUser } = useContext(UserContext);
+
+  const [breakfast, setBreakfast] = useState([])
+  const [lunch, setLunch] = useState([])
+  const [dinner, setDinner] = useState([])
+  const [snacks, setSnacks] = useState([])
+
   const [addBreakFast, setAddBreakFast] = useState('');
   const [addLunch, setAddLunch] = useState('');
   const [addDinner, setAddDinner] = useState('');
   const [addSnacks, setAddSnacks] = useState('');
+
   const [date, setDate] = useState(new Date());
 
   const breakfastCals = breakfast.reduce((total, food) => (total + food.nf_calories_scaled), 0);
@@ -60,7 +67,7 @@ const CreateMeal = ({ breakfast, lunch, dinner, snacks, setBreakfast, setLunch, 
     <Box sx={{ height: '100%', width: '100%', }}>
       <Box className="main" sx={{
         position: 'relative',
-        top:'10%',
+        top: '10%',
         display: 'grid',
         width:
         {

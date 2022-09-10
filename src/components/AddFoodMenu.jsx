@@ -67,11 +67,11 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
     , [addFood]);
 
   return (
-
+    //check if selected food exists
     !Object.entries(foodInfo).length ? <div></div> :
       <Box onClick={(e) => clearFood()}
         sx={{
-          position: 'absolute',
+          position: 'fixed',
           top: '0',
           left: '0',
           backgroundColor: 'rgba(0,0,0,0.4)',

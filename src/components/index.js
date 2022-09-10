@@ -1,6 +1,6 @@
 export {default as MealDetails} from './MealDetails.jsx'
 export {default as CustomAppBar} from './CustomAppBar.jsx'
 export {default as CreateMeal} from './CreateMeal.jsx'
-export {default as AddButton} from './AddButton.jsx'
+export {default as AddToggle} from './AddToggle.jsx'
 export {default as AddFoodMenu} from './AddFoodMenu.jsx'
 export {default as FoodMenuItem} from './FoodMenuItem.jsx'
