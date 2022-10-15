@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { Box, Typography, Button, ButtonGroup, TextField, FormGroup } from '@mui/material';
-import { MealDetails } from '.'
+import { MealDetails,CustomAlert } from '.'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
@@ -13,6 +13,7 @@ import UserContext from '../context/UserContext';
 
 const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   const { user, saveUser } = useContext(UserContext);
+  const [showAlert, setShowAlert] = useState(false);
 
   const [breakfast, setBreakfast] = useState([])
   const [lunch, setLunch] = useState([])
@@ -39,8 +40,6 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
     setSnacks([]);
   }
   const saveDailyMeal = () => {
-    //TODO: Save meal to database
-    console.log(user)
     if (user) {
       fetch('/addMeal', {
         method: 'PATCH',
@@ -152,13 +151,18 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
                 onClick={() => {
                   saveDailyMeal();
                   handleClear();
+                  setShowAlert(true);
+                  setTimeout(() => {
+                    setShowAlert(false);
+                  }, 1000);
                 }}
               >
-                Add To <br /> Calender</Button>
+                Add To <br /> planner</Button>
             </FormGroup>
           </Box>
         </Box>
       </Box>
+      <CustomAlert showAlert={showAlert} message="Meal added to planner"/>
     </Box >
   )
 }
