@@ -51,7 +51,7 @@ const CreateAccount = () => {
     }, [alert])
 
     return (
-        <Box sx={{ width: '100%', height: '100%', }}>
+        <Box sx={{ width: '100%', height: '100%', display:'flex',justifyContent:'center',alignItems:'center' }}>
             <Box
                 sx={{
                     width: '30%',

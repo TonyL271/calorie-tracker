@@ -17,7 +17,7 @@ const LoginForm = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: e.target.username.value,
+                username: e.target.username.value.toLowerCase(),
                 password: e.target.password.value
             })
         })
@@ -34,6 +34,10 @@ const LoginForm = () => {
 
     const handleLogout = () => {
         saveUser(null)
+    }
+
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     const TextFieldStyled = styled(TextField)({
@@ -83,7 +87,7 @@ const LoginForm = () => {
                 </form>
             ) :
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography variant="h5" component="h2" sx={{ mr: '7rem' }}>Welcome {`${user.username}`}</Typography>
+                <Typography variant="h5" component="h2" sx={{ mr: '7rem' }}>Welcome {`${capitalizeFirstLetter(user.username)}`}</Typography>
                 <Button type="button" variant="contained" onClick={handleLogout}>Logout</Button>
             </Box>
     )

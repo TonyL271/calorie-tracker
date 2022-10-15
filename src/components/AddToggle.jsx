@@ -43,12 +43,12 @@ const AddToggle = ({ setAddFood }) => {
         position: 'absolute',
         height: '2.5rem',
         width: '2.5rem',
-        left: '1rem',
+        left: '2rem',
         color: 'white'
       }}
         onClick={handleClick}
       >
-        <AddCircleTwoToneIcon size='large' sx={{ position: 'absolute', height: '2.5rem', width: '2.5rem', left: '1rem', }} />
+        <AddCircleTwoToneIcon size='large' sx={{ position: 'absolute', height: '2.5rem', width: '2.5rem', }} />
       </IconButton>
       <Menu className="add-menu"
         anchorEl={anchorEl}

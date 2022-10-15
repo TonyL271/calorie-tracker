@@ -15,7 +15,6 @@ module.exports.login = (req, res, next) => {
         })
 }
 
-
 module.exports.register = (req, res, next) => {
     const user = new UserModel({
         username: req.body.username,

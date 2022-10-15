@@ -13,7 +13,7 @@ const CustomAppBar = () => {
     const isRoot = location.pathname === '/';
     const NavButton = () => (isRoot ? (
         <Button component={Link} to="/calendar" variant="contained" color="secondary" startIcon={<CalendarMonthIcon />}>
-            Calendar
+            Planner
         </Button>
     ) : (
         <Button component={Link} to="/" variant="contained" color="secondary" startIcon={<AddIcon />}>
