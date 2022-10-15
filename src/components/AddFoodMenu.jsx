@@ -50,17 +50,8 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
   useEffect(
     () => {
       if (addFood.length > 0) {
-        Nutrients(addFood).then((nutrition) => {
-          if (Object.entries(nutrition).length) {
-            const foodInfo = nutrition.foods[0];
-            let nutrientKeys = Object.entries(foodInfo).filter((entry) => entry[0].substring(0, 2) === "nf");
-            nutrientKeys = nutrientKeys.map((entry) => entry[0]);
-            nutrientKeys.forEach((key) => {
-              foodInfo[key + '_scaled'] = foodInfo[key]
-            })
-            foodInfo.scale = 1
-            setFoodInfo(foodInfo);
-          }
+        Nutrients(addFood).then((foodInfo) => {
+          setFoodInfo(foodInfo);
         })
       }
     }
@@ -99,7 +90,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
           <Divider sx={{ mb: '1rem' }} />
           <Typography variant='h5' component="h5">{addFood.charAt(0).toUpperCase() + addFood.slice(1)}</Typography>
           <Box className="add-options" sx={{ display: 'flex', mb: '2rem' }}>
-            <Box sx={{ width: '3rem', mr: '1rem' }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
+            <Box sx={{ height: '3rem', mr: '1rem' }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', }}>
               <TextField variant="outlined" label="qty" sx={{ width: '3rem', }} defaultValue={1} onChange={(e) => setFoodQty(parseInt(e.currentTarget.value))} />
               <FormControl >
@@ -123,18 +114,18 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
             </Box>
           </Box>
           <Box sx={{ width: '100%', display: 'flex', mb: '1rem' }}>
-            <Typography sx={{mr:'0.5rem'}}>Total Calories: </Typography>
-            <Typography>{`${foodInfo.nf_calories_scaled.toPrecision(3)} cal`}</Typography>
+            <Typography sx={{ mr: '0.5rem' }}>Total Calories: </Typography>
+            <Typography>{`${foodInfo.nf_calories_scaled.toFixed(1)} cal`}</Typography>
           </Box>
-          <Box className="add-nutrient" sx={{ display: 'grid', mb: '1rem',gridTemplateColumns:'1fr 1fr 1fr 1fr',columnGap:'1rem' }}>
+          <Box className="add-nutrient" sx={{ display: 'grid', mb: '1rem', gridTemplateColumns: '1fr 1fr 1fr 1fr', columnGap: '1rem' }}>
             <Typography textAlign='left' >{`Protein: `}</Typography>
-            <Typography textAlign='right' >{`${foodInfo.nf_protein_scaled.toPrecision(3)}`}</Typography>
+            <Typography textAlign='right' >{`${foodInfo.nf_protein_scaled.toFixed(1)}`}</Typography>
             <Typography textAlign='left' >{`Carbs: `}</Typography>
-            <Typography textAlign='right'>{`${foodInfo.nf_total_carbohydrate_scaled.toPrecision(3)}`}</Typography>
+            <Typography textAlign='right'>{`${foodInfo.nf_total_carbohydrate_scaled.toFixed(1)}`}</Typography>
             <Typography textAlign='left' >{`Fat: `}</Typography>
-            <Typography textAlign='right'>{`${foodInfo.nf_total_fat_scaled.toPrecision(3)}`}</Typography>
+            <Typography textAlign='right'>{`${foodInfo.nf_total_fat_scaled.toFixed(1)}`}</Typography>
             <Typography textAlign='left' >{`Sodium: `}</Typography>
-            <Typography textAlign='right'>{`${foodInfo.nf_sodium_scaled.toPrecision(3)}`}</Typography>
+            <Typography textAlign='right'>{`${foodInfo.nf_sodium_scaled.toFixed(1)}`}</Typography>
           </Box>
           <Typography sx={{ color: 'blue', pb: '1rem' }} textAlign='center'>Details</Typography>
           <Button variant="contained" onClick={() => {

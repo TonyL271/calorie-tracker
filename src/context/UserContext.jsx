@@ -1,13 +1,39 @@
-import { useState, createContext } from 'react'
+import { useState, createContext, useEffect } from 'react'
 import useLocalStorage from "use-local-storage";
 
 
 const UserContext = createContext();
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useLocalStorage("user", null);
-    const saveUser = (user) => {
-        setUser(user);
+    const [user, saveUser] = useLocalStorage("user", "new-user");
+
+    const guestLogin = (e) => {
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: 'guest',
+                password: 'guest'
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    saveUser({ ...data.user })
+                } else {
+                    alert(data.message)
+                }
+            })
+            .catch(err => console.log(err.message))
     }
+
+    useEffect(() => {
+        if (user === 'new-user') {
+            guestLogin()
+        }
+    }, [user])
+
 
     return (
         <UserContext.Provider value={{ user, saveUser }}>

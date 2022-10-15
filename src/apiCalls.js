@@ -12,7 +12,7 @@ const Search = async (query) => {
         .then((response) => {
             return response.json();
         })
-        .catch((err)=>{
+        .catch((err) => {
             console.log('failed api request search')
             console.log(err)
             return {}
@@ -21,15 +21,30 @@ const Search = async (query) => {
 
 const Nutrients = async (query) => {
     const head = { ...headers, 'x-remote-user-id': '0', "Content-Type": "application/json", 'Accept': 'application/json' }
-    return fetch(url + '/natural/nutrients', { method: 'POST', headers: head, body: JSON.stringify({query: query }) })
-        .then(function (response) {
-            return response.json();
+    const nutrients = await fetch(url + '/natural/nutrients', {
+        method: 'POST', headers: head, body: JSON.stringify({ query: query })
+    })
+    const nutrientsJson = await nutrients.json()
+    let foodInfo = null;
+    if (nutrientsJson.foods.length) {
+        foodInfo = nutrientsJson.foods[0];
+        let nutrientKeys = Object.entries(foodInfo).filter((entry) => entry[0].substring(0, 2) === "nf");
+        nutrientKeys = nutrientKeys.map((entry) => entry[0]);
+        nutrientKeys.forEach((key) => {
+            foodInfo[key + '_scaled'] = foodInfo[key]
         })
-        .catch((err)=>{
-            console.log('failed api request nutrients')
-            console.log(err)
-            return {}
-        })
+        foodInfo.scale = 1
+        foodInfo.qty = 1
+    }
+    return foodInfo
+    // .then(function (response) {
+    //     return response.json();
+    // })
+    // .catch((err) => {
+    //     console.log('failed api request nutrients')
+    //     console.log(err)
+    //     return {}
+    // })
 }
 
 export { Search, Nutrients }

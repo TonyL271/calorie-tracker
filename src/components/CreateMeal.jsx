@@ -1,6 +1,6 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Box, Typography, Button, ButtonGroup, TextField, FormGroup } from '@mui/material';
-import { MealDetails,CustomAlert } from '.'
+import { MealDetails, CustomAlert } from '.'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
@@ -10,6 +10,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import IcecreamIcon from '@mui/icons-material/Icecream';
 import { DailyMeal } from './DailyMeal';
 import UserContext from '../context/UserContext';
+import { Nutrients } from '../apiCalls';
 
 const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   const { user, saveUser } = useContext(UserContext);
@@ -32,6 +33,28 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   const dinnerCals = dinner.reduce((total, food) => (total + food.nf_calories_scaled), 0);
   const snacksCals = snacks.reduce((total, food) => (total + food.nf_calories_scaled), 0);
   const totalCals = breakfastCals + lunchCals + dinnerCals + snacksCals;
+
+  useEffect(() => {
+    // if use is new show an example of a daily meal plan
+    if (user === 'new-user') {
+      const exampleBreakfast = [];
+      const foods = [];
+      
+      foods.push(Nutrients('apple').then(data => {
+        exampleBreakfast.push(data)
+      }))
+      foods.push(Nutrients('milk').then(data => {
+        exampleBreakfast.push(data)
+      }))
+
+      foods.push(Nutrients('cereal').then(data => {
+        exampleBreakfast.push(data)
+      }))
+      Promise.all(foods).then(()=>{
+        setBreakfast(exampleBreakfast)
+      })
+    }
+  }, [user])
 
   const handleClear = () => {
     setBreakfast([]);
@@ -162,7 +185,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
           </Box>
         </Box>
       </Box>
-      <CustomAlert showAlert={showAlert} message="Meal added to planner"/>
+      <CustomAlert showAlert={showAlert} message="Meal added to planner" />
     </Box >
   )
 }

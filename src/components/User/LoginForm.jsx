@@ -25,7 +25,7 @@ const LoginForm = () => {
             .then(data => {
                 if (data.success) {
                     saveUser({ ...data.user })
-                }else{
+                } else {
                     alert(data.message)
                 }
             })
@@ -64,7 +64,7 @@ const LoginForm = () => {
         marginRight: '1rem'
     })
     return (
-        user === null ?
+        user === null || user === 'new-user' ?
             (
                 <form onSubmit={handleLogin}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
