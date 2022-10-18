@@ -87,7 +87,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
 
 
   return (
-    <Box sx={{ height: '100%', width: '100%', }}>
+    <Box sx={{ minHeight: 'calc(100vh - 6vh)', width: '100%', }}>
       <Box className="main" sx={{
         position: 'relative',
         top: '10%',
@@ -153,7 +153,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
               flexDirection: 'row',
               position: 'absolute',
               right: '0',
-              bgcolor: 'ghostwhite',
+              bgcolor: 'background.forground',
               boxShadow: '0'
             }}>
 
@@ -167,7 +167,14 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
                       setDate(newValue);
                     }
                   }
-                  renderInput={(params) => <TextField {...params} />}
+                  renderInput={(params) => <TextField className='lookatme' sx={{
+                    '& .MuiInputLabel-root': {
+                      color: 'primary.lightContrast'
+                    },
+                    '& fieldset': {
+                      borderColor: 'primary.lightContrast'
+                    }
+                  }} {...params} />}
                 />
               </LocalizationProvider>
               <Button variant="contained" sx={{ ml: '1rem', mr: '1rem', color: 'primary.contrast' }} onClick={handleClear}>Clear</Button>

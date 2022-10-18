@@ -32,6 +32,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         width: '100%',
         display: 'grid',
         gridTemplateColumns: 'repeat(6,auto)',
+        gridRowGap: '0.20rem',
       }}>
         <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: '1.1rem', fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
         <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: '1.1rem', fontWeight: 700, }}>Amount</Typography>

@@ -54,7 +54,7 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
   }, [date])
 
   return (
-    <Box ref={ref} sx={{ height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Box ref={ref} sx={{ minHeight: 'calc(100vh - 6vh)', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       {/* //TODO change from width to min-width, width use to be 50vw */}
       <Box id="calendar" sx={{
         width: `${minDim}px`,
@@ -72,7 +72,7 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
         </Box>
         <Box id="week-days"
           sx={{
-            bgcolor: '#4EDC8E',
+            bgcolor: 'primary.main',
             display: 'grid',
             gridTemplateColumns: 'repeat(7,1fr)',
             width: '100%',
@@ -86,7 +86,7 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
           <CenteredBox>Fr</CenteredBox>
           <CenteredBox sx={{ border: 0 }}>Sa</CenteredBox>
         </Box>
-        <Box id="days" sx={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', bgcolor: '#50dc8c', gridGap: '0.20rem', border: 'solid 3px #4EDC8E', height: '80%' }}>
+        <Box id="days" sx={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', bgcolor: 'primary.main', gridGap: '0.20rem', border: 'solid 3px #4EDC8E', height: '80%' }}>
           {/* empty padding for when days don't start on sunday */}
           {[...Array(firstDay)].map(
             (elem, idx) => (<Button key={idx} sx={{ display: firstDay ? 'inline-flex' : 'none', height: '100%', minHeight: '100%', minWidth: '100%', width: '100%', bgcolor: idx === 0 ? 'gray' : 'white', borderRadius: 0 }}><time></time></Button>)

@@ -1,37 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useContext } from 'react'
+import UserContext from '../context/UserContext'
 import { Box, Typography, TextField, Button, styled, Alert, Collapse } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
-const CreateAccount = () => {
-    const handleRegister = (e) => {
-        setAlert('')
-        e.preventDefault();
-        // post to server
-        if (e.target.password.value !== e.target.confirmPassword.value) {
-            setAlert('Passwords do not match');
-            return;
-        }
-        fetch('/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
 
-            },
-            body: JSON.stringify({
-                username: e.target.username.value,
-                password: e.target.password.value
-            })
-        })
-            .then(res => {
-                res.json().then(data => {
-                    if (data.success) {
-                        setAlert('Account created successfully')
-                    } else {
-                        setAlert(data.message)
-                    }
-                })
-            })
-            .catch(err => console.log(err))
-    }
+const MobileLogin = () => {
+    const { user, saveUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const TextFieldStyled = styled(TextField)({
         "& div": {
@@ -41,14 +16,33 @@ const CreateAccount = () => {
         marginBottom: '1rem'
     })
 
-    const [alert, setAlert] = useState('')
-    useEffect(() => {
-        if (alert.length) {
-            setTimeout(() => {
-                setAlert('')
-            }, 4000)
-        }
-    }, [alert])
+    const handleLogin = (e) => {
+        e.preventDefault()
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: e.target.username.value.toLowerCase(),
+                password: e.target.password.value
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    saveUser({ ...data.user })
+                    navigate('/')
+                } else {
+                    alert(data.message)
+                }
+            })
+            .catch(err => console.log(err.message))
+    }
+
+    const handleLogout = () => {
+        saveUser(null)
+    }
 
     return (
         <Box sx={{ width: '100%', minHeight: 'calc(100vh - 6vh)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -65,15 +59,8 @@ const CreateAccount = () => {
                     borderRadius: '10px',
                     padding: '0.5rem'
                 }}>
-                <Typography variant="h3" component="h1" align='center' sx={{ my: '0.9rem', lineHeight: '0.8', marginBottom: '4rem' }}>Create Acccount</Typography>
-                <Collapse in={Boolean(alert.length)}>
-                    <Alert severity="error" variant='filled' icon={false}
-                        sx={{
-                            mb: '1rem'
-                        }}
-                    >{alert}</Alert>
-                </Collapse>
-                <Box component="form" onSubmit={handleRegister}
+                <Typography variant="h3" component="h1" align='center' sx={{ my: '0.9rem', lineHeight: '0.8', marginBottom: '4rem' }}>Login</Typography>
+                <Box component="form" onSubmit={handleLogin}
                     sx={{
                         height: '250px',
                         display: 'flex',
@@ -101,11 +88,11 @@ const CreateAccount = () => {
                         size="small"
                         type="password"
                     />
-                    <Button type="submit" variant="contained" color="secondary" sx={{ mb: '1rem' }} >create Account</Button>
+                    <Button type="submit" variant="contained" color="secondary" sx={{ mb: '1rem' }} >Sign In</Button>
                 </Box>
             </Box>
         </Box >
     )
 }
 
-export default CreateAccount
+export default MobileLogin

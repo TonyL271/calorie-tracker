@@ -66,25 +66,40 @@ const LoginForm = () => {
     return (
         user === null || user === 'new-user' ?
             (
-                <form onSubmit={handleLogin}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <TextFieldStyled
-                            label="Username"
-                            name="username"
-                            variant="outlined"
-                            size="small"
-                        />
-                        <TextFieldStyled
-                            label="Password"
-                            name="password"
-                            variant="outlined"
-                            size="small"
-                            type="password"
-                        />
-                        <Button type="submit" variant="contained" color="primary" sx={{ mr: '1rem',bgcolor:'secondary.main',color:'primary.contrast' }}>Login</Button>
-                        <Button type="button" variant="contained" color="secondary" onClick={() => navigate('/register')}>create Account</Button>
-                    </Box>
-                </form>
+                <Box>
+                    <form sx={{ display: { mobile: 'none', laptop: 'flex' } }} onSubmit={handleLogin}>
+                        <Box sx={{ display: { mobile: 'none', laptop: 'flex' }, justifyContent: 'space-between', alignItems: 'center' }}>
+                            <TextFieldStyled
+                                label="Username"
+                                name="username"
+                                variant="outlined"
+                                size="small"
+                            />
+                            <TextFieldStyled
+                                label="Password"
+                                name="password"
+                                variant="outlined"
+                                size="small"
+                                type="password"
+                            />
+                            <Button type="submit" variant="contained" color="primary" sx={{
+                                mr: '1rem',
+                                bgcolor: 'secondary.main',
+                                color: 'primary.contrast'
+                            }}>Login</Button>
+                            <Button type="button" variant="contained" color="secondary" onClick={() => navigate('/register')}>create Account</Button>
+                        </Box>
+                    </form>
+                    <Button type="button" variant="contained" color="primary"
+                        onClick={() => navigate('/mobile-login')}
+                        sx={{
+                            display: { mobile: 'flex', laptop: 'none' },
+                            mr: '1rem',
+                            bgcolor: 'secondary.main',
+                            color: 'primary.contrast'
+                        }}
+                    >Login</Button>
+                </Box>
             ) :
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Typography variant="h5" component="h2" sx={{ mr: '7rem' }}>Welcome {`${capitalizeFirstLetter(user.username)}`}</Typography>
