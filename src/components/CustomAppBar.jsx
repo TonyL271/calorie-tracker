@@ -24,8 +24,8 @@ const CustomAppBar = () => {
     return (
         <AppBar sx={{
             height: '6vh',
-            backgroundColor: '#4EDC8E',
-            color: 'white',
+            backgroundColor: 'primary.main',
+            color: 'primary.contrast',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

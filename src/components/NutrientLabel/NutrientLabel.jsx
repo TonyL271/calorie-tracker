@@ -32,11 +32,11 @@ const NutrientLabel = ({ food }) => {
       <Box sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
          <Typography
             sx={{
-               color: 'white',
+               color: 'primary.contrast',
                // textDecoration: 'underline',
                padding: '0.25rem',
                paddingRight: '0.6rem',
-               bgcolor: '#FF248E',
+               bgcolor: 'secondary.main',
                display: 'flex', justifyContent: 'center', alignItems: 'center',
             }}
             onMouseOver={handleClick}

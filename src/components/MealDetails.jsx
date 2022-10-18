@@ -11,13 +11,13 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
   }
   const capitalizeFirstLetter = (string) => (string.charAt(0).toUpperCase() + string.slice(1))
   return (
-    <Box className="meal-details" sx={{ width: '100%', border: 'solid 6px #4EDC8E', borderTop: '0', p: '1rem', pt: '0rem', }}>
+    <Box className="meal-details" sx={{ width: '100%', border: 'solid 6px',borderColor:'primary.main', borderTop: '0', p: '1rem', pt: '0rem', }}>
       <Box sx={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        bgcolor: '#4EDC8E',
-        color: 'white',
+        bgcolor: 'primary.main',
+        color: 'primary.contrast',
         gridColumn: '1/-1',
         mb: '1rem',
         mx: '-19px',
@@ -33,10 +33,10 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         display: 'grid',
         gridTemplateColumns: 'repeat(6,auto)',
       }}>
-        <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
-        <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, }}>Amount</Typography>
-        <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, }} >Calories</Typography>
-        <Typography variant="p" component="p" align='center' sx={{ color: '#4edc9c', width: '100%', fontSize: '1.1rem', fontWeight: 700, gridColumn: '-2/-1' }} ></Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: '1.1rem', fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: '1.1rem', fontWeight: 700, }}>Amount</Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: '1.1rem', fontWeight: 700, }} >Calories</Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: '1.1rem', fontWeight: 700, gridColumn: '-2/-1' }} ></Typography>
         {
           foodList.map((food, index) =>
             <React.Fragment key={index}>

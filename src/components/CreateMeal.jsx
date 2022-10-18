@@ -40,7 +40,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
     if (user === 'new-user') {
       const exampleBreakfast = [];
       const foods = [];
-      
+
       foods.push(Nutrients('apple').then(data => {
         exampleBreakfast.push(data)
       }))
@@ -51,7 +51,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
       foods.push(Nutrients('cereal').then(data => {
         exampleBreakfast.push(data)
       }))
-      Promise.all(foods).then(()=>{
+      Promise.all(foods).then(() => {
         setBreakfast(exampleBreakfast)
       })
     }
@@ -170,8 +170,8 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
-              <Button variant="contained" sx={{ ml: '1rem', mr: '1rem' }} onClick={handleClear}>Clear</Button>
-              <Button variant="contained"
+              <Button variant="contained" sx={{ ml: '1rem', mr: '1rem', color: 'primary.contrast' }} onClick={handleClear}>Clear</Button>
+              <Button sx={{ color: 'primary.contrast' }} variant="contained"
                 onClick={() => {
                   saveDailyMeal();
                   handleClear();

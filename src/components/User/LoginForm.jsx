@@ -81,14 +81,14 @@ const LoginForm = () => {
                             size="small"
                             type="password"
                         />
-                        <Button type="submit" variant="contained" color="primary" sx={{ mr: '1rem' }}>Login</Button>
+                        <Button type="submit" variant="contained" color="primary" sx={{ mr: '1rem',bgcolor:'secondary.main',color:'primary.contrast' }}>Login</Button>
                         <Button type="button" variant="contained" color="secondary" onClick={() => navigate('/register')}>create Account</Button>
                     </Box>
                 </form>
             ) :
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Typography variant="h5" component="h2" sx={{ mr: '7rem' }}>Welcome {`${capitalizeFirstLetter(user.username)}`}</Typography>
-                <Button type="button" variant="contained" onClick={handleLogout}>Logout</Button>
+                <Button sx={{ bgcolor: 'secondary.main', color: 'primary.contrast' }} type="button" variant="contained" onClick={handleLogout}>Logout</Button>
             </Box>
     )
 }

@@ -12,47 +12,20 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import CreateAccount from "./components/User/CreateAccount";
 import { UserProvider } from "./context/UserContext";
 
-const darkTheme = createTheme({
+const light = createTheme({
   palette: {
-    mode: 'dark',
-  },
-});
-
-
-const blueTheme = createTheme({
-  palette: {
-    type: 'dark',
     primary: {
-      main: '#00C7FC',
-      light: '#61DAFB',
-      dark: '#4EA2BC',
+      main: '#4EDC8E',
+      contrast: '#FFFFFF',
+      lightContrast: '#000000'
+
     },
     secondary: {
-      main: '#f50057',
-    },
-    background: {
-      paper: '#28282A',
-      default: '#1C1C1E',
-      dark: '#16181D',
-    },
-    typography: {
-      fontFamily: ['Roboto'],
-      fontWeight: 'bold',
-      color: 'white',
-
-    },
+      main: '#FF248E',
+    }
   },
-  breakpoints: {
-    values: {
-      mobile: 0,
-      tablet: 650,
-      laptop: 1024,
-      desktop: 1300,
-    },
-  },
-})
 
-const light = createTheme({
+
   breakpoints: {
     values: {
       mobile: 0,
