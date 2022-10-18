@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Typography, Divider, IconButton } from '@mui/material'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import { AddToggle, AddFoodMenu } from './';
+import NutrientLabel from './NutrientLabel/NutrientLabel';
 
 const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood }) => {
   const handleAddFood = (food) => {
@@ -45,7 +46,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{capitalizeFirstLetter(food.food_name)}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.qty} ${food.selectedUnit || food.serving_unit}`}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.nf_calories_scaled.toFixed(0)} cal`}</Typography>
-              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', color: '#4e80dc', fontWeight: '500' }}>details</Typography>
+              <NutrientLabel food={food} />
               <Box
                 list-id={index}
                 sx={{

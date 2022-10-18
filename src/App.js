@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CreateMeal, CustomAppBar, } from "./components";
+import { CreateMeal, CustomAppBar, NutrientLabel } from "./components";
 import { Box } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import '@fontsource/roboto/400.css';

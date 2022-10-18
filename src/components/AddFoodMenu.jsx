@@ -2,6 +2,7 @@ import { Box, Typography, Divider, Select, MenuItem, FormControl, InputLabel, Bu
 import React, { useEffect, useState } from 'react'
 import { Nutrients } from '../apiCalls';
 import CloseIcon from '@mui/icons-material/Close';
+import NutrientLabel from './NutrientLabel/NutrientLabel';
 
 const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
   const [foodInfo, setFoodInfo] = useState({});
@@ -127,7 +128,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
             <Typography textAlign='left' >{`Sodium: `}</Typography>
             <Typography textAlign='right'>{`${foodInfo.nf_sodium_scaled.toFixed(1)}`}</Typography>
           </Box>
-          <Typography sx={{ color: 'blue', pb: '1rem' }} textAlign='center'>Details</Typography>
+          <NutrientLabel food={foodInfo} />
           <Button variant="contained" onClick={() => {
             handleAddFood(foodInfo);
             clearFood();

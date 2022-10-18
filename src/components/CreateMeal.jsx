@@ -34,6 +34,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   const snacksCals = snacks.reduce((total, food) => (total + food.nf_calories_scaled), 0);
   const totalCals = breakfastCals + lunchCals + dinnerCals + snacksCals;
 
+
   useEffect(() => {
     // if use is new show an example of a daily meal plan
     if (user === 'new-user') {
