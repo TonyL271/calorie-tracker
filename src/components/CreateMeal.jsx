@@ -104,7 +104,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
         columnGap: '2rem',
         rowGap: '2rem',
         padding: '2rem',
-        height: {
+        minHeight: {
           mobile: '94vh',
           tablet: 'auto'
         },

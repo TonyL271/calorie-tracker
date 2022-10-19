@@ -55,7 +55,6 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
 
   return (
     <Box ref={ref} sx={{ minHeight: 'calc(100vh - 6vh)', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      {/* //TODO change from width to min-width, width use to be 50vw */}
       <Box id="calendar" sx={{
         width: `${minDim}px`,
         height: `${minDim}px`,
