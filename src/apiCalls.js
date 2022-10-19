@@ -1,5 +1,5 @@
-const api_id = '2aaffc7c'
-const api_key = '2ca7df59e0482b12ce395f5c05b9ce2d'
+const api_id = process.env.REACT_APP_NUTRITIONIX_APP_ID
+const api_key = process.env.REACT_APP_NUTRITIONIX_APP_KEY
 const url = 'https://trackapi.nutritionix.com/v2';
 const headers = {
     'x-app-id': api_id,
