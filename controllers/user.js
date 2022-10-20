@@ -1,4 +1,4 @@
-const UserModel = require('../models/user');
+const UserModel = require('../models/User');
 
 module.exports.login = (req, res, next) => {
     const user = new UserModel({
