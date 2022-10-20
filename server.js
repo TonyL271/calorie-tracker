@@ -1,8 +1,9 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
+const path = require('path');
 const app = express();
-app.use(express.static('../build'));
+app.use(express.static(path.join(__dirname, './dist')));
 mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true });
 
 app.use(express.json());
