@@ -13,6 +13,7 @@ import UserContext from '../context/UserContext';
 import { Nutrients } from '../apiCalls';
 
 const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
+  console.log(__dirname);
   const { user, saveUser } = useContext(UserContext);
   const [showAlert, setShowAlert] = useState(false);
 
