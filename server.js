@@ -5,7 +5,7 @@ const path = require('path');
 const app = express();
 const UserModel = require('./models/User');
 
-app.use(express.static(path.join(__dirname, './dist')));
+app.use('/',express.static(path.join(__dirname, 'dist')));
 mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true });
 
 mongoose.connection.on('connected', () => {

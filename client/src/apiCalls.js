@@ -38,14 +38,6 @@ const Nutrients = async (query) => {
         foodInfo.qty = 1
     }
     return foodInfo
-    // .then(function (response) {
-    //     return response.json();
-    // })
-    // .catch((err) => {
-    //     console.log('failed api request nutrients')
-    //     console.log(err)
-    //     return {}
-    // })
 }
 
 export { Search, Nutrients }

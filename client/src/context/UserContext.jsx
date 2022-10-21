@@ -7,7 +7,8 @@ export const UserProvider = ({ children }) => {
     const [user, saveUser] = useLocalStorage("user", "new-user");
 
     const guestLogin = (e) => {
-        fetch('/login', {
+        console.log(`${window.location.href}login`);
+        fetch(`${window.location.href}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
