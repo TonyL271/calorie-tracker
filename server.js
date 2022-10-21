@@ -24,6 +24,9 @@ mongoose.connection.on('connected', () => {
 
 app.use(express.json());
 app.use('/', require('./routes'));
+app.use('/hello', (req, res) => {
+    res.send('hello');
+});
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
