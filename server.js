@@ -8,17 +8,19 @@ const UserModel = require('./models/User');
 app.use(express.static(path.join(__dirname, './dist')));
 mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true });
 
-const GuestModel = new UserModel({
-    username: 'guest',
-    password: 'guest',
-    data: []
-})
-GuestModel.register()
-    .then(() => {
-        console.log('guest created');
-    }).catch(err => {
-        console.log(err);
-    });
+mongoose.connection.on('connected', () => {
+    const GuestModel = new UserModel({
+        username: 'guest',
+        password: 'guest',
+        data: []
+    })
+    GuestModel.register()
+        .then(() => {
+            console.log('guest created');
+        }).catch(err => {
+            console.log(err);
+        });
+});
 
 app.use(express.json());
 app.use('/', require('./routes'));
