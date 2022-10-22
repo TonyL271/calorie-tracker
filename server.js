@@ -5,7 +5,6 @@ const path = require('path');
 const app = express();
 const UserModel = require('./models/User');
 
-app.use('/',express.static(path.join(__dirname, 'dist')));
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 mongoose.connection.on('connected', () => {
@@ -22,6 +21,10 @@ mongoose.connection.on('connected', () => {
             console.log(err);
         });
 });
+
+if (process.env.NODE_ENV === 'production') {
+    app.use('./client/build');
+}
 
 app.use(express.json());
 app.use('/', require('./routes'));
