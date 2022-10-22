@@ -6,9 +6,10 @@ const app = express();
 const UserModel = require('./models/User');
 
 app.use('/',express.static(path.join(__dirname, 'dist')));
-mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 mongoose.connection.on('connected', () => {
+    console.log("connected");
     const GuestModel = new UserModel({
         username: 'guest',
         password: 'guest',
@@ -24,6 +25,7 @@ mongoose.connection.on('connected', () => {
 
 app.use(express.json());
 app.use('/', require('./routes'));
+
 app.use('/hello', (req, res) => {
     res.send('hello');
 });
