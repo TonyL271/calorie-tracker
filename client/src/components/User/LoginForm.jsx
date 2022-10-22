@@ -2,8 +2,7 @@ import React, { useContext } from 'react'
 import { Box, TextField, Button, styled, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
-
-
+import { login } from '../../apiCalls';
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -11,17 +10,7 @@ const LoginForm = () => {
 
     const handleLogin = (e) => {
         e.preventDefault()
-        fetch('/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: e.target.username.value.toLowerCase(),
-                password: e.target.password.value
-            })
-        })
-            .then(res => res.json())
+        login(e.target.username.value.toLowerCase(), e.target.password.value)
             .then(data => {
                 if (data.success) {
                     saveUser({ ...data.user })

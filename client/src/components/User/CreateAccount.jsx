@@ -1,35 +1,25 @@
 import { useState, useEffect } from 'react'
 import { Box, Typography, TextField, Button, styled, Alert, Collapse } from '@mui/material'
+import { register } from '../../apiCalls'
 
 const CreateAccount = () => {
     const handleRegister = (e) => {
         setAlert('')
         e.preventDefault();
-        // post to server
+        // post to server only if passwords match
         if (e.target.password.value !== e.target.confirmPassword.value) {
             setAlert('Passwords do not match');
             return;
         }
-        fetch('/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
+        register(e.target.username.value, e.target.password.value)
+            .then(data => {
+                if (data.success) {
+                    setAlert('Account created successfully')
+                } else {
+                    setAlert(data.message)
+                }
+            })
 
-            },
-            body: JSON.stringify({
-                username: e.target.username.value,
-                password: e.target.password.value
-            })
-        })
-            .then(res => {
-                res.json().then(data => {
-                    if (data.success) {
-                        setAlert('Account created successfully')
-                    } else {
-                        setAlert(data.message)
-                    }
-                })
-            })
             .catch(err => console.log(err))
     }
 

@@ -1,3 +1,4 @@
+import { DailyMeal } from "./components/DailyMeal";
 const api_id = "ccc0b1b6"
 const api_key = "58f8a52890dad8e8d0672e2c9d5491e1"
 const url = 'https://trackapi.nutritionix.com/v2';
@@ -6,7 +7,6 @@ const headers = {
     'x-app-id': api_id,
     'x-app-key': api_key,
 }
-
 
 const Search = async (query) => {
     return fetch(url + '/search/instant' + `?query=${query}`, { headers })
@@ -40,4 +40,59 @@ const Nutrients = async (query) => {
     return foodInfo
 }
 
-export { Search, Nutrients }
+const guestLogin = () => (
+    fetch(`/api/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: 'guest',
+            password: 'guest'
+        })
+    }).then(res => res.json())
+)
+
+const login = (username, password) => (
+    fetch('/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password
+        })
+    }).then(res => res.json())
+)
+
+const register = (username, password) => (
+    fetch('/api/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password
+        })
+    })
+        .then(res => res.json())
+)
+
+const addMeal = (username, breakfast, lunch, dinner, snacks, date) => (
+    fetch('/api/addMeal', {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            dailyMeal: new DailyMeal(date, breakfast, lunch, dinner, snacks)
+        })
+    })
+        .then(res => res.json())
+)
+
+export { Search, Nutrients, guestLogin, login, register, addMeal }

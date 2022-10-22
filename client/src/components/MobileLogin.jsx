@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import UserContext from '../context/UserContext'
 import { Box, Typography, TextField, Button, styled, Alert, Collapse } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { login } from '../apiCalls'
 
 
 const MobileLogin = () => {
@@ -18,17 +19,7 @@ const MobileLogin = () => {
 
     const handleLogin = (e) => {
         e.preventDefault()
-        fetch('/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: e.target.username.value.toLowerCase(),
-                password: e.target.password.value
-            })
-        })
-            .then(res => res.json())
+        login(e.target.username.value, e.target.password.value)
             .then(data => {
                 if (data.success) {
                     saveUser({ ...data.user })

@@ -3,9 +3,7 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const dbo = require('./db/calApp');
 
-
 router.post('/login', async (req, res, next) => {
-
     const col = dbo.getDb().collection("users");
     const user = await col.findOne({ username: req.body.username });
     try {
@@ -36,6 +34,7 @@ router.post('/register', async (req, res, next) => {
 });
 
 router.patch('/addMeal', async (req, res, next) => {
+    console.log(req.body);
     const col = dbo.getDb().collection("users");
     try {
         col.updateOne({ username: req.body.username }, { $push: { dailyMeals: req.body.dailyMeal } });

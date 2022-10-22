@@ -10,7 +10,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import IcecreamIcon from '@mui/icons-material/Icecream';
 import { DailyMeal } from './DailyMeal';
 import UserContext from '../context/UserContext';
-import { Nutrients } from '../apiCalls';
+import { addMeal, Nutrients } from '../apiCalls';
 
 const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   const { user, saveUser } = useContext(UserContext);
@@ -33,7 +33,6 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   const dinnerCals = dinner.reduce((total, food) => (total + food.nf_calories_scaled), 0);
   const snacksCals = snacks.reduce((total, food) => (total + food.nf_calories_scaled), 0);
   const totalCals = breakfastCals + lunchCals + dinnerCals + snacksCals;
-
 
   useEffect(() => {
     // if use is new show an example of a daily meal plan
@@ -65,26 +64,12 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   }
   const saveDailyMeal = () => {
     if (user) {
-      fetch('/addMeal', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: user.username,
-          dailyMeal: new DailyMeal(date, breakfast, lunch, dinner, snacks)
-        })
-      })
-        .then(res => res.json())
-        .then(data => {
-          saveUser(data.user)
-        })
+      addMeal(user.username, breakfast, lunch, dinner, snacks, date)
         .catch(err => console.log(err.message))
     } else {
       setDailyMeals([...dailyMeals, new DailyMeal([...date], [...breakfast], [...lunch], [...dinner], [...snacks])]);
     }
   }
-
 
   return (
     <Box sx={{ minHeight: 'calc(100vh - 6vh)', width: '100%', }}>
