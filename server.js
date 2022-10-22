@@ -1,38 +1,21 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const express = require('express');
-const path = require('path');
-const app = express();
-const UserModel = require('./models/User');
+const dbo = require('./db/calApp');
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+const port = 3000
 
-mongoose.connection.on('connected', () => {
-    console.log("connected");
-    const GuestModel = new UserModel({
-        username: 'guest',
-        password: 'guest',
-        data: []
-    })
-    GuestModel.register()
-        .then(() => {
-            console.log('guest created');
-        }).catch(err => {
-            console.log(err);
-        });
-});
+app.use(cors());
+app.use(express.json());
+app.use('/api', require('./routes'));
 
 if (process.env.NODE_ENV === 'production') {
-    app.use('./client/build');
+    app.use(express.static('./client/build'));
 }
 
-app.use(express.json());
-app.use('/', require('./routes'));
+dbo.run().then(db => {
+    app.listen(process.env.PORT || port, () => {
+        console.log(`Example app listening on port ${process.env.PORT}`)
+    })
+})
 
-app.use('/hello', (req, res) => {
-    res.send('hello');
-});
-
-app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`);
-});
