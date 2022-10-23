@@ -1,5 +1,5 @@
 import { useState, Fragment } from 'react'
-import { Box, Typography, IconButton, Menu,  InputBase, Divider,} from '@mui/material';
+import { Box, Typography, IconButton, Menu, InputBase, Divider, } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import { Search } from '../apiCalls'
@@ -40,15 +40,15 @@ const AddToggle = ({ setAddFood }) => {
   return (
     <Fragment>
       <IconButton sx={{
-        position: 'absolute',
         height: '2.5rem',
         width: '2.5rem',
-        left: '2rem',
+        mx: { mobile: '1rem', tablet: '2rem' },
         color: 'primary.contrast',
+        margin: 'auto',
       }}
         onClick={handleClick}
       >
-        <AddCircleTwoToneIcon size='large' sx={{ position: 'absolute', height: '2.5rem', width: '2.5rem', }} />
+        <AddCircleTwoToneIcon size='large' sx={{ position: 'absolute', height: '100%', width: '100%', }} />
       </IconButton>
       <Menu className="add-menu"
         anchorEl={anchorEl}

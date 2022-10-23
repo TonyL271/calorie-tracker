@@ -72,25 +72,25 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   }
 
   return (
-    <Box sx={{ minHeight: 'calc(100vh - 6vh)', width: '100%', }}>
+    <Box sx={{ minHeight: 'calc(100vh - 65px)', width: '100%', }}>
       <Box className="main" sx={{
         position: 'relative',
-        top: '10%',
+        top: { mobile: '0', tablet: '10%' },
         display: 'grid',
         width:
         {
           mobile: '100%',
           tablet: '80%'
         },
-        margin: 'auto',
+        mx: 'auto',
         bgcolor: 'ghostwhite',
         boxShadow: '0 0 8px',
         borderRadius: '4px',
         columnGap: '2rem',
         rowGap: '2rem',
-        padding: '2rem',
+        padding: { mobile: '2rem 0.5rem 2rem 0.5rem', tablet: '2rem' },
         minHeight: {
-          mobile: '94vh',
+          mobile: '100%',
           tablet: 'auto'
         },
         gridTemplateColumns: {
@@ -100,7 +100,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
       }}>
         <MealDetails
           mealType="Breakfast"
-          Icon={<FreeBreakfastIcon sx={{ mr: '1rem' }} />}
+          Icon={<FreeBreakfastIcon sx={{position:'absolute',left:'-2.5rem' }} />}
           foodList={breakfast}
           addFood={addBreakFast}
           setFoodList={setBreakfast}
@@ -108,7 +108,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
         />
         <MealDetails
           mealType="Lunch"
-          Icon={<LunchDiningIcon sx={{ mr: '1rem' }} />}
+          Icon={<LunchDiningIcon sx={{position:'absolute',left:'-2.5rem' }} />}
           foodList={lunch}
           addFood={addLunch}
           setFoodList={setLunch}
@@ -116,7 +116,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
         />
         <MealDetails
           mealType="Dinner"
-          Icon={<RestaurantIcon sx={{ mr: '1rem' }} />}
+          Icon={<RestaurantIcon sx={{position:'absolute',left:'-2.5rem' }} />}
           foodList={dinner}
           addFood={addDinner}
           setFoodList={setDinner}
@@ -124,19 +124,21 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
         />
         <MealDetails
           mealType="Snacks"
-          Icon={<IcecreamIcon sx={{ mr: '1rem' }} />}
+          Icon={<IcecreamIcon sx={{position:'absolute',left:'-2.5rem' }} />}
           foodList={snacks}
           addFood={addSnacks}
           setFoodList={setSnacks}
           setAddFood={setAddSnacks}
         />
-        <Box sx={{ height: '100px', gridColumn: '1/-1' }}>
-          <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057' }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
+        <Box sx={{ height: '100px', gridColumn: '1/-1', }}>
+          <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057', mb: { mobile: '1rem', tablet: '0' } }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
           <Box sx={{ position: 'relative' }}>
             <FormGroup variant="contained" sx={{
               display: 'flex',
               flexDirection: 'row',
-              position: 'absolute',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              position: { mobile: 'relative', tablet: 'absolute' },
               right: '0',
               bgcolor: 'background.forground',
               boxShadow: '0'
@@ -153,17 +155,24 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
                     }
                   }
                   renderInput={(params) => <TextField className='lookatme' sx={{
+                    width: '120px',
                     '& .MuiInputLabel-root': {
-                      color: 'primary.lightContrast'
+                      color: 'secondary.main',
+                      fontWeight: '500'
                     },
                     '& fieldset': {
-                      borderColor: 'primary.lightContrast'
+                      borderColor: 'primary.lightContrast',
+                      borderWidth: '2.5px'
+                    },
+                    '& input': {
+                      color: 'secondary.main'
+
                     }
                   }} {...params} />}
                 />
               </LocalizationProvider>
-              <Button variant="contained" sx={{ ml: '1rem', mr: '1rem', color: 'primary.contrast' }} onClick={handleClear}>Clear</Button>
-              <Button sx={{ color: 'primary.contrast' }} variant="contained"
+              <Button variant="contained" sx={{ bgcolor: 'red', height: '61px', ml: '1rem', mr: '1rem', color: 'primary.contrast', fontWeight: 900 }} onClick={handleClear}>Clear</Button>
+              <Button sx={{ color: 'primary.contrast', fontWeight: 900 }} variant="contained"
                 onClick={() => {
                   saveDailyMeal();
                   handleClear();

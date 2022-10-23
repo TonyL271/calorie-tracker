@@ -11,7 +11,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
   }
   const capitalizeFirstLetter = (string) => (string.charAt(0).toUpperCase() + string.slice(1))
   return (
-    <Box className="meal-details" sx={{ width: '100%', border: 'solid 6px',borderColor:'primary.main', borderTop: '0', p: '1rem', pt: '0rem', }}>
+    <Box sx={{ width: '100%', border: 'solid 6px', borderColor: 'primary.main', borderTop: '0', p: '1rem', pt: '0rem', fontSize: { mobile: '0.8rem', tablet: '1rem' } }}>
       <Box sx={{
         display: 'flex',
         alignItems: 'center',
@@ -24,9 +24,25 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         height: '3.5rem',
         position: 'relative'
       }}>
-        <AddToggle foodList={foodList} setFoodList={setFoodList} setAddFood={setAddFood} />
-        {Icon}
-        <Typography variant='h4' component="h2" align='center' sx={{ fontWeight: '800', }}>{mealType}</Typography>
+        <Box sx={{
+          width: '100%',
+          display: 'grid',
+          gridTemplateColumns: { mobile: '3.5rem auto', tablet: '4.5rem auto' },
+        }}>
+          <AddToggle foodList={foodList} setFoodList={setFoodList} setAddFood={setAddFood} />
+          <Box sx={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            mx: 'auto',
+          }}>
+            <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              {Icon}
+              <Typography variant='h4' component="h2" align='center' sx={{ fontWeight: '800', }}>{mealType}</Typography>
+            </Box>
+          </Box>
+        </Box>
       </Box>
       <Box sx={{
         width: '100%',
@@ -34,10 +50,10 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         gridTemplateColumns: 'repeat(6,auto)',
         gridRowGap: '0.20rem',
       }}>
-        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: '1.1rem', fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
-        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: '1.1rem', fontWeight: 700, }}>Amount</Typography>
-        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: '1.1rem', fontWeight: 700, }} >Calories</Typography>
-        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: '1.1rem', fontWeight: 700, gridColumn: '-2/-1' }} ></Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, }}>Amount</Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, }} >Calories</Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, gridColumn: '-2/-1' }} ></Typography>
         {
           foodList.map((food, index) =>
             <React.Fragment key={index}>
@@ -91,7 +107,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         }
       </Box>
       <AddFoodMenu addFood={addFood} setAddFood={setAddFood} handleAddFood={handleAddFood} />
-    </Box>
+    </Box >
   )
 }
 

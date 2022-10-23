@@ -3,6 +3,7 @@ import { useState } from "react";
 import getNutrients from "./nutrients";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHandPointer } from '@fortawesome/free-regular-svg-icons'
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const NutrientLabel = ({ food }) => {
@@ -30,20 +31,24 @@ const NutrientLabel = ({ food }) => {
 
    return (
       <Box sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-         <Typography
+         <Box
             sx={{
                color: 'primary.contrast',
-               // textDecoration: 'underline',
                padding: '0.25rem',
-               paddingRight: '0.6rem',
+               paddingRight: { mobile: '0.25rem', tablet: '0.6rem' },
                bgcolor: 'secondary.main',
                display: 'flex', justifyContent: 'center', alignItems: 'center',
+               "& svg": {
+                  display: { mobile: 'none', tablet: 'inline-block' },
+                  px: '0.25rem',
+               },
             }}
             onMouseOver={handleHover}
+            onClick={handleHover}
          >
-            <FontAwesomeIcon style={{ paddingLeft: '0.25rem', paddingRight: '0.25rem' }} icon={faHandPointer} />
+            <FontAwesomeIcon icon={faHandPointer} />
             Details
-         </Typography>
+         </Box>
          <Menu
             sx={{
                '& .MuiMenu-list': {
@@ -63,8 +68,14 @@ const NutrientLabel = ({ food }) => {
                horizontal: 'left',
             }}
          >
-            <MenuItem sx={{ padding: '10px', whiteSpace: 'normal' }} >
-               <TableContainer component={Paper} sx={{ width: '300px', height: '100%', border: 'solid 1px black', padding: '8px' }}>
+            <MenuItem sx={{ padding: { mobile: 0, tablet: '8px' }, whiteSpace: 'normal', }} >
+               <CloseIcon sx={{
+                  display: { mobile: 'inline-block', tablet: 'none' },
+                  position: 'absolute', stroke: "red", strokeWidth: '2',
+                  top: '0.25rem', right: '0.25rem',
+                  color: 'red', cursor: 'pointer'
+               }} onClick={handleClose} />
+               <TableContainer component={Paper} sx={{ width: '300px', height: '100%', border: { mobile: 'none', tablet: 'solid 1px black' }, padding: '8px', }}>
                   <Box component="header" borderBottom="solid 10px black" width='100%' >
                      <Typography variant="h1" sx={{ fontSize: '2rem', my: '0', fontWeight: 'bold', letterSpacing: '-1' }} >Nutrition Facts</Typography>
                      <Typography variant="body" display="block" sx={{}} >{`Serving Size ${food.serving_unit} (${food.serving_weight_grams}g)`}</Typography>
@@ -163,8 +174,10 @@ const NutrientLabel = ({ food }) => {
                            )
                            :
                            (
-                              Object.entries(nutrients.microNutrients).map(([key, value]) => (
-                                 <TableRow key={key}>
+                              Object.entries(nutrients.microNutrients).map(([key, value], idx) => (
+                                 <TableRow key={key} sx={{
+                                    borderBottom: idx === Object.entries(nutrients.microNutrients).length - 1 ? 'solid 5px black' : 'solid 1px black'
+                                 }}>
                                     <StyledTableCell component="th" scope="row" colSpan={2} sx={{ textTransform: 'capitalize' }} >
                                        <b>{key.replace('_', ' ')}  </b>{value.amount}{value.unit}
                                     </StyledTableCell>

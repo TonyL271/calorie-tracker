@@ -40,7 +40,7 @@ const CreateAccount = () => {
     }, [alert])
 
     return (
-        <Box sx={{ width: '100%', minHeight: 'calc(100vh - 6vh)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', minHeight: 'calc(100vh - 65px)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Box
                 sx={{
                     display: 'flex',
