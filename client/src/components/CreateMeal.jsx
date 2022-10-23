@@ -73,7 +73,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
 
   return (
     <Box sx={{ minHeight: 'calc(100vh - 65px)', width: '100%', }}>
-      <Box className="main" sx={{
+      <Box sx={{
         position: 'relative',
         top: { mobile: '0', tablet: '10%' },
         display: 'grid',
@@ -154,7 +154,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
                       setDate(newValue);
                     }
                   }
-                  renderInput={(params) => <TextField className='lookatme' sx={{
+                  renderInput={(params) => <TextField  sx={{
                     width: '120px',
                     '& .MuiInputLabel-root': {
                       color: 'secondary.main',

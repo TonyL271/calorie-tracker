@@ -50,7 +50,7 @@ const AddToggle = ({ setAddFood }) => {
       >
         <AddCircleTwoToneIcon size='large' sx={{ position: 'absolute', height: '100%', width: '100%', }} />
       </IconButton>
-      <Menu className="add-menu"
+      <Menu 
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -68,43 +68,49 @@ const AddToggle = ({ setAddFood }) => {
       >
         <Box
           component="form"
-          sx={{
+          sx={(theme) => ({
             p: '2px 4px',
             width: '100%',
             maxWidth: '20rem',
             height: '3rem',
             display: 'flex',
             alignItems: 'center',
-            boxShadow: '0 1px 3px',
-            borderRadius: '5px'
-          }}
+            boxShadow: `0 1px 3px ${theme.palette.primary.main}`,
+            borderRadius: '5px',
+          })}
         >
           <InputBase
-            sx={{ ml: 1, flex: 1, height: '100%' }}
+            sx={{ ml: 1, flex: 1, height: '100%', color: 'secondary.main' }}
             placeholder="Search food"
             inputProps={{ 'aria-label': 'search google maps' }}
             onChange={getSearchSuggestion}
           />
           <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-            <SearchIcon />
+            <SearchIcon sx={{color:'primary.lightContrast'}} />
           </IconButton>
         </Box>
-        <Typography variant="h6" component="h6" sx={{ pt: '0.5rem', fontSize: '0.7rem', fontColor: 'grey' }}>COMMON FOODS {`(${Math.min(suggestion.common.length, 5)})`}</Typography>
-        <Divider sx={{ my: '0!important' }} />
+        <Typography variant="h6" component="h6" sx={{
+          pt: '0.5rem', fontSize: '0.7rem', color: 'primary.main',
+          borderColor: 'secondary.main'
+        }}>COMMON FOODS {`(${Math.min(suggestion.common.length, 5)})`}</Typography>
+        <Divider sx={{ borderWidth: '2px', borderColor: 'primary.main', my: '0!important' }} />
         {
           suggestion.common.map((food, idx) =>
             <FoodMenuItem key={idx} food={food} setAddFood={setAddFood} handleClose={handleClose} />
           )
         }
-        <Typography variant="h6" component="h6" sx={{ pt: '0.5rem', fontSize: '0.7rem', fontColor: 'grey' }}>BRANDED FOODS {`(${Math.min(suggestion.branded.length, 3)})`}</Typography>
-        <Divider sx={{ my: '0!important' }} />
+        <Typography variant="h6" component="h6" sx={{
+          pt: '0.5rem', fontSize: '0.7rem', color: 'secondary.main'
+        }}>
+          BRANDED FOODS {`(${Math.min(suggestion.branded.length, 3)})`}</Typography>
+        <Divider sx={{ my: '0!important', borderWidth: '2px', borderColor: 'secondary.main' }} />
         {
           suggestion.branded.map((food, idx) =>
             <FoodMenuItem key={idx} food={food} setAddFood={setAddFood} handleClose={handleClose} />
           )
         }
       </Menu>
-    </Fragment>
+    </Fragment >
   )
 }
 

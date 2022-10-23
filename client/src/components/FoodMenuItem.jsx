@@ -1,13 +1,15 @@
 import { Box, MenuItem, Divider, ListItemText } from '@mui/material';
-const FoodMenuItem = ({food,setAddFood,handleClose}) => {
+const FoodMenuItem = ({ food, setAddFood, handleClose }) => {
     return (
-        <Box >
+        <Box sx={{
+            "& hr": { borderColor: 'black' }
+        }}>
             <MenuItem onClick={(e) => {
                 setAddFood(food.food_name);
                 handleClose();
             }} sx={{
                 whiteSpace: 'initial',
-                py: 0
+                py: 0,
             }} >
                 <Box component="img" sx={{
                     maxWidth: '2rem',

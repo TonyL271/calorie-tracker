@@ -112,7 +112,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
           </Box>
           <Divider sx={{ mb: '1rem', bgcolor: 'secondary.main' }} />
           <Typography variant='h5' component="h5" sx={{ color: 'primary.lightContrast', textTransform: 'capitalize', fontWeight: '500' }}>{addFood}</Typography>
-          <Box className="add-options" sx={{ display: 'flex', mb: '2rem' }}>
+          <Box sx={{ display: 'flex', mb: '2rem' }}>
             <Box sx={{ height: '3rem', mr: '1rem' }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', }}>
               <TextField variant="outlined" label="qty"
@@ -151,7 +151,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
             <Typography sx={{ mr: '0.5rem', fontWeight: '700' }}>Total Calories: </Typography>
             <Typography >{`${foodInfo.nf_calories_scaled.toFixed(0)} `}</Typography>
           </Box>
-          <Box className="add-nutrient" sx={{ display: 'grid', mb: '1rem', gridTemplateColumns: '1fr 1fr 1fr 1fr', columnGap: '1rem' }}>
+          <Box sx={{ display: 'grid', mb: '1rem', gridTemplateColumns: '1fr 1fr 1fr 1fr', columnGap: '1rem' }}>
             <Typography fontWeight="700" textAlign='left' >{`Protein: `}</Typography>
             <Typography textAlign='right' >{`${foodInfo.nf_protein_scaled.toFixed(1)}g`}</Typography>
             <Typography fontWeight="700" textAlign='left' >{`Carbs: `}</Typography>
