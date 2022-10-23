@@ -29,7 +29,11 @@ router.post('/register', async (req, res, next) => {
         await col.insertOne({ username: req.body.username, password: hashedPassword, dailyMeals: [] })
         res.send({ success: true, msg: 'sucessful registration' });
     } catch (error) {
-        res.send({ success: false, error, msg: 'internal server error' });
+        if (error.code === 11000) {
+            res.send({ success: false, msg: 'username already exists' });
+        } else {
+            res.send({ success: false, error, msg: 'internal server error' });
+        }
     }
 });
 

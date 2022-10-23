@@ -16,10 +16,9 @@ const CreateAccount = () => {
                 if (data.success) {
                     setAlert('Account created successfully')
                 } else {
-                    setAlert(data.message)
+                    setAlert(data.msg)
                 }
             })
-
             .catch(err => console.log(err))
     }
 

@@ -9,7 +9,7 @@ const NutrientLabel = ({ food }) => {
    const nutrients = getNutrients(food);
    const [anchorEl, setAnchorEl] = useState(null);
    const open = Boolean(anchorEl);
-   const handleClick = (event) => {
+   const handleHover = (event) => {
       setAnchorEl(event.currentTarget);
    };
    const handleClose = () => {
@@ -39,7 +39,7 @@ const NutrientLabel = ({ food }) => {
                bgcolor: 'secondary.main',
                display: 'flex', justifyContent: 'center', alignItems: 'center',
             }}
-            onMouseOver={handleClick}
+            onMouseOver={handleHover}
          >
             <FontAwesomeIcon style={{ paddingLeft: '0.25rem', paddingRight: '0.25rem' }} icon={faHandPointer} />
             Details
@@ -63,7 +63,7 @@ const NutrientLabel = ({ food }) => {
                horizontal: 'left',
             }}
          >
-            <MenuItem sx={{ padding: '10px', whiteSpace: 'normal' }} onClick={handleClose}>
+            <MenuItem sx={{ padding: '10px', whiteSpace: 'normal' }} >
                <TableContainer component={Paper} sx={{ width: '300px', height: '100%', border: 'solid 1px black', padding: '8px' }}>
                   <Box component="header" borderBottom="solid 10px black" width='100%' >
                      <Typography variant="h1" sx={{ fontSize: '2rem', my: '0', fontWeight: 'bold', letterSpacing: '-1' }} >Nutrition Facts</Typography>
