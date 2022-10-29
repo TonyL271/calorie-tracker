@@ -72,7 +72,6 @@ const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
                         )
                         }
                     </ListItem>
-
                     {user && (
                         <ListItem >
                             <ListItemButton onClick={() => { handleLogout() }}>
@@ -81,7 +80,6 @@ const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
                             </ListItemButton>
                         </ListItem>
                     )}
-
                     <Divider />
                     <ListItem>
                         <Box display="flex" width="100%" justifyContent="center" alignItems="center" flexDirection="column">

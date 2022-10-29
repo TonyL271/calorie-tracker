@@ -37,6 +37,7 @@ const NutrientLabel = ({ food }) => {
                padding: '0.25rem',
                paddingRight: { mobile: '0.25rem', tablet: '0.6rem' },
                bgcolor: 'secondary.main',
+               borderRadius:'5px',
                display: 'flex', justifyContent: 'center', alignItems: 'center',
                "& svg": {
                   display: { mobile: 'none', tablet: 'inline-block' },

@@ -85,7 +85,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
         mx: 'auto',
         bgcolor: 'ghostwhite',
         boxShadow: '0 0 8px',
-        borderRadius: '4px',
+        borderRadius: '8px',
         columnGap: '2rem',
         rowGap: '2rem',
         padding: { mobile: '2rem 0.5rem 2rem 0.5rem', tablet: '2rem' },

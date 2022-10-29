@@ -11,7 +11,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
   }
   const capitalizeFirstLetter = (string) => (string.charAt(0).toUpperCase() + string.slice(1))
   return (
-    <Box sx={{ width: '100%', border: 'solid 6px', borderColor: 'primary.main', borderTop: '0', p: '1rem', pt: '0rem', fontSize: { mobile: '0.8rem', tablet: '1rem' } }}>
+    <Box sx={{ width: '100%', border: 'solid 6px', borderColor: 'primary.main', borderTop: '0', p: '1rem', pt: '0rem', fontSize: { mobile: '0.8rem', tablet: '1rem' },borderRadius:'10px' }}>
       <Box sx={{
         display: 'flex',
         alignItems: 'center',
@@ -22,7 +22,9 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         mb: '1rem',
         mx: '-19px',
         height: '3.5rem',
-        position: 'relative'
+        position: 'relative',
+        borderTopLeftRadius:'8px',
+        borderTopRightRadius:'8px',
       }}>
         <Box sx={{
           width: '100%',
