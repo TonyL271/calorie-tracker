@@ -47,6 +47,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
       <Box sx={{
         width: '100%',
         display: 'grid',
+        gridGap:'4px',
         gridTemplateColumns: 'repeat(6,auto)',
         gridRowGap: '0.20rem',
       }}>
@@ -67,7 +68,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
               <Box
                 list-id={index}
                 sx={{
-                  zIndex: '10',
+                  zIndex: '0',
                   display: 'flex',
                   justifyContent: 'center',
                   alignContent: 'center',

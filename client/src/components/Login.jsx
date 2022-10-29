@@ -72,13 +72,6 @@ const MobileLogin = () => {
                         size="small"
                         type="password"
                     />
-                    <TextFieldStyled
-                        label="Confirm Password"
-                        name="confirmPassword"
-                        variant="outlined"
-                        size="small"
-                        type="password"
-                    />
                     <Button type="submit" variant="contained" color="secondary" sx={{ mb: '1rem' }} >Sign In</Button>
                 </Box>
             </Box>
