@@ -37,7 +37,7 @@ const NutrientLabel = ({ food }) => {
                padding: '0.25rem',
                paddingRight: { mobile: '0.25rem', tablet: '0.6rem' },
                bgcolor: 'secondary.main',
-               borderRadius:'5px',
+               borderRadius: '5px',
                display: 'flex', justifyContent: 'center', alignItems: 'center',
                "& svg": {
                   display: { mobile: 'none', tablet: 'inline-block' },
@@ -54,7 +54,14 @@ const NutrientLabel = ({ food }) => {
             sx={{
                '& .MuiMenu-list': {
                   padding: 0
+               },
+               '& > .MuiPaper-root': {
+                  bgcolor: '#fff',
+                  border:'solid 3px',
+                  borderColor:'black',
+                  borderRadius:'10px'
                }
+
             }}
             anchorEl={anchorEl}
             open={open}
@@ -69,14 +76,14 @@ const NutrientLabel = ({ food }) => {
                horizontal: 'left',
             }}
          >
-            <MenuItem sx={{ padding: { mobile: 0, tablet: '8px' }, whiteSpace: 'normal', }} >
+            <MenuItem sx={{ padding: 0, whiteSpace: 'normal', }} >
                <CloseIcon sx={{
                   display: { mobile: 'inline-block', tablet: 'none' },
                   position: 'absolute', stroke: "red", strokeWidth: '2',
                   top: '0.25rem', right: '0.25rem',
                   color: 'red', cursor: 'pointer'
                }} onClick={handleClose} />
-               <TableContainer component={Paper} sx={{ width: '300px', height: '100%', border: { mobile: 'none', tablet: 'solid 1px black' }, padding: '8px', }}>
+               <TableContainer component={Paper} sx={{ width: '300px', height: '100%', padding: '8px', boxShadow:'none', }}>
                   <Box component="header" borderBottom="solid 10px black" width='100%' >
                      <Typography variant="h1" sx={{ fontSize: '2rem', my: '0', fontWeight: 'bold', letterSpacing: '-1' }} >Nutrition Facts</Typography>
                      <Typography variant="body" display="block" sx={{}} >{`Serving Size ${food.serving_unit} (${food.serving_weight_grams}g)`}</Typography>
