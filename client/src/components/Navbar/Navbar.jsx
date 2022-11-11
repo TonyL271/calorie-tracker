@@ -18,17 +18,6 @@ const Navbar = () => {
 
     const isRoot = location.pathname === '/';
 
-    const NavButton = () => (isRoot ? (
-
-        <Button component={Link} to="/calendar" variant="contained" color="secondary" startIcon={<CalendarMonthIcon />}>
-            Planner
-        </Button>
-    ) : (
-        <Button component={Link} to="/" variant="contained" color="secondary" startIcon={<AddIcon />}>
-            Add Meal
-        </Button>
-    ))
-
     return (
         <AppBar sx={{
             height: '65px',
@@ -42,21 +31,56 @@ const Navbar = () => {
             top: '0',
             left: '0',
         }} >
-            <Toolbar sx={{ position: 'relative', width: '100%', height: '100%', alignItems: 'center', justifyContent: { tablet: 'center', mobile: 'start' } }}>
+            <Toolbar sx={{ position: 'relative', width: '100%', height: '100%', alignItems: 'center', justifyContent: { tablet: 'center', mobile: 'flex-start', } }}>
                 <HamburgerButton />
-                <Box >
-                    <Button onClick={()=>{navigate('/')}} variant="h1" component="h1" sx={{ fontWeight: '600', textAlign: 'center', flexGrow: 1, fontSize: '1.5rem' }}>
-                        <FastfoodIcon sx={{ mr: '1rem' }} />
+                <Box sx={{}}>
+                    <Button onClick={() => { navigate('/') }} variant="h1" component="h1"
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'column',
+                            fontWeight: '600',
+                            textAlign: 'center',
+                            width: { mobile: '80px', tablet: '320px' },
+                            fontSize: {
+                                mobile: '1rem',
+                                tablet: '1.5rem'
+                            },
+                            lineHeight: '1.0',
+                            padding: '0',
+                        }}>
+                        <FastfoodIcon sx={{ mr: { mobile: 0, tablet: '1rem' } }} />
                         Calorie Tracker
                     </Button>
                 </Box>
-                {user && (
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Typography variant="h5" component="h2" sx={{ mr: '7rem' }}>Welcome {`${capitalizeFirstLetter(user.username)}`}</Typography>
+                {user && user.username && (
+                    <Box sx={{
+                        display: { mobile: 'flex', },
+                        position: { mobile: 'static', tablet: 'absolute' },
+                        right: '2rem',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: { mobile: '100%', tablet: 'auto' },
+                        paddingRight: '42px'
+                    }}>
+                        <Typography variant="h5" component="h2"
+                            sx={{
+                                lineHeight: '1',
+                                color: 'primary.lightContrast',
+                                fontSize: '1.3rem',
+                                textAlign: 'center',
+                                fontWeight: '600',
+                                textTransform: 'uppercase',
+                            }}>
+                            Welcome
+                            <br />
+                            {`${capitalizeFirstLetter(user.username)}`}
+                        </Typography>
                     </Box>
                 )}
             </Toolbar>
-        </AppBar>
+        </AppBar >
     )
 }
 

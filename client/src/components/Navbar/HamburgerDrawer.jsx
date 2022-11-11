@@ -53,7 +53,7 @@ const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
                     {!user && (
                         <ListItem >
                             <ListItemButton onClick={() => { navigate('/sign-in') }}>
-                                <LockOpenIcon sx={{ mr: '1rem',color:'orange' }} />
+                                <LockOpenIcon sx={{ mr: '1rem', color: 'orange' }} />
                                 <ListItemText primary={"Sign-in"} />
                             </ListItemButton>
                         </ListItem>
@@ -62,11 +62,11 @@ const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
                     <ListItem >
                         {location.pathname === '/' ? (
                             <ListItemButton onClick={() => { navigate('/calendar') }}>
-                                <CalendarMonthIcon sx={{ mr: "1rem",color:'primary.main' }} />
+                                <CalendarMonthIcon sx={{ mr: "1rem", color: 'primary.main' }} />
                                 <ListItemText primary={"View Planner"} />
                             </ListItemButton>) : (
                             <ListItemButton onClick={() => { navigate('/') }}>
-                                <FastfoodIcon sx={{ mr: "1rem",color:'primary.main' }} />
+                                <FastfoodIcon sx={{ mr: "1rem", color: 'primary.main' }} />
                                 <ListItemText primary={"Add Food"} />
                             </ListItemButton>
                         )
@@ -75,13 +75,13 @@ const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
                     {user && (
                         <ListItem >
                             <ListItemButton onClick={() => { handleLogout() }}>
-                                <LockIcon sx={{ mr: '1rem' }} />
+                                <LockIcon sx={{ mr: '1rem', color: 'orange' }} />
                                 <ListItemText primary={"Sign-out"} />
                             </ListItemButton>
                         </ListItem>
                     )}
                     <Divider />
-                    <ListItem>
+                    <ListItem onClick={(e) => { e.stopPropagation() }}>
                         <Box display="flex" width="100%" justifyContent="center" alignItems="center" flexDirection="column">
                             <Typography sx={{ display: 'block' }} id="discrete-slider" gutterBottom>Theme</Typography>
                             <Slider
@@ -100,12 +100,12 @@ const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
                             />
                         </Box>
                     </ListItem>
-                    <Divider/>
+                    <Divider />
                     <ListItem >
-                            <ListItemButton onClick={() => { }}>
-                                <FeedbackIcon sx={{ mr: "1rem",color:'red' }} />
-                                <ListItemText primary={"Send Feedback"} />
-                            </ListItemButton>
+                        <ListItemButton onClick={() => { }}>
+                            <FeedbackIcon sx={{ mr: "1rem", color: 'red' }} />
+                            <ListItemText primary={"Send Feedback"} />
+                        </ListItemButton>
                     </ListItem>
                 </List>
             </Box>

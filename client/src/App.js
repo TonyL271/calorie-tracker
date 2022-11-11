@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { CreateMeal,  LoginForm, NutrientLabel } from "./components";
-import {Navbar} from "./components/Navbar"
+import { useState } from "react";
+import { CreateMeal } from "./components/createmeal";
+import { Navbar } from "./components/Navbar"
 import { Box } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import '@fontsource/roboto/400.css';
@@ -13,6 +13,7 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import CreateAccount from "./components/User/CreateAccount";
 import { UserProvider } from "./context/UserContext";
 import MobileLogin from "./components/Login";
+import MealTab from "./components/MealTab/MealTab";
 
 const light = createTheme({
   palette: {
@@ -40,7 +41,6 @@ const light = createTheme({
   },
 })
 
-
 function App() {
   const [dailyMeals, setDailyMeals] = useState([])
 
@@ -51,7 +51,7 @@ function App() {
           <Routes>
             <Route path="/"
               element={
-                <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: 'background.main', margin: 'auto' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: 'background.main', margin: 'auto' }}>
                   <Navbar />
                   <Outlet />
                 </Box>
@@ -60,6 +60,8 @@ function App() {
               <Route path="calendar" element={<Calendar dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} />} />
               <Route path="register" element={<CreateAccount />} />
               <Route path="sign-in" element={<MobileLogin />} />
+              {/* Todo delete route beneath */}
+              <Route path="tabs" element={<MealTab />} />
             </Route>
           </Routes>
         </UserProvider>

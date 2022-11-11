@@ -1,8 +1,8 @@
 import { Box, Typography, Divider, Select, MenuItem, FormControl, InputLabel, Button, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { Nutrients } from '../apiCalls';
+import { Nutrients } from '../../../apiCalls';
 import CloseIcon from '@mui/icons-material/Close';
-import NutrientLabel from './NutrientLabel/NutrientLabel';
+import NutrientLabel from '../../NutrientLabel/NutrientLabel';
 import { styled } from '@mui/system';
 
 const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {

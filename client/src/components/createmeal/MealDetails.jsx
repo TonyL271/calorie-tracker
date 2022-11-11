@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Typography, Divider, IconButton } from '@mui/material'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
-import { AddToggle, AddFoodMenu } from './';
-import NutrientLabel from './NutrientLabel/NutrientLabel';
+import { AddToggle, AddFoodMenu } from './addfood';
+import NutrientLabel from '../NutrientLabel/NutrientLabel';
 
 const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood }) => {
   const handleAddFood = (food) => {
@@ -52,6 +52,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         gridGap:'4px',
         gridTemplateColumns: 'repeat(6,auto)',
         gridRowGap: '0.20rem',
+        minHeight:'130px'
       }}>
         <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
         <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, }}>Amount</Typography>
