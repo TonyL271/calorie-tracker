@@ -65,19 +65,10 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   }
 
   return (
-    window.innerWidth > 600 ?
-      (
-        <MealForm
-          date={date} setDate={setDate}
-          handleClear={handleClear} saveDailyMeal={saveDailyMeal}
-          {...{ mealProps, addFoodProps }} />
-      ) :
-      (
-        <MealFormMobile
-          date={date} setDate={setDate}
-          handleClear={handleClear} saveDailyMeal={saveDailyMeal}
-          {...{ mealProps, addFoodProps }} />
-      )
+    <MealForm
+      date={date} setDate={setDate}
+      handleClear={handleClear} saveDailyMeal={saveDailyMeal}
+      {...{ mealProps, addFoodProps }} />
   )
 }
 
