@@ -27,7 +27,7 @@ const light = createTheme({
     },
     background: {
       main: '#E1E1E1',
-      foreground: 'FFFFFF'
+      foreground: '#FFFFFF'
     }
   },
 
@@ -60,8 +60,6 @@ function App() {
               <Route path="calendar" element={<Calendar dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} />} />
               <Route path="register" element={<CreateAccount />} />
               <Route path="sign-in" element={<MobileLogin />} />
-              {/* Todo delete route beneath */}
-              <Route path="tabs" element={<MealTab />} />
             </Route>
           </Routes>
         </UserProvider>

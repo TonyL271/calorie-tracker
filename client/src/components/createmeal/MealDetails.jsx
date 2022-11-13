@@ -11,7 +11,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
   }
   const capitalizeFirstLetter = (string) => (string.charAt(0).toUpperCase() + string.slice(1))
   return (
-    <Box sx={{ width: '100%', border: 'solid 6px', borderColor: 'primary.main', borderTop: '0', p: '1rem', pt: '0rem', fontSize: { mobile: '0.8rem', tablet: '1rem' },borderRadius:'10px' }}>
+    <Box sx={{ width: '100%', border: 'solid 6px', borderColor: 'primary.main', borderTop: '0', p: '1rem', pt: '0rem', fontSize: { mobile: '0.8rem', tablet: '1rem' }, borderRadius: '10px', bgcolor: 'background.foreground' }}>
       <Box sx={{
         display: 'flex',
         alignItems: 'center',
@@ -23,8 +23,8 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         mx: '-19px',
         height: '3.5rem',
         position: 'relative',
-        borderTopLeftRadius:'8px',
-        borderTopRightRadius:'8px',
+        borderTopLeftRadius: '8px',
+        borderTopRightRadius: '8px',
       }}>
         <Box sx={{
           width: '100%',
@@ -49,10 +49,10 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
       <Box sx={{
         width: '100%',
         display: 'grid',
-        gridGap:'4px',
+        gridGap: '4px',
         gridTemplateColumns: 'repeat(6,auto)',
         gridRowGap: '0.20rem',
-        minHeight:'130px'
+        minHeight: '130px'
       }}>
         <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
         <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, }}>Amount</Typography>

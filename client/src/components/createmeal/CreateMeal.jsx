@@ -65,10 +65,20 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   }
 
   return (
-    <MealForm
-      date={date} setDate={setDate}
-      handleClear={handleClear} saveDailyMeal={saveDailyMeal}
-      {...{ mealProps, addFoodProps }} />
+    //todo remove the && 0. Its for testing purposes onlny
+    window.innerWidth > 600  ?
+      (
+        <MealForm
+          date={date} setDate={setDate}
+          handleClear={handleClear} saveDailyMeal={saveDailyMeal}
+          {...{ mealProps, addFoodProps }} />
+      ) :
+      (
+        <MealFormMobile
+          date={date} setDate={setDate}
+          handleClear={handleClear} saveDailyMeal={saveDailyMeal}
+          {...{ mealProps, addFoodProps }} />
+      )
   )
 }
 
