@@ -42,6 +42,7 @@ const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
             onClick={handleClick}
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
+            disableSwipeToOpen={true}
             sx={{
                 zIndex: 0,
             }}

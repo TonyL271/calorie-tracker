@@ -42,7 +42,7 @@ const AddToggle = ({ setAddFood }) => {
       <IconButton sx={{
         height: '2.5rem',
         width: '2.5rem',
-        mx: { mobile: '1rem', tablet: '2rem' },
+        mx: { smallest: '1rem', tablet: '2rem' },
         color: 'primary.contrast',
         margin: 'auto',
       }}

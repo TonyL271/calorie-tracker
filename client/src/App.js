@@ -13,7 +13,6 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import CreateAccount from "./components/User/CreateAccount";
 import { UserProvider } from "./context/UserContext";
 import MobileLogin from "./components/Login";
-import MealTab from "./components/MealTab/MealTab";
 
 const light = createTheme({
   palette: {
@@ -33,7 +32,8 @@ const light = createTheme({
 
   breakpoints: {
     values: {
-      mobile: 0,
+      smallest: 0,
+      mobile: 400,
       tablet: 650,
       laptop: 1024,
       desktop: 1300,

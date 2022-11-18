@@ -12,8 +12,8 @@ const HamburgerButton = () => {
             ref={anchorRef}
             sx={{
                 position: 'absolute',
-                left: {mobile:"auto",tablet:"2rem"},
-                right: {mobile:"1rem",tablet:"auto"},
+                left: {smallest:"auto",tablet:"2rem"},
+                right: {smallest:"1rem",tablet:"auto"},
                 width: '40px',
                 height: '40px',
                 display: 'flex',

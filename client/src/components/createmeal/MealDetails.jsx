@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Typography, Divider, IconButton } from '@mui/material'
+import { Box, Typography, Divider, Pagination } from '@mui/material'
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import { AddToggle, AddFoodMenu } from './addfood';
 import NutrientLabel from '../NutrientLabel/NutrientLabel';
@@ -9,9 +9,8 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
     setFoodList([...foodList, food]);
     setAddFood('');
   }
-  const capitalizeFirstLetter = (string) => (string.charAt(0).toUpperCase() + string.slice(1))
   return (
-    <Box sx={{ width: '100%', border: 'solid 6px', borderColor: 'primary.main', borderTop: '0', p: '1rem', pt: '0rem', fontSize: { mobile: '0.8rem', tablet: '1rem' }, borderRadius: '10px', bgcolor: 'background.foreground' }}>
+    <Box sx={{ width: '100%', height: '100%', border: 'solid 6px', borderColor: 'primary.main', borderTop: '0', p: '1rem', pt: '0rem', fontSize: { smallest: '0.7rem', mobile: '0.8rem', tablet: '1rem' }, borderRadius: '10px', bgcolor: 'background.foreground' }}>
       <Box sx={{
         display: 'flex',
         alignItems: 'center',
@@ -26,10 +25,11 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         borderTopLeftRadius: '8px',
         borderTopRightRadius: '8px',
       }}>
+        {/* Title Header */}
         <Box sx={{
           width: '100%',
           display: 'grid',
-          gridTemplateColumns: { mobile: '3.5rem auto', tablet: '4.5rem auto' },
+          gridTemplateColumns: { smallest: '3.5rem auto', tablet: '4.5rem auto' },
         }}>
           <AddToggle foodList={foodList} setFoodList={setFoodList} setAddFood={setAddFood} />
           <Box sx={{
@@ -46,6 +46,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
           </Box>
         </Box>
       </Box>
+      {/* Grid container */}
       <Box sx={{
         width: '100%',
         display: 'grid',
@@ -54,17 +55,19 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         gridRowGap: '0.20rem',
         minHeight: '130px'
       }}>
-        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
-        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, }}>Amount</Typography>
-        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, }} >Calories</Typography>
-        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { mobile: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, gridColumn: '-2/-1' }} ></Typography>
+        {/* Food description header */}
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { smallest: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, gridColumn: '2/3' }}>Food</Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { smallest: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, }}>Amount</Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { smallest: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, }} >Calories</Typography>
+        <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { smallest: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, gridColumn: '-2/-1' }} ></Typography>
+        {/* Food list */}
         {
           foodList.map((food, index) =>
             <React.Fragment key={index}>
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '2rem' }}>
                 <Box component="img" alt="The house from the offer." src={food.photo.thumb} sx={{ width: '2.0rem', }} />
               </Box>
-              <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{capitalizeFirstLetter(food.food_name)}</Typography>
+              <Typography variant="p" component="p" align='center' textTransform="capitalize" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.food_name}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.qty} ${food.selectedUnit || food.serving_unit}`}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.nf_calories_scaled.toFixed(0)} cal`}</Typography>
               <NutrientLabel food={food} />
@@ -97,6 +100,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
             </React.Fragment>
           )
         }
+        {/* pagination */}
         {foodList.length > 0 &&
           <>
             <Box align='center' sx={{ width: '100%', gridColumn: '-4 / -3' }} >

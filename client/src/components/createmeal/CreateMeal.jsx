@@ -5,12 +5,16 @@ import UserContext from '../../context/UserContext';
 import { addMeal, Nutrients } from '../../apiCalls';
 
 const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const breakpoint = 1024;
+
   const { user, saveUser } = useContext(UserContext);
 
   const [breakfast, setBreakfast] = useState([])
   const [lunch, setLunch] = useState([])
   const [dinner, setDinner] = useState([])
   const [snacks, setSnacks] = useState([])
+
 
   const mealProps = {
     breakfast, setBreakfast, lunch, setLunch, dinner, setDinner, snacks, setSnacks
@@ -21,33 +25,48 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   const [addDinner, setAddDinner] = useState('');
   const [addSnacks, setAddSnacks] = useState('');
 
+  const totalCals = breakfast.reduce((total, food) => (total + food.nf_calories_scaled), 0) +
+    lunch.reduce((total, food) => (total + food.nf_calories_scaled), 0) +
+    dinner.reduce((total, food) => (total + food.nf_calories_scaled), 0) +
+    snacks.reduce((total, food) => (total + food.nf_calories_scaled), 0);
+
   const addFoodProps = {
     addBreakFast, setAddBreakFast, addLunch, setAddLunch, addDinner, setAddDinner, addSnacks, setAddSnacks
   }
 
   const [date, setDate] = useState(new Date());
 
+  // useEffect(() => {
+  //   // if use is new show an example of a daily meal plan
+  //   if (user === 'new-user') {
+  //     const exampleBreakfast = [];
+  //     const foods = [];
+
+  //     foods.push(Nutrients('apple').then(data => {
+  //       exampleBreakfast.push(data)
+  //     }))
+  //     foods.push(Nutrients('milk').then(data => {
+  //       exampleBreakfast.push(data)
+  //     }))
+
+  //     foods.push(Nutrients('cereal').then(data => {
+  //       exampleBreakfast.push(data)
+  //     }))
+  //     Promise.all(foods).then(() => {
+  //       setBreakfast(exampleBreakfast)
+  //     })
+  //   }
+  // }, [user])
+
   useEffect(() => {
-    // if use is new show an example of a daily meal plan
-    if (user === 'new-user') {
-      const exampleBreakfast = [];
-      const foods = [];
-
-      foods.push(Nutrients('apple').then(data => {
-        exampleBreakfast.push(data)
-      }))
-      foods.push(Nutrients('milk').then(data => {
-        exampleBreakfast.push(data)
-      }))
-
-      foods.push(Nutrients('cereal').then(data => {
-        exampleBreakfast.push(data)
-      }))
-      Promise.all(foods).then(() => {
-        setBreakfast(exampleBreakfast)
-      })
-    }
-  }, [user])
+    const handleResizeWindow = () => setWidth(window.innerWidth);
+    // subscribe to window resize event "onComponentDidMount"
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      // unsubscribe "onComponentDestroy"
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
 
   const handleClear = () => {
     setBreakfast([]);
@@ -66,17 +85,19 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
 
   return (
     //todo remove the && 0. Its for testing purposes onlny
-    window.innerWidth > 600  ?
+    width > breakpoint ?
       (
         <MealForm
           date={date} setDate={setDate}
           handleClear={handleClear} saveDailyMeal={saveDailyMeal}
+          totalCals={totalCals}
           {...{ mealProps, addFoodProps }} />
       ) :
       (
         <MealFormMobile
           date={date} setDate={setDate}
           handleClear={handleClear} saveDailyMeal={saveDailyMeal}
+          totalCals={totalCals}
           {...{ mealProps, addFoodProps }} />
       )
   )

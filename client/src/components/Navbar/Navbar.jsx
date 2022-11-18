@@ -31,7 +31,7 @@ const Navbar = () => {
             top: '0',
             left: '0',
         }} >
-            <Toolbar sx={{ position: 'relative', width: '100%', height: '100%', alignItems: 'center', justifyContent: { tablet: 'center', mobile: 'flex-start', } }}>
+            <Toolbar sx={{ position: 'relative', width: '100%', height: '100%', alignItems: 'center', justifyContent: { tablet: 'center', smallest: 'flex-start', } }}>
                 <HamburgerButton />
                 <Box sx={{}}>
                     <Button onClick={() => { navigate('/') }} variant="h1" component="h1"
@@ -42,26 +42,26 @@ const Navbar = () => {
                             flexDirection: 'column',
                             fontWeight: '600',
                             textAlign: 'center',
-                            width: { mobile: '80px', tablet: '320px' },
+                            width: { smallest: '80px', tablet: '320px' },
                             fontSize: {
-                                mobile: '1rem',
+                                smallest: '1rem',
                                 tablet: '1.5rem'
                             },
                             lineHeight: '1.0',
                             padding: '0',
                         }}>
-                        <FastfoodIcon sx={{ mr: { mobile: 0, tablet: '1rem' } }} />
+                        <FastfoodIcon sx={{ mr: { smallest: 0, tablet: '1rem' } }} />
                         Calorie Tracker
                     </Button>
                 </Box>
                 {user && user.username && (
                     <Box sx={{
-                        display: { mobile: 'flex', },
-                        position: { mobile: 'static', tablet: 'absolute' },
+                        display: { smallest: 'flex', },
+                        position: { smallest: 'static', tablet: 'absolute' },
                         right: '2rem',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        width: { mobile: '100%', tablet: 'auto' },
+                        width: { smallest: '100%', tablet: 'auto' },
                         paddingRight: '42px'
                     }}>
                         <Typography variant="h5" component="h2"

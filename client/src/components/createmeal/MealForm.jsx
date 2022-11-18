@@ -13,6 +13,7 @@ import IcecreamIcon from '@mui/icons-material/Icecream';
 const MealForm = ({
     date, setDate,
     handleClear, saveDailyMeal,
+    totalCals,
     mealProps: {
         breakfast, setBreakfast,
         lunch, setLunch,
@@ -27,35 +28,30 @@ const MealForm = ({
     },
 }) => {
     const [showAlert, setShowAlert] = useState(false);
-    const breakfastCals = breakfast.reduce((total, food) => (total + food.nf_calories_scaled), 0);
-    const lunchCals = lunch.reduce((total, food) => (total + food.nf_calories_scaled), 0);
-    const dinnerCals = dinner.reduce((total, food) => (total + food.nf_calories_scaled), 0);
-    const snacksCals = snacks.reduce((total, food) => (total + food.nf_calories_scaled), 0);
-    const totalCals = breakfastCals + lunchCals + dinnerCals + snacksCals;
     return (
-        <Box sx={{ minHeight: 'calc(100vh - 65px)', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', py: { mobile: 0, tablet: '1rem', laptop: '4rem' } }}>
+        <Box sx={{ minHeight: 'calc(100vh - 65px)', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', py: { smallest: 0, tablet: '1rem', laptop: '4rem' } }}>
             <Box sx={{
                 position: 'relative',
-                top: { mobile: '0', tablet: 'auto' },
+                top: { smallest: '0', tablet: 'auto' },
                 display: 'grid',
                 width:
                 {
-                    mobile: '100%',
+                    smallest: '100%',
                     tablet: '80%'
                 },
                 mx: 'auto',
                 bgcolor: 'ghostwhite',
                 boxShadow: '0 0 8px',
-                borderRadius: { mobile: '0', tablet: '8px' },
+                borderRadius: { smallest: '0', tablet: '8px' },
                 columnGap: '2rem',
                 rowGap: '2rem',
-                padding: { mobile: '2rem 0.5rem 2rem 0.5rem', tablet: '2rem' },
+                padding: { smallest: '2rem 0.5rem 2rem 0.5rem', tablet: '2rem' },
                 minHeight: {
-                    mobile: '100%',
+                    smallest: '100%',
                     tablet: 'auto'
                 },
                 gridTemplateColumns: {
-                    mobile: 'repeat(auto-fit,auto)',
+                    smallest: 'repeat(auto-fit,auto)',
                     desktop: 'repeat(2,auto)'
                 },
             }}>
@@ -91,59 +87,53 @@ const MealForm = ({
                     setFoodList={setSnacks}
                     setAddFood={setAddSnacks}
                 />
-                <Box sx={{ minHeight: '100px', gridColumn: '1/-1', display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography sx={{ width: '100%', mt: '1rem', fontWeight: '700', color: '#f50057', mb: { mobile: '1rem', tablet: '0' } }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
-                    <Box sx={{ position: 'relative' }}>
-                        <FormGroup variant="contained" sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            right: '0',
-                            bgcolor: 'background.forground',
-                            boxShadow: '0'
-                        }}>
-                            <LocalizationProvider dateAdapter={AdapterDateFns} >
-                                <MobileDatePicker
-                                    label="Date"
-                                    inputFormat="MM/dd/yyyy"
-                                    value={date}
-                                    onChange={
-                                        (newValue) => {
-                                            setDate(newValue);
-                                        }
-                                    }
-                                    renderInput={(params) => <TextField sx={{
-                                        width: '120px',
-                                        '& .MuiInputLabel-root': {
-                                            color: 'secondary.main',
-                                            fontWeight: '500'
-                                        },
-                                        '& fieldset': {
-                                            borderColor: 'primary.lightContrast',
-                                            borderWidth: '2.5px'
-                                        },
-                                        '& input': {
-                                            color: 'secondary.main'
+                <Box sx={{ minHeight: '100px', gridColumn: '1/-1', display: 'flex', justifyContent: 'space-between', }}>
+                    <Typography sx={{ mt: '1rem', fontWeight: '700', color: '#f50057', mb: { smallest: '1rem', tablet: '0' } }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
+                    <Box>
 
-                                        }
-                                    }} {...params} />}
-                                />
-                            </LocalizationProvider>
-                            <Box display="flex">
-                                <Button variant="contained" sx={{ bgcolor: 'red', height: '61px', ml: '1rem', mr: '1rem', color: 'primary.contrast', fontWeight: 900 }} onClick={handleClear}>Clear</Button>
-                                <Button sx={{ color: 'primary.contrast', fontWeight: 900 }} variant="contained"
-                                    onClick={() => {
-                                        saveDailyMeal();
-                                        handleClear();
-                                        setShowAlert(true);
-                                        setTimeout(() => {
-                                            setShowAlert(false);
-                                        }, 1000);
-                                    }}
-                                >
-                                    Add To <br /> planner</Button>
-                            </Box>
-                        </FormGroup>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}  >
+                            <MobileDatePicker
+                                label="Date"
+                                inputFormat="MM/dd/yyyy"
+                                value={date}
+                                onChange={
+                                    (newValue) => {
+                                        setDate(newValue);
+                                    }
+                                }
+                                renderInput={(params) => <TextField sx={{
+                                    textAlign: 'center',
+                                    minWidth: '120px',
+                                    width: '120px',
+                                    mr: '1rem',
+                                    '& .MuiInputLabel-root': {
+                                        color: 'secondary.main',
+                                        fontWeight: '500'
+                                    },
+                                    '& fieldset': {
+                                        borderColor: 'primary.lightContrast',
+                                        borderWidth: '2.5px'
+                                    },
+                                    '& input': {
+                                        color: 'secondary.main'
+
+                                    }
+                                }} {...params} />}
+                            />
+                        </LocalizationProvider>
+                        <Button variant="contained" sx={{ bgcolor: 'red', height: '55px', mr: '1rem', width: '70px', color: 'primary.contrast', fontWeight: 900 }} onClick={handleClear}>Clear</Button>
+                        <Button sx={{ color: 'primary.contrast', fontWeight: 900, width: '160px', height: '55px' }} variant="contained"
+                            onClick={() => {
+                                saveDailyMeal();
+                                handleClear();
+                                setShowAlert(true);
+                                setTimeout(() => {
+                                    setShowAlert(false);
+                                }, 1000);
+                            }}
+                        >
+                            Add To planner</Button>
+
                     </Box>
                 </Box>
             </Box>

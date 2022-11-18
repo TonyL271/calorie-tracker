@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Tabs, Tab } from "@mui/material"
+import { Tab, Button, Typography } from "@mui/material"
 import { Box } from "@mui/system";
 import MealDetails from "./MealDetails";
 import { useSwipeable } from "react-swipeable";
-import { TabList, TabPanel, TabContext } from "@mui/lab";
+import { TabList, TabContext } from "@mui/lab";
 //icons
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import LunchDiningIcon from '@mui/icons-material/LunchDining';
@@ -15,6 +15,7 @@ const mod = (n, m) => ((n % m) + m) % m;
 const MealFormMobile = ({
   date, setDate,
   handleClear, saveDailyMeal,
+  totalCals,
   mealProps: {
     breakfast, setBreakfast,
     lunch, setLunch,
@@ -94,8 +95,9 @@ const MealFormMobile = ({
             aria-label="Daily meal tabs"
             sx={{
               '& button': {
+                minWidth: '0',
                 color: 'primary.lightContrast',
-                padding: '2px',
+                padding: '5px',
               },
               '& .MuiTabs-flexContainer': {
                 justifyContent: 'space-evenly',
@@ -121,8 +123,10 @@ const MealFormMobile = ({
               transition: 'transform 0.5s',
               transform: `translateX(calc(${value} * -100vw))`,
               px: '1rem',
-              py: '3rem',
-              height:'100%',
+              py: { smallest: '1rem', mobile: '1.5rem' },
+              height: '100%',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
               display: 'flex',
             }}>
               <MealDetails
@@ -133,6 +137,29 @@ const MealFormMobile = ({
                 setFoodList={props.setFoodList}
                 setAddFood={props.setAddFood}
               />
+              <Box marginBottom="1rem"></Box>
+              <Box display="flex" justifyContent="space-between" sx={{ flexDirection: { smallest: 'column', tablet: 'row', } }}>
+                <Typography sx={{ mt: '1rem', display: 'block', fontWeight: '700', color: '#f50057', mb: { smallest: '1rem', tablet: '0' } }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Button sx={{
+                    bgcolor: 'red',
+                    height: '50px',
+                    color: 'primary.contrast',
+                    fontWeight: '700',
+                    mr: '1rem'
+                  }}>
+                    clear all
+                  </Button>
+                  <Button sx={{
+                    bgcolor: 'primary.main',
+                    height: '50px',
+                    color: 'primary.contrast',
+                    fontWeight: '700',
+                  }}>
+                    add to planner
+                  </Button>
+                </Box>
+              </Box>
             </Box>
           ))
         }
