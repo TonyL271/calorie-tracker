@@ -1,10 +1,42 @@
-import React from 'react'
-import { Box, Typography, Divider, Pagination } from '@mui/material'
+import React, { useState } from 'react'
+import { Box, Typography, Divider, Pagination, useMediaQuery, } from '@mui/material'
+import { useTheme } from '@emotion/react';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import { AddToggle, AddFoodMenu } from './addfood';
 import NutrientLabel from '../NutrientLabel/NutrientLabel';
+import { useEffect } from 'react';
 
 const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood }) => {
+  const theme = useTheme();
+  const tablet = useMediaQuery(theme.breakpoints.up('mobile'));
+  const smallScreen = useMediaQuery(theme.breakpoints.down('laptop'));
+  const maxItems = Math.floor((window.innerHeight - (tablet ? 380 : 513)) / 50);
+  console.log('maxItems: ', maxItems);
+  const maxPage = Math.ceil(foodList.length / maxItems);
+  const [showFoods, setShowFoods] = useState(foodList);
+  const [showPagination, setShowPagination] = useState(false);
+  const [page, setPage] = useState(0);
+  console.log(showPagination);
+
+  const start = page * maxItems;
+  const end = Math.min(start + maxItems, foodList.length);
+  const changePage = (page) => {
+    if (page < 0 && page > maxPage) return;
+    setPage({ page })
+  }
+
+  useEffect(() => {
+    setShowPagination(smallScreen && foodList.length > maxItems);
+  }, [foodList])
+
+  useEffect(() => {
+    if (showPagination)
+      setShowFoods(foodList.slice(start, end));
+    else {
+      setShowFoods(foodList);
+    }
+  }, [foodList, page, showPagination])
+
   const handleAddFood = (food) => {
     setFoodList([...foodList, food]);
     setAddFood('');
@@ -62,12 +94,12 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
         <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { smallest: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, gridColumn: '-2/-1' }} ></Typography>
         {/* Food list */}
         {
-          foodList.map((food, index) =>
+          showFoods.map((food, index) =>
             <React.Fragment key={index}>
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '2rem' }}>
                 <Box component="img" alt="The house from the offer." src={food.photo.thumb} sx={{ width: '2.0rem', }} />
               </Box>
-              <Typography variant="p" component="p" align='center' textTransform="capitalize" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{food.food_name}</Typography>
+              <Typography variant="p" component="p" align='center' textTransform="capitalize" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', overFlowWrap: 'anywhere' }}>{food.food_name}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.qty} ${food.selectedUnit || food.serving_unit}`}</Typography>
               <Typography variant="p" component="p" align='center' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>{`${food.nf_calories_scaled.toFixed(0)} cal`}</Typography>
               <NutrientLabel food={food} />
@@ -87,7 +119,7 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
                 }}
                 onClick={(e) => {
                   const idx = e.currentTarget.getAttribute('list-id');
-                  foodList.pop(idx)
+                  foodList.pop(idx + start)
                   setFoodList([...foodList])
                 }}>
                 <ClearRoundedIcon sx={{
@@ -100,7 +132,6 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
             </React.Fragment>
           )
         }
-        {/* pagination */}
         {foodList.length > 0 &&
           <>
             <Box align='center' sx={{ width: '100%', gridColumn: '-4 / -3' }} >
@@ -113,6 +144,15 @@ const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFoo
               }</Typography>
           </>
         }
+        {/* pagination */}
+        <Pagination count={maxPage} color="primary" onChange={(e, value) => { setPage(value - 1) }}
+          sx={{
+            display: showPagination ? 'auto' : 'none',
+            gridColumn: '1/-1',
+            '& *': {
+              justifyContent: 'center',
+            }
+          }} />
       </Box>
       <AddFoodMenu addFood={addFood} setAddFood={setAddFood} handleAddFood={handleAddFood} />
     </Box >

@@ -5,7 +5,7 @@ import UserContext from '../../context/UserContext';
 import { addMeal, Nutrients } from '../../apiCalls';
 
 const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
-  const [width, setWidth] = useState(window.innerWidth);
+  const [viewport, setviewport] = useState({ width: window.innerWidth, height: window.innerHeight });
   const breakpoint = 1024;
 
   const { user, saveUser } = useContext(UserContext);
@@ -59,7 +59,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   // }, [user])
 
   useEffect(() => {
-    const handleResizeWindow = () => setWidth(window.innerWidth);
+    const handleResizeWindow = () => setviewport({ width: window.innerWidth, height: window.innerHeight });
     // subscribe to window resize event "onComponentDidMount"
     window.addEventListener("resize", handleResizeWindow);
     return () => {
@@ -85,7 +85,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
 
   return (
     //todo remove the && 0. Its for testing purposes onlny
-    width > breakpoint ?
+    viewport.width > breakpoint ?
       (
         <MealForm
           date={date} setDate={setDate}

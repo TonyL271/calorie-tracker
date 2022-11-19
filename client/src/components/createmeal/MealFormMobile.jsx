@@ -9,6 +9,8 @@ import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import IcecreamIcon from '@mui/icons-material/Icecream';
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+import CheckIcon from '@mui/icons-material/Check';
 
 const mod = (n, m) => ((n % m) + m) % m;
 
@@ -29,6 +31,7 @@ const MealFormMobile = ({
     addSnacks, setAddSnacks
   },
 }) => {
+  const emptyMeal = [!breakfast.length, !lunch.length, !dinner.length, !snacks.length];
   const config = {
     delta: 10,                             // min distance(px) before a swipe starts. *See Notes*
     preventScrollOnSwipe: true,           // prevents scroll during swipe (*See Details*)
@@ -42,11 +45,11 @@ const MealFormMobile = ({
   const handlers = useSwipeable({
     onSwiped: (eventData) => {
       const inc = eventData.dir === "Left" ? 1 : -1;
-      setValue((prev) => mod(prev + inc, 4));
+      setValue((prev) => mod(+prev + inc, 4).toString());
     },
     ...config,
   });
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState('0');
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -85,18 +88,27 @@ const MealFormMobile = ({
       setAddFood: setAddSnacks,
     },
   ];
+  console.log(value);
 
   return (
-    <Box {...handlers} height="calc(100vh - 65px)" sx={{ bgcolor: 'background.foreground', overFlowX: 'hidden' }}>
-      <TabContext value={value.toString()}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box {...handlers} height="calc(100vh - 65px)" sx={{ bgcolor: 'background.foreground', overFlowX: 'hidden', color: '' }}>
+      <TabContext value={value} sx={{
+      }}>
+        <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
           <TabList
             onChange={handleChange}
             aria-label="Daily meal tabs"
             sx={{
               '& button': {
                 minWidth: '0',
-                color: 'primary.lightContrast',
+                padding: '5px',
+              },
+              '& span.MuiTabs-indicator': {
+                bgcolor: 'black',
+              },
+              '& button.Mui-selected': {
+                minWidth: '0',
+                color: 'black',
                 padding: '5px',
               },
               '& .MuiTabs-flexContainer': {
@@ -105,7 +117,13 @@ const MealFormMobile = ({
             }}
           >
             {mealProps.map((props, idx) => (
-              <Tab key={idx} label={props.mealType} value={idx.toString()} />
+              <Tab
+                key={idx}
+                label={props.mealType}
+                value={idx.toString()}
+                icon={idx.toString() === value ? '' : emptyMeal[idx] ? <PriorityHighIcon /> : <CheckIcon />}
+                sx={{ color: emptyMeal[idx] ? 'red' : 'rgba(0,219,1,255) ' }}
+              />
             ))}
           </TabList>
         </Box>
@@ -123,8 +141,8 @@ const MealFormMobile = ({
               transition: 'transform 0.5s',
               transform: `translateX(calc(${value} * -100vw))`,
               px: '1rem',
-              py: { smallest: '1rem', mobile: '1.5rem' },
-              height: '100%',
+              py: { smallest: '1rem', mobile: '1rem' },
+              height: '95%',
               flexDirection: 'column',
               justifyContent: 'space-between',
               display: 'flex',
