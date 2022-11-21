@@ -90,14 +90,14 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
         <MealForm
           date={date} setDate={setDate}
           handleClear={handleClear} saveDailyMeal={saveDailyMeal}
-          totalCals={totalCals}
+          totalCals={totalCals} viewport={viewport}
           {...{ mealProps, addFoodProps }} />
       ) :
       (
         <MealFormMobile
           date={date} setDate={setDate}
           handleClear={handleClear} saveDailyMeal={saveDailyMeal}
-          totalCals={totalCals}
+          totalCals={totalCals} viewport={viewport}
           {...{ mealProps, addFoodProps }} />
       )
   )

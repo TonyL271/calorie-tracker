@@ -13,7 +13,7 @@ import IcecreamIcon from '@mui/icons-material/Icecream';
 const MealForm = ({
     date, setDate,
     handleClear, saveDailyMeal,
-    totalCals,
+    totalCals, viewport,
     mealProps: {
         breakfast, setBreakfast,
         lunch, setLunch,
@@ -29,7 +29,7 @@ const MealForm = ({
 }) => {
     const [showAlert, setShowAlert] = useState(false);
     return (
-        <Box sx={{ minHeight: 'calc(100vh - 65px)', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', py: { smallest: 0, tablet: '1rem', laptop: '4rem' } }}>
+        <Box sx={{ minHeight: 'calc(100vh - 65px)', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', py: { smallest: 0, tablet: '1rem', laptop: '1rem' } }}>
             <Box sx={{
                 position: 'relative',
                 top: { smallest: '0', tablet: 'auto' },
@@ -37,7 +37,8 @@ const MealForm = ({
                 width:
                 {
                     smallest: '100%',
-                    tablet: '80%'
+                    tablet: '90%',
+                    laptop:'80%'
                 },
                 mx: 'auto',
                 bgcolor: 'ghostwhite',
@@ -50,10 +51,7 @@ const MealForm = ({
                     smallest: '100%',
                     tablet: 'auto'
                 },
-                gridTemplateColumns: {
-                    smallest: 'repeat(auto-fit,auto)',
-                    desktop: 'repeat(2,auto)'
-                },
+                gridTemplateColumns: 'repeat(2,1fr)',
             }}>
                 <MealDetails
                     mealType="Breakfast"
@@ -62,6 +60,7 @@ const MealForm = ({
                     addFood={addBreakFast}
                     setFoodList={setBreakfast}
                     setAddFood={setAddBreakFast}
+                    viewport={viewport}
                 />
                 <MealDetails
                     mealType="Lunch"
@@ -70,6 +69,7 @@ const MealForm = ({
                     addFood={addLunch}
                     setFoodList={setLunch}
                     setAddFood={setAddLunch}
+                    viewport={viewport}
                 />
                 <MealDetails
                     mealType="Dinner"
@@ -78,6 +78,7 @@ const MealForm = ({
                     addFood={addDinner}
                     setFoodList={setDinner}
                     setAddFood={setAddDinner}
+                    viewport={viewport}
                 />
                 <MealDetails
                     mealType="Snacks"
@@ -86,6 +87,7 @@ const MealForm = ({
                     addFood={addSnacks}
                     setFoodList={setSnacks}
                     setAddFood={setAddSnacks}
+                    viewport={viewport}
                 />
                 <Box sx={{ minHeight: '100px', gridColumn: '1/-1', display: 'flex', justifyContent: 'space-between', }}>
                     <Typography sx={{ mt: '1rem', fontWeight: '700', color: '#f50057', mb: { smallest: '1rem', tablet: '0' } }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>

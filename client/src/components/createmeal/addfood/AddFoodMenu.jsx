@@ -25,7 +25,6 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
   }
   ))
 
-
   const clearFood = () => {
     setFoodInfo({});
     setSelectedUnit('')
@@ -81,6 +80,8 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
       <Box onClick={(e) => clearFood()}
         sx={{
           position: 'fixed',
+          opacity: '0.99',
+          transformOrigin: '0 0',
           top: '0',
           left: '0',
           backgroundColor: 'rgba(0,0,0,0.4)',

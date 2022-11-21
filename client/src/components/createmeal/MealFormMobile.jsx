@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Tab, Button, Typography } from "@mui/material"
 import { Box } from "@mui/system";
 import MealDetails from "./MealDetails";
@@ -11,13 +11,14 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import IcecreamIcon from '@mui/icons-material/Icecream';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import CheckIcon from '@mui/icons-material/Check';
+import { useEffect } from "react";
 
 const mod = (n, m) => ((n % m) + m) % m;
 
 const MealFormMobile = ({
   date, setDate,
   handleClear, saveDailyMeal,
-  totalCals,
+  totalCals, viewport,
   mealProps: {
     breakfast, setBreakfast,
     lunch, setLunch,
@@ -31,6 +32,7 @@ const MealFormMobile = ({
     addSnacks, setAddSnacks
   },
 }) => {
+  const scrollerRef = useRef(null);
   const emptyMeal = [!breakfast.length, !lunch.length, !dinner.length, !snacks.length];
   const config = {
     delta: 10,                             // min distance(px) before a swipe starts. *See Notes*
@@ -45,11 +47,21 @@ const MealFormMobile = ({
   const handlers = useSwipeable({
     onSwiped: (eventData) => {
       const inc = eventData.dir === "Left" ? 1 : -1;
-      setValue((prev) => mod(+prev + inc, 4).toString());
+      setValue((prev) => (
+        mod(+prev + inc, 4).toString()
+      ));
     },
     ...config,
   });
   const [value, setValue] = useState('0');
+
+  //scroll selected tab into view after swipe
+  useEffect(() => {
+    scrollerRef.current.scrollTo({ left: `${viewport.width * value}`, behavior: 'smooth' })
+
+  }, [value])
+
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -88,10 +100,14 @@ const MealFormMobile = ({
       setAddFood: setAddSnacks,
     },
   ];
-  console.log(value);
 
   return (
-    <Box {...handlers} height="calc(100vh - 65px)" sx={{ bgcolor: 'background.foreground', overFlowX: 'hidden', color: '' }}>
+    <Box {...handlers} height="calc(100vh - 65px)" sx={{
+      display:'flex',
+      flexDirection: 'column',
+      bgcolor: 'background.foreground',
+      overFlowX: 'hidden',
+    }}>
       <TabContext value={value} sx={{
       }}>
         <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
@@ -129,6 +145,7 @@ const MealFormMobile = ({
         </Box>
       </TabContext>
       <Box
+        ref={scrollerRef}
         sx={{
           position: 'relative',
           height: `calc(100% - 48px)`,
@@ -138,10 +155,7 @@ const MealFormMobile = ({
         {
           mealProps.map((props, idx) => (
             <Box minWidth="100vw" key={idx} sx={{
-              transition: 'transform 0.5s',
-              transform: `translateX(calc(${value} * -100vw))`,
-              px: '1rem',
-              py: { smallest: '1rem', mobile: '1rem' },
+              padding:{smallest: '1rem',tablet:'3rem'},
               height: '95%',
               flexDirection: 'column',
               justifyContent: 'space-between',
@@ -154,6 +168,7 @@ const MealFormMobile = ({
                 addFood={props.addFood}
                 setFoodList={props.setFoodList}
                 setAddFood={props.setAddFood}
+                viewport={viewport}
               />
               <Box marginBottom="1rem"></Box>
               <Box display="flex" justifyContent="space-between" sx={{ flexDirection: { smallest: 'column', tablet: 'row', } }}>

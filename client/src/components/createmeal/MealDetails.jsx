@@ -6,28 +6,22 @@ import { AddToggle, AddFoodMenu } from './addfood';
 import NutrientLabel from '../NutrientLabel/NutrientLabel';
 import { useEffect } from 'react';
 
-const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood }) => {
+const MealDetails = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood, viewport }) => {
   const theme = useTheme();
   const tablet = useMediaQuery(theme.breakpoints.up('mobile'));
   const smallScreen = useMediaQuery(theme.breakpoints.down('laptop'));
-  const maxItems = Math.floor((window.innerHeight - (tablet ? 380 : 513)) / 50);
-  console.log('maxItems: ', maxItems);
+  const maxItems = Math.floor((viewport.height - (tablet ? 380 : 513)) / 50);
   const maxPage = Math.ceil(foodList.length / maxItems);
   const [showFoods, setShowFoods] = useState(foodList);
   const [showPagination, setShowPagination] = useState(false);
   const [page, setPage] = useState(0);
-  console.log(showPagination);
 
   const start = page * maxItems;
   const end = Math.min(start + maxItems, foodList.length);
-  const changePage = (page) => {
-    if (page < 0 && page > maxPage) return;
-    setPage({ page })
-  }
 
   useEffect(() => {
     setShowPagination(smallScreen && foodList.length > maxItems);
-  }, [foodList])
+  }, [foodList, viewport])
 
   useEffect(() => {
     if (showPagination)
