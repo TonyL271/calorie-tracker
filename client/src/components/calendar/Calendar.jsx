@@ -3,6 +3,7 @@ import { styled } from '@mui/system'
 import { useState, useEffect, useContext, useRef } from 'react';
 import MealPlan from './MealPlan';
 import UserContext from '../../context/UserContext';
+import { useLayoutEffect } from 'react';
 
 const CenteredBox = styled('div')({
   display: 'flex',
@@ -20,6 +21,7 @@ const sameDay = (date1, date2) =>
   date1.getMonth() === date2.getMonth() &&
   date1.getFullYear() === date2.getFullYear();
 
+
 const Calendar = ({ dailyMeals, setDailyMeals }) => {
   const [date, setDate] = useState(new Date());
   const [dates, setDates] = useState([])
@@ -27,13 +29,25 @@ const Calendar = ({ dailyMeals, setDailyMeals }) => {
   const [lastDay, setLastDay] = useState(0);
   const [showDietPlan, setShowDietPlan] = useState({});
   const { user, setUser } = useContext(UserContext);
-  const [minDim, setMinDim] = useState(0);
   const ref = useRef(null);
 
+  function useMinDim() {
+    const [size, setSize] = useState(0);
+    useLayoutEffect(() => {
+      function updateSize() {
+        console.log(ref.current.offsetWidth, ref.current.offsetWidth)
+        setSize(Math.min(ref.current.offsetWidth, ref.current.offsetWidth,500));
+      }
+      window.addEventListener('resize', updateSize);
+      updateSize();
+      return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
+  }
 
-  useEffect(() => {
-    setMinDim(Math.min(ref.current.offsetWidth, ref.current.offsetHeight) * 0.95);
-  }, [ref.current])
+  const minDim = useMinDim();
+
+
 
   // Generate corresponding dates for corresponding calender month
   useEffect(() => {

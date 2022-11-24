@@ -68,37 +68,45 @@ export default function getNutrients(food) {
         },
         microNutrients: {
             vitamin_A: {
-                amount: toFixedIfNecessary(food.full_nutrients.find(nutrient => nutrient.attr_id === 320).value ),
+                amount: toFixedIfNecessary(food.full_nutrients.find(nutrient => nutrient.attr_id === 320)?.value ),
                 dv: 900,
-                dv_percent: ((food.full_nutrients.find(nutrient => nutrient.attr_id === 320).value * food.scale) / 900 * 100).toFixed(0),
+                dv_percent: ((food.full_nutrients.find(nutrient => nutrient.attr_id === 320)?.value * food.scale) / 900 * 100).toFixed(0),
                 unit: 'mcg'
             },
             vitamin_C: {
-                amount: toFixedIfNecessary(food.full_nutrients.find(nutrient => nutrient.attr_id === 401).value * food.scale),
+                amount: toFixedIfNecessary(food.full_nutrients.find(nutrient => nutrient.attr_id === 401)?.value * food.scale),
                 dv: 90,
-                dv_percent: ((food.full_nutrients.find(nutrient => nutrient.attr_id === 401).value * food.scale) / 90 * 100).toFixed(0),
+                dv_percent: ((food.full_nutrients.find(nutrient => nutrient.attr_id === 401)?.value * food.scale) / 90 * 100).toFixed(0),
                 unit: 'mg'
             },
             vitamin_D: {
-                amount: toFixedIfNecessary(food.full_nutrients.find(nutrient => nutrient.attr_id === 328).value * food.scale),
+                amount: toFixedIfNecessary(food.full_nutrients.find(nutrient => nutrient.attr_id === 328)?.value * food.scale),
                 dv: 400,
-                dv_percent: ((food.full_nutrients.find(nutrient => nutrient.attr_id === 328).value * food.scale) / 400 * 100).toFixed(0),
+                dv_percent: ((food.full_nutrients.find(nutrient => nutrient.attr_id === 328)?.value * food.scale) / 400 * 100).toFixed(0),
                 unit: 'mcg'
             },
             calcium: {
-                amount: toFixedIfNecessary(food.full_nutrients.find(nutrient => nutrient.attr_id === 301).value * food.scale),
+                amount: toFixedIfNecessary(food.full_nutrients.find(nutrient => nutrient.attr_id === 301)?.value * food.scale),
                 dv: 1000,
-                dv_percent: ((food.full_nutrients.find(nutrient => nutrient.attr_id === 301).value * food.scale) / 1000 * 100).toFixed(0),
+                dv_percent: ((food.full_nutrients.find(nutrient => nutrient.attr_id === 301)?.value * food.scale) / 1000 * 100).toFixed(0),
                 unit: 'mg'
             },
             iron: {
-                amount: toFixedIfNecessary(food.full_nutrients.find(nutrient => nutrient.attr_id === 303).value * food.scale),
+                amount: toFixedIfNecessary(food.full_nutrients.find(nutrient => nutrient.attr_id === 303)?.value * food.scale),
                 dv: 18,
-                dv_percent: ((food.full_nutrients.find(nutrient => nutrient.attr_id === 303).value * food.scale) / 18 * 100).toFixed(0),
+                dv_percent: ((food.full_nutrients.find(nutrient => nutrient.attr_id === 303)?.value * food.scale) / 18 * 100).toFixed(0),
                 unit: 'mg'
             },
         },
     }
+
+    //delete non existant or undetected micro nutrients
+    for (const nutrient in nutrients.microNutrients){
+        if (!nutrients.microNutrients[nutrient].amount){
+            delete nutrients.microNutrients[nutrient]
+        }
+    }
+    
     return nutrients
 }
 
