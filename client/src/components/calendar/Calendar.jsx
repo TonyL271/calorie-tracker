@@ -1,10 +1,10 @@
 import { Box, Typography, Button, IconButton, Paper, Stack, Grow, Zoom, Fade } from "@mui/material";
-import { useEffect, useState, useContext, useReducer, } from "react";
+import { useEffect, useState, useContext, } from "react";
 import MealPlan from './MealPlan';
 import UserContext from '../../context/UserContext';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -37,27 +37,26 @@ function Calendar({ dailyMeals, setDailyMeals }) {
     const [showDietPlan, setShowDietPlan] = useState({});
 
     return (
-        <Box display="flex" alignItems="center" justifyContent="center" width="100vw" height="100vh" bgcolor="#f3f9fd" >
+        <Box display="flex" alignItems="center" justifyContent="center" width="100vw" height="calc(100vh - 64px)" bgcolor="#f3f9fd" >
             <Paper sx={{
                 bgcolor: '#fdfdfd',
                 borderRadius: '25px',
                 width: 'max-content',
                 height: 'max-content',
             }}>
-                <Box height="100%" padding="20px" position="relative">
+                <Box height="100%" padding="10px" position="relative">
                     {/* Header of Calendar */}
-                    <Box display="flex" justifyContent="space-between" alignItems="center" padding="10px"
-                        sx={{
-                        }}>
+                    <Box display="flex" justifyContent="space-between" alignItems="center" padding="10px">
                         <Fade timeout={1000} in={!showMonth} key={showDate.month}>
                             <Button
                                 variant="text"
-                                endIcon={<ExpandMoreIcon sx={{ width: '30px', height: '30px' }} />}
+                                endIcon={<ArrowDropDownIcon sx={{ width: '30px', height: '30px' }} />}
                                 onClick={() => setShowMonth(!showMonth)}
                                 sx={{
                                     color: 'primary.main',
+                                    bgcolor: 'primary.opaque',
                                     padding: '5px 0 5px 10px',
-                                    fontSize: "1.4rem",
+                                    fontSize: { mobile: "1.4rem", tablet: "1.6rem", laptop: "1.8rem", desktop: "2rem" },
                                     textTransform: "Capitalize",
                                     borderRadius: "10px",
                                     '& span': { marginLeft: '0px', marginRight: '0px' }
@@ -77,7 +76,10 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                                     }>
                                     <ArrowBackIosNewIcon />
                                 </IconButton>
-                                <Typography variant="h5" component="h5" fontSize="1.4rem" >{showDate.year}</Typography>
+                                <Typography variant="h5" component="h5" sx={{
+                                    fontSize: { mobile: "1.4rem", tablet: "1.6rem", laptop: "1.8rem", desktop: "2rem" },
+                                    fontWeight: "600",
+                                }}  >{showDate.year}</Typography>
                                 <IconButton sx={{ mx: "0px", color: 'secondary.main' }}
                                     onClick={() => {
                                         const newDate = new Date(showDate.date);
@@ -98,7 +100,7 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                         padding: '10px',
                         rowGap: '2px',
                     }}>
-                        {/* Days of th week */}
+                        {/* Days of the week */}
                         {weekDays.map((day) => (
                             <Box key={day} sx={{
                                 display: 'flex',
@@ -108,7 +110,7 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                                 fontSize: {
                                     smallest: '0.8rem',
                                     mobile: '0.9rem',
-                                    tablet: '1rem',
+                                    tablet: '1.3rem',
                                 },
                                 aspectRatio: '1/1',
                                 fontWeight: 'bold',
@@ -131,24 +133,36 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
-                                        width: '40px',
+                                        width: { mobile: '40px', tablet: '70px', laptop: '100px' },
                                         minWidth: '40px',
                                         minHeight: '40px',
-                                        color: 'black',
-                                        fontSize: {
-                                            smallest: '0.8rem',
-                                            mobile: '0.9rem',
-                                            tablet: '1rem',
-                                        },
                                         aspectRatio: '1/1',
-                                        borderRadius: '50%',
-                                        bgcolor: schedule.length ? 'secondary.main' : 'rgba(0,0,0,0)',
-                                        fontWeight: isToday ? '900' : 'normal',
                                         gridColumn: idx === 0 ? `${startingWeek}` : 'auto',
+                                        '& button': {
+                                            color: 'black',
+                                            fontSize: {
+                                                smallest: '0.8rem',
+                                                mobile: '0.9rem',
+                                                tablet: '1.3rem',
+                                            },
+                                            fontWeight: isToday || schedule.length ? '700' : 'normal',
+                                            border: isToday ? '2px solid #3f51b5' : 'none',
+                                            transformOrigin: 'center',
+                                            transform: isToday ? 'scale(1.5)' : 'scale(1)',
+                                            width: '80%',
+                                            height: '80%',
+                                            borderRadius: '25%',
+                                            border: 'none',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            bgcolor: schedule.length ? 'secondary.main' : 'rgba(0,0,0,0)',
+                                        }
                                     }}
-                                        onClick={() => { schedule.length && setShowDietPlan(schedule[0]); }}
                                     >
-                                        {date.getDate()}
+                                        <button onClick={() => { schedule.length && setShowDietPlan(schedule[0]) }} >
+                                            {date.getDate()}
+                                        </button>
                                     </Box>
                                 </Grow>
                             )
@@ -180,7 +194,7 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                                             display: 'flex',
                                             justifyContent: 'center',
                                             alignItems: 'center',
-                                            fontSize: '1.0rem',
+                                            fontSize: { mobile: '1.0rem', tablet: '1.3rem', laptop: '1.5rem' },
                                             borderRadius: '10px',
                                             px: '5px',
                                             py: '3px',

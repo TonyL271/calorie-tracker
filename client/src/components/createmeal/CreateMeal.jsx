@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { MealForm, MealFormMobile } from './';
 import { DailyMeal } from './DailyMeal';
 import UserContext from '../../context/UserContext';
-import { addMeal, Nutrients } from '../../apiCalls';
+import { addMeal} from '../../apiCalls';
 
 const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   const [viewport, setviewport] = useState({ width: window.innerWidth, height: window.innerHeight });
@@ -84,7 +84,6 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   }
 
   return (
-    //todo remove the && 0. Its for testing purposes onlny
     viewport.width > breakpoint ?
       (
         <MealForm

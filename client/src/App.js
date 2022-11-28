@@ -18,6 +18,7 @@ const light = createTheme({
   palette: {
     primary: {
       main: '#4EDC8E',
+      opaque: 'rgba(0, 0, 0, 0.025)',
       contrast: '#FFFFFF',
       lightContrast: '#000000',
     },
@@ -43,6 +44,12 @@ const light = createTheme({
 
 function App() {
   const [dailyMeals, setDailyMeals] = useState([])
+
+  // disable mobile zoom
+  document.addEventListener(
+    'touchmove',
+    event => event.scale !== 1 && event.preventDefault(), { passive: false }
+  );
 
   return (
     <BrowserRouter>

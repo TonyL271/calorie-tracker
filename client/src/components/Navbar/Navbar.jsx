@@ -1,6 +1,4 @@
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import AddIcon from '@mui/icons-material/Add';
+import { AppBar, Toolbar, Typography, Button, Box, Slide } from '@mui/material';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { HamburgerButton } from './';
