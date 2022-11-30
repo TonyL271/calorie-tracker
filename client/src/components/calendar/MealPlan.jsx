@@ -2,6 +2,9 @@ import React from 'react'
 import { Box, Typography } from '@mui/material';
 import MealDetails from './MealDetails';
 import CloseIcon from '@mui/icons-material/Close';
+import MealTabs from '../createmeal/MealTabs';
+import { useState, useEffect } from 'react';
+import { MealCard, MealGrid } from '../createmeal';
 
 const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
     let totalCalories = 0;
@@ -11,6 +14,23 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
         totalCalories += showDietPlan.dinner.reduce((total, food) => food.nf_calories_scaled + total, 0)
         totalCalories += showDietPlan.snacks.reduce((total, food) => food.nf_calories_scaled + total, 0)
     }
+
+    const mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snacks']
+    const dailyMeal = [showDietPlan.breakfast, showDietPlan.lunch, showDietPlan.dinner, showDietPlan.snacks]
+
+
+    const [value, setValue] = useState('0')
+    const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
+
+    useEffect(() => {
+        const handleResizeWindow = () => setViewport({ width: window.innerWidth, height: window.innerHeight });
+        // subscribe to window resize event "onComponentDidMount"
+        window.addEventListener("resize", handleResizeWindow);
+        return () => {
+            // unsubscribe "onComponentDestroy"
+            window.removeEventListener("resize", handleResizeWindow);
+        };
+    }, []);
 
     return (
         Boolean(Object.entries(showDietPlan).length) &&
@@ -32,11 +52,11 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
                 sx={{
                     position: 'relative',
                     bgcolor: 'white',
-                    'minWidth': '350px',
+                    width:'90vw',
                     border: 'solid 7px #4EDC8E',
-                    borderRadius: '5px'
+                    borderRadius: '30px'
                 }}>
-                <Box sx={{ m: '1rem' }}>
+                <Box sx={{ m: '1rem',borderRadius:'10px' }}>
                     <CloseIcon
                         onClick={() => { setShowDietPlan({}) }}
                         sx={{
@@ -45,14 +65,19 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
                             right: '0.3rem',
                             top: '0rem'
                         }} />
-                    <MealDetails mealType="Breakfast" meal={showDietPlan.breakfast} />
-                    <MealDetails mealType="Lunch" meal={showDietPlan.lunch} />
-                    <MealDetails mealType="Dinner" meal={showDietPlan.dinner} />
-                    <MealDetails mealType="Snack" meal={showDietPlan.snacks} />
+                    <MealTabs value={value} setValue={setValue} mealTypes={mealTypes} viewport={viewport} warning={{ warn: false, emptyMeal: false }}>
+                        {dailyMeal.map((meal, idx) => (
+                            <Box className="boxerino" sx={{ margin: '0.8rem', bgcolor: 'white',borderRadius:'10px' }} key={idx}>
+                                <Box className="boxerino" sx={{ margin: '0.8rem', bgcolor: 'white',minHeight:'50vh' }} key={idx}>
+                                    <MealGrid foodList={meal} viewport={viewport} deletable={false} />
+                                </Box>
+                            </Box>
+                        ))}
+                    </MealTabs>
                     <Typography variant="h6" component="h6">{`Total calories: ${Math.floor(totalCalories)}`}</Typography>
                 </Box>
             </Box>
-        </Box>
+        </Box >
     )
 }
 

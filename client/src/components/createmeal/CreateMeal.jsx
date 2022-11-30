@@ -5,7 +5,7 @@ import UserContext from '../../context/UserContext';
 import { addMeal} from '../../apiCalls';
 
 const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
-  const [viewport, setviewport] = useState({ width: window.innerWidth, height: window.innerHeight });
+  const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
   const breakpoint = 1024;
 
   const { user, saveUser } = useContext(UserContext);
@@ -59,7 +59,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   // }, [user])
 
   useEffect(() => {
-    const handleResizeWindow = () => setviewport({ width: window.innerWidth, height: window.innerHeight });
+    const handleResizeWindow = () => setViewport({ width: window.innerWidth, height: window.innerHeight });
     // subscribe to window resize event "onComponentDidMount"
     window.addEventListener("resize", handleResizeWindow);
     return () => {

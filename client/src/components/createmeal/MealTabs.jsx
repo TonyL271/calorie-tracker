@@ -1,14 +1,52 @@
 import { TabList, TabContext } from "@mui/lab";
-import { Box, Tab, } from "@mui/material"
+import { Box, Tab, MobileStepper } from "@mui/material"
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import CheckIcon from '@mui/icons-material/Check';
+import { useSwipeable } from "react-swipeable";
+import { useEffect, useRef } from "react";
 
-const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal } }) => {
+//component that provides tabs with swipe functionality and tabpanels wrapper for each item
+const MealTabs = ({ mealTypes, value, setValue, viewport, warning: { warn, emptyMeal }, children }) => {
+
+    const mod = (n, m) => ((n % m) + m) % m; // modulo that handles negative numbers
+
+    const config = {
+        delta: 10,                             // min distance(px) before a swipe starts. *See Notes*
+        preventScrollOnSwipe: true,           // prevents scroll during swipe (*See Details*)
+        trackTouch: true,                      // track touch input
+        trackMouse: true,                     // track mouse input
+        rotationAngle: 0,                      // set a rotation angle
+        swipeDuration: Infinity,               // allowable duration of a swipe (ms). *See Notes*
+        touchEventOptions: { passive: true },  // options for touch listeners (*See Details*)
+    }
+
+    const handlers = useSwipeable({
+        onSwiped: (eventData) => {
+            const inc = eventData.dir === "Left" ? 1 : -1;
+            setValue((prev) => (
+                mod(+prev + inc, 4).toString()
+            ));
+        },
+        ...config,
+    });
+
+    const scrollerRef = useRef(null);
+    //scroll selected tab into view after swipe
+    useEffect(() => {
+        scrollerRef.current.scrollTo({ left: `${viewport.width * value}`, behavior: 'smooth' })
+    }, [value])
 
     return (
-        <TabContext value={value} sx={{
-        }}>
-            <Box bgcolor="white">
+        <Box
+            {...handlers}
+            sx={{
+
+                bgcolor: 'white',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+            }}>
+            <TabContext value={value}>
                 <TabList
                     onChange={(e, newValue) => { setValue(newValue) }}
                     aria-label="Daily meal tabs"
@@ -16,7 +54,6 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal } }) 
                         bgcolor: 'primary.main',
                         mt: '1.5rem',
                         height: '50px',
-
                         '& button.MuiButtonBase-root:first-of-type': {
                             borderLeft: 'solid 10px white',
                         },
@@ -29,6 +66,7 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal } }) 
                         },
                         '& button.Mui-selected': {
                             position: 'relative',
+                            height: '70px',
                             minWidth: '0',
                             color: 'white',
                             padding: '5px',
@@ -46,8 +84,8 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal } }) 
                             borderRight: '10px solid white',
                             borderWidth: '10px 10px'
                         },
-
                         '& button': {
+                            bgcolor: 'primary.main',
                             height: '50px',
                             minHeight: '50px',
                             minWidth: '0',
@@ -58,7 +96,8 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal } }) 
                         '& .MuiTabs-flexContainer': {
                             display: 'grid',
                             gridTemplateColumns: 'repeat(4, 1fr)',
-                            height: '50px'
+                            height: '50px',
+                            bgcolor: 'white',
                         },
                     }}
                 >
@@ -74,8 +113,41 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal } }) 
                         />
                     ))}
                 </TabList>
+                <MobileStepper
+                    variant="dots"
+                    steps={4}
+                    position="static"
+                    activeStep={+value}
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        bgcolor: '#222222',
+                        borderRadius: '5px 5px 0 0 ',
+                        height: '2.5rem',
+                        '& div.MuiMobileStepper-dot': {
+                            bgcolor: 'white',
+                        },
+                        '& div.MuiMobileStepper-dotActive': {
+                            bgcolor: 'primary.main',
+                        }
+                    }}
+                />
+            </TabContext>
+            <Box sx={{ flexGrow: 1, bgcolor: '#222222', borderRadius: '0 0 5px 5px' }}>
+                <Box
+                    ref={scrollerRef}
+                    sx={{
+                        display: 'grid',
+                        gridTemplateColumns: `repeat(${mealTypes.length}, 100%)`,
+                        position: 'relative',
+                        height: `calc(100% - 48px)`,
+                        overflowX: 'hidden',
+                    }}>
+                    {children}
+                </Box>
             </Box>
-        </TabContext>
+        </Box>
     )
 }
 
