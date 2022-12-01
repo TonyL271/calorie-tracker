@@ -28,6 +28,7 @@ const MealFormMobile = ({
 }) => {
   const emptyMeal = [!breakfast.length, !lunch.length, !dinner.length, !snacks.length];
   const [value, setValue] = useState('0');
+  const tabContainer = useRef(null);
 
   const mealProps = [
     {
@@ -67,14 +68,14 @@ const MealFormMobile = ({
 
   return (
     <Fade in={true} timeout={1500}>
-      <Box sx={{
+      <Box ref={tabContainer} sx={{
         height: `calc(${window.innerHeight}px - 65px)`,
         display: 'flex',
         flexDirection: 'column',
         overFlowX: 'hidden',
         bgcolor: "#222222",
       }}>
-        <MealTabs value={value} setValue={setValue} mealTypes={mealTypes} viewport={viewport} warning={{ warn: true, emptyMeal }} >
+        <MealTabs value={value} setValue={setValue} mealTypes={mealTypes} container={tabContainer} warning={{ warn: true, emptyMeal }} >
           {
             mealProps.map((props, idx) => (
               <Box className="look" minWidth="100vw" key={idx} sx={{

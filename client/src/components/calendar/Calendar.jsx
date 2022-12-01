@@ -141,14 +141,12 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                                         '& button': {
                                             color: 'black',
                                             fontSize: {
-                                                smallest: '0.8rem',
-                                                mobile: '0.9rem',
-                                                tablet: '1.3rem',
+                                                smallest: isToday ? '1.2rem' : '0.8rem',
+                                                mobile: isToday ? '1.35rem' : '0.9rem',
+                                                tablet: isToday ? '1.95rem' : '1.3rem',
                                             },
                                             fontWeight: isToday || schedule.length ? '700' : 'normal',
                                             border: isToday ? '2px solid #3f51b5' : 'none',
-                                            transformOrigin: 'center',
-                                            transform: isToday ? 'scale(1.5)' : 'scale(1)',
                                             width: '80%',
                                             height: '80%',
                                             borderRadius: '25%',

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Box, Typography } from '@mui/material';
 import MealDetails from './MealDetails';
 import CloseIcon from '@mui/icons-material/Close';
@@ -20,6 +20,7 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
 
 
     const [value, setValue] = useState('0')
+    const tabContainer = useRef(null)
     const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
 
     useEffect(() => {
@@ -52,23 +53,24 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
                 sx={{
                     position: 'relative',
                     bgcolor: 'white',
-                    width:'90vw',
+                    width: '90vw',
                     border: 'solid 7px #4EDC8E',
                     borderRadius: '30px'
                 }}>
-                <Box sx={{ m: '1rem',borderRadius:'10px' }}>
+                <Box ref={tabContainer} sx={{ m: '1rem', borderRadius: '10px' }}>
                     <CloseIcon
                         onClick={() => { setShowDietPlan({}) }}
                         sx={{
                             position: 'absolute',
                             color: 'red',
-                            right: '0.3rem',
-                            top: '0rem'
+                            right: '0.5rem',
+                            top: '0.5rem',
+                            stroke: 'red',
                         }} />
-                    <MealTabs value={value} setValue={setValue} mealTypes={mealTypes} viewport={viewport} warning={{ warn: false, emptyMeal: false }}>
+                    <MealTabs value={value} setValue={setValue} mealTypes={mealTypes} container={tabContainer} warning={{ warn: false, emptyMeal: false }} rounded={true}>
                         {dailyMeal.map((meal, idx) => (
-                            <Box className="boxerino" sx={{ margin: '0.8rem', bgcolor: 'white',borderRadius:'10px' }} key={idx}>
-                                <Box className="boxerino" sx={{ margin: '0.8rem', bgcolor: 'white',minHeight:'50vh' }} key={idx}>
+                            <Box className="boxerino" sx={{ margin: '0.8rem', bgcolor: 'white', borderRadius: '10px' }} key={idx}>
+                                <Box className="boxerino" sx={{ margin: '0.8rem', bgcolor: 'white', minHeight: '50vh' }} key={idx}>
                                     <MealGrid foodList={meal} viewport={viewport} deletable={false} />
                                 </Box>
                             </Box>

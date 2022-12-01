@@ -6,7 +6,7 @@ import { useSwipeable } from "react-swipeable";
 import { useEffect, useRef } from "react";
 
 //component that provides tabs with swipe functionality and tabpanels wrapper for each item
-const MealTabs = ({ mealTypes, value, setValue, viewport, warning: { warn, emptyMeal }, children }) => {
+const MealTabs = ({ mealTypes, value, setValue, container, warning: { warn, emptyMeal }, rounded, children }) => {
 
     const mod = (n, m) => ((n % m) + m) % m; // modulo that handles negative numbers
 
@@ -33,7 +33,7 @@ const MealTabs = ({ mealTypes, value, setValue, viewport, warning: { warn, empty
     const scrollerRef = useRef(null);
     //scroll selected tab into view after swipe
     useEffect(() => {
-        scrollerRef.current.scrollTo({ left: `${viewport.width * value}`, behavior: 'smooth' })
+        scrollerRef.current.scrollTo({ left: `${container.current.clientWidth * value}`, behavior: 'smooth' })
     }, [value])
 
     return (
@@ -72,6 +72,7 @@ const MealTabs = ({ mealTypes, value, setValue, viewport, warning: { warn, empty
                             padding: '5px',
                             bgcolor: "#222222",
                         },
+
                         '& button:after': {
                             content: '""',
                             position: 'absolute',
@@ -123,7 +124,7 @@ const MealTabs = ({ mealTypes, value, setValue, viewport, warning: { warn, empty
                         justifyContent: 'center',
                         alignItems: 'center',
                         bgcolor: '#222222',
-                        borderRadius: '5px 5px 0 0 ',
+                        borderRadius: rounded ? '5px 5px 0 0 ' : '0',
                         height: '2.5rem',
                         '& div.MuiMobileStepper-dot': {
                             bgcolor: 'white',
@@ -134,7 +135,7 @@ const MealTabs = ({ mealTypes, value, setValue, viewport, warning: { warn, empty
                     }}
                 />
             </TabContext>
-            <Box sx={{ flexGrow: 1, bgcolor: '#222222', borderRadius: '0 0 5px 5px' }}>
+            <Box sx={{ flexGrow: 1, bgcolor: '#222222', borderRadius: rounded ? '0 0 5px 5px' : '0' }}>
                 <Box
                     ref={scrollerRef}
                     sx={{
@@ -147,7 +148,7 @@ const MealTabs = ({ mealTypes, value, setValue, viewport, warning: { warn, empty
                     {children}
                 </Box>
             </Box>
-        </Box>
+        </Box >
     )
 }
 
