@@ -133,7 +133,7 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
-                                        width: { mobile: '40px', tablet: '70px', laptop: '100px' },
+                                        width: { mobile: '40px', tablet: '70px',laptop:'85px' },
                                         minWidth: '40px',
                                         minHeight: '40px',
                                         aspectRatio: '1/1',

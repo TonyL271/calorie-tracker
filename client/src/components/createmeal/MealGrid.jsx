@@ -7,12 +7,11 @@ import NutrientLabel from '../NutrientLabel/NutrientLabel';
 const MealGrid = ({ foodList, setFoodList, viewport, deletable }) => {
 
     const theme = useTheme();
-    const tabletSize = useMediaQuery(theme.breakpoints.up('mobile'));
     const smallScreen = useMediaQuery(theme.breakpoints.down('laptop'));
 
     const [showFoods, setShowFoods] = useState(foodList);
     const [showPagination, setShowPagination] = useState(false);
-    const maxItems = Math.floor((viewport.height - (tabletSize ? 380 : 513)) / 50);
+    const maxItems = Math.floor((viewport.height - 480) / 48);
     const maxPage = Math.ceil(foodList.length / maxItems);
     const [page, setPage] = useState(0);
     const start = page * maxItems;
@@ -86,11 +85,11 @@ const MealGrid = ({ foodList, setFoodList, viewport, deletable }) => {
             }
             {foodList.length > 0 &&
                 <>
-                    <Box align='center' sx={{ width: '100%', gridColumn: '-4 / -3' }} >
+                    <Box align='center' sx={{ width: '100%', gridColumn: deletable ? '-4/-3' : '-3/-2' }} >
                         <Divider sx={{ mt: '0.5rem', borderBottomWidth: 2, bgcolor: 'black' }}></Divider>
                     </Box>
-                    <Typography sx={{ gridColumn: '-5/-4', textAlign: 'center', fontWeight: '700' }}>Sum: </Typography>
-                    <Typography sx={{ gridColumn: '-4/-3', textAlign: 'center', fontWeight: '700' }}>
+                    <Typography sx={{ gridColumn: deletable ? '-5/-4' : '-4/-3', textAlign: 'center', fontWeight: '700' }}>Sum: </Typography>
+                    <Typography sx={{ gridColumn: deletable ? '-4/-3' : '-3,-2', textAlign: 'center', fontWeight: '700' }}>
                         {
                             foodList.reduce((prev, curr) => prev + curr.nf_calories_scaled, 0).toFixed(0) + ' cal'
                         }</Typography>

@@ -1,10 +1,9 @@
 import React, { useRef } from 'react'
-import { Box, Typography } from '@mui/material';
-import MealDetails from './MealDetails';
+import { Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import MealTabs from '../createmeal/MealTabs';
 import { useState, useEffect } from 'react';
-import { MealCard, MealGrid } from '../createmeal';
+import { MealGrid } from '../createmeal';
 
 const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
     let totalCalories = 0;
@@ -17,7 +16,6 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
 
     const mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snacks']
     const dailyMeal = [showDietPlan.breakfast, showDietPlan.lunch, showDietPlan.dinner, showDietPlan.snacks]
-
 
     const [value, setValue] = useState('0')
     const tabContainer = useRef(null)
@@ -40,44 +38,54 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
             sx={{
                 display: 'flex',
                 position: 'absolute',
-                top: '0',
+                top: '65px',
                 left: '0',
                 width: '100vw',
-                height: '100vh',
+                height: 'calc(100vh - 65px)',
                 justifyContent: 'center',
                 alignItems: 'center',
                 bgcolor: 'rgba(0,0,0,0.3)',
             }}>
             <Box
                 onClick={(e) => { e.stopPropagation() }}
+                ref={tabContainer}
                 sx={{
                     position: 'relative',
                     bgcolor: 'white',
-                    width: '90vw',
+                    width: '97vw',
                     border: 'solid 7px #4EDC8E',
-                    borderRadius: '30px'
+                    borderRadius: '10px',
+                    padding: '0.5rem',
+                    margin:'0.5rem',
                 }}>
-                <Box ref={tabContainer} sx={{ m: '1rem', borderRadius: '10px' }}>
-                    <CloseIcon
-                        onClick={() => { setShowDietPlan({}) }}
-                        sx={{
-                            position: 'absolute',
-                            color: 'red',
-                            right: '0.5rem',
-                            top: '0.5rem',
-                            stroke: 'red',
-                        }} />
-                    <MealTabs value={value} setValue={setValue} mealTypes={mealTypes} container={tabContainer} warning={{ warn: false, emptyMeal: false }} rounded={true}>
-                        {dailyMeal.map((meal, idx) => (
-                            <Box className="boxerino" sx={{ margin: '0.8rem', bgcolor: 'white', borderRadius: '10px' }} key={idx}>
-                                <Box className="boxerino" sx={{ margin: '0.8rem', bgcolor: 'white', minHeight: '50vh' }} key={idx}>
-                                    <MealGrid foodList={meal} viewport={viewport} deletable={false} />
-                                </Box>
-                            </Box>
-                        ))}
-                    </MealTabs>
-                    <Typography variant="h6" component="h6">{`Total calories: ${Math.floor(totalCalories)}`}</Typography>
-                </Box>
+                <CloseIcon
+                    onClick={() => { setShowDietPlan({}) }}
+                    sx={{
+                        position: 'absolute',
+                        color: 'red',
+                        right: '0.5rem',
+                        top: '0.5rem',
+                        stroke: 'red',
+                    }} />
+                <MealTabs
+                    value={value}
+                    setValue={setValue}
+                    mealTypes={mealTypes}
+                    warning={{ warn: false, emptyMeal: false }}
+                    rounded={true}
+                >
+                    {dailyMeal.map((meal, idx) => (
+                        <Box sx={{
+                            padding: '0.8rem',
+                            margin: '0.8rem',
+                            bgcolor: 'white',
+                            borderRadius: '10px',
+                            fontSize: { smallest: '0.7rem', mobile: '0.8rem', tablet: '1rem' },
+                        }} key={idx}>
+                            <MealGrid foodList={meal} viewport={viewport} deletable={false} />
+                        </Box>
+                    ))}
+                </MealTabs>
             </Box>
         </Box >
     )

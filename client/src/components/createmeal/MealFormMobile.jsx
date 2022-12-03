@@ -75,12 +75,12 @@ const MealFormMobile = ({
         overFlowX: 'hidden',
         bgcolor: "#222222",
       }}>
-        <MealTabs value={value} setValue={setValue} mealTypes={mealTypes} container={tabContainer} warning={{ warn: true, emptyMeal }} >
+        <MealTabs value={value} setValue={setValue} mealTypes={mealTypes} warning={{ warn: true, emptyMeal }} >
           {
             mealProps.map((props, idx) => (
-              <Box className="look" minWidth="100vw" key={idx} sx={{
+              <Box minWidth="100vw" key={idx} sx={{
                 padding: { smallest: '0 1rem 1rem 1rem', tablet: '0 3rem 3rem 3rem' },
-                height: '95%',
+                height: '100%',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 display: 'flex',
@@ -96,7 +96,8 @@ const MealFormMobile = ({
                 />
                 <Box marginBottom="1rem"></Box>
                 <Box display="flex" justifyContent="space-between" sx={{ flexDirection: { smallest: 'column', tablet: 'row', } }}>
-                  <Typography sx={{ mt: '1rem', display: 'block', fontWeight: '700', color: '#f50057', mb: { smallest: '1rem', tablet: '0' } }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
+                  <Typography sx={{ mt: '1rem', display: 'block', fontWeight: '700', color: '#f50057', mb: { smallest: '1rem', tablet: '0' } }}>{`Daily total:`} 
+                {`${totalCals.toFixed(0)} calories`}</Typography>
                   <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Button sx={{
                       bgcolor: 'red',

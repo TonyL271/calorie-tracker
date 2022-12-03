@@ -20,6 +20,8 @@ const AddToggle = ({ setAddFood }) => {
     setOpen(false);
   }
 
+  const onSubmit = (e) => { e.preventDefault() }
+
   const getSearchSuggestion = (e) => {
     const val = e.currentTarget.value;
     if (val.length > 0) {
@@ -50,7 +52,7 @@ const AddToggle = ({ setAddFood }) => {
       >
         <AddCircleTwoToneIcon size='large' sx={{ position: 'absolute', height: '100%', width: '100%', }} />
       </IconButton>
-      <Menu 
+      <Menu
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -68,6 +70,7 @@ const AddToggle = ({ setAddFood }) => {
       >
         <Box
           component="form"
+          onSubmit={onSubmit}
           sx={(theme) => ({
             p: '2px 4px',
             width: '100%',
@@ -86,7 +89,7 @@ const AddToggle = ({ setAddFood }) => {
             onChange={getSearchSuggestion}
           />
           <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-            <SearchIcon sx={{color:'primary.lightContrast'}} />
+            <SearchIcon sx={{ color: 'primary.lightContrast' }} />
           </IconButton>
         </Box>
         <Typography variant="h6" component="h6" sx={{

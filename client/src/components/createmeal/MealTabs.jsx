@@ -6,7 +6,7 @@ import { useSwipeable } from "react-swipeable";
 import { useEffect, useRef } from "react";
 
 //component that provides tabs with swipe functionality and tabpanels wrapper for each item
-const MealTabs = ({ mealTypes, value, setValue, container, warning: { warn, emptyMeal }, rounded, children }) => {
+const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal }, rounded, children }) => {
 
     const mod = (n, m) => ((n % m) + m) % m; // modulo that handles negative numbers
 
@@ -30,30 +30,40 @@ const MealTabs = ({ mealTypes, value, setValue, container, warning: { warn, empt
         ...config,
     });
 
-    const scrollerRef = useRef(null);
+    const scroller = useRef(null);
+    const container = useRef(null);
+
     //scroll selected tab into view after swipe
     useEffect(() => {
-        scrollerRef.current.scrollTo({ left: `${container.current.clientWidth * value}`, behavior: 'smooth' })
+        if (container && container.current) {
+            scroller.current.scrollTo({ left: `${container.current.clientWidth * value}`, behavior: 'smooth' })
+        }
     }, [value])
+
+    const refPassThrough = (el) => {
+        handlers.ref(el)
+        container.current = el
+    }
 
     return (
         <Box
             {...handlers}
+            ref={refPassThrough}
             sx={{
-
                 bgcolor: 'white',
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
             }}>
-            <TabContext value={value}>
+            <TabContext value={value} >
                 <TabList
                     onChange={(e, newValue) => { setValue(newValue) }}
                     aria-label="Daily meal tabs"
                     sx={{
                         bgcolor: 'primary.main',
                         mt: '1.5rem',
-                        height: '50px',
+                        height: {smallest: '40px',mobile:'50px'},
+                        minHeight: '40px',
                         '& button.MuiButtonBase-root:first-of-type': {
                             borderLeft: 'solid 10px white',
                         },
@@ -66,13 +76,11 @@ const MealTabs = ({ mealTypes, value, setValue, container, warning: { warn, empt
                         },
                         '& button.Mui-selected': {
                             position: 'relative',
-                            height: '70px',
                             minWidth: '0',
                             color: 'white',
                             padding: '5px',
                             bgcolor: "#222222",
                         },
-
                         '& button:after': {
                             content: '""',
                             position: 'absolute',
@@ -87,17 +95,20 @@ const MealTabs = ({ mealTypes, value, setValue, container, warning: { warn, empt
                         },
                         '& button': {
                             bgcolor: 'primary.main',
-                            height: '50px',
-                            minHeight: '50px',
+                            height: '100%',
+                            minHeight: '0px',
                             minWidth: '0',
                             py: 0,
                             borderLeft: 'solid 5px white',
                             borderRight: 'solid 5px white',
                         },
+                        '& button .MuiBox-root': {
+                            transform: warn ? 'translateY(5px)' : 'translateY(6px)',
+                        },
                         '& .MuiTabs-flexContainer': {
                             display: 'grid',
+                            height: '100%',
                             gridTemplateColumns: 'repeat(4, 1fr)',
-                            height: '50px',
                             bgcolor: 'white',
                         },
                     }}
@@ -105,7 +116,7 @@ const MealTabs = ({ mealTypes, value, setValue, container, warning: { warn, empt
                     {mealTypes.map((mealType, idx) => (
                         <Tab
                             key={idx}
-                            label={<Box component="span" sx={{ fontSize: { smallest: '0.6rem', mobile: '0.7rem' } }} >{mealType}</Box>}
+                            label={<Box component="span" sx={{ fontSize: { smallest: '0.5rem', mobile: '0.7rem' } }} >{mealType}</Box>}
                             value={idx.toString()}
                             icon={(idx.toString() === value) || !warn ? '' : emptyMeal[idx] ? <PriorityHighIcon sx={{
 
@@ -137,12 +148,12 @@ const MealTabs = ({ mealTypes, value, setValue, container, warning: { warn, empt
             </TabContext>
             <Box sx={{ flexGrow: 1, bgcolor: '#222222', borderRadius: rounded ? '0 0 5px 5px' : '0' }}>
                 <Box
-                    ref={scrollerRef}
+                    ref={scroller}
                     sx={{
                         display: 'grid',
                         gridTemplateColumns: `repeat(${mealTypes.length}, 100%)`,
                         position: 'relative',
-                        height: `calc(100% - 48px)`,
+                        height: `100%`,
                         overflowX: 'hidden',
                     }}>
                     {children}
