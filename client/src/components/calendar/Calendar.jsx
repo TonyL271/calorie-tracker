@@ -1,7 +1,9 @@
 import { Box, Typography, Button, IconButton, Paper, Stack, Grow, Zoom, Fade } from "@mui/material";
 import { useEffect, useState, useContext, } from "react";
+import { useSwipeable } from "react-swipeable";
 import MealPlan from './MealPlan';
 import UserContext from '../../context/UserContext';
+
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -29,6 +31,7 @@ const sameDay = (date1, date2) => (
     date1.getFullYear() === date2.getFullYear()
 )
 
+
 function Calendar({ dailyMeals, setDailyMeals }) {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [showDate, setShowDate] = useState(getShowDate(currentDate));
@@ -36,8 +39,33 @@ function Calendar({ dailyMeals, setDailyMeals }) {
     const { user, setUser } = useContext(UserContext);
     const [showDietPlan, setShowDietPlan] = useState({});
 
+    const changeYear = (change) => {
+        const newDate = new Date(showDate.date);
+        newDate.setFullYear(newDate.getFullYear() + change);
+        setShowDate(getShowDate(newDate));
+    }
+
+    // Allows swiping calendar to switch years
+    const config = {
+        delta: 10,                             // min distance(px) before a swipe starts. *See Notes*
+        preventScrollOnSwipe: true,           // prevents scroll during swipe (*See Details*)
+        trackTouch: true,                      // track touch input
+        trackMouse: true,                     // track mouse input
+        rotationAngle: 0,                      // set a rotation angle
+        swipeDuration: Infinity,               // allowable duration of a swipe (ms). *See Notes*
+        touchEventOptions: { passive: true },  // options for touch listeners (*See Details*)
+    }
+
+    const handlers = useSwipeable({
+        onSwiped: (eventData) => {
+            const inc = eventData.dir === "Left" ? 1 : -1;
+            changeYear(inc)
+        },
+        ...config,
+    });
+
     return (
-        <Box display="flex" alignItems="center" justifyContent="center" width="100vw" height="calc(100vh - 64px)" bgcolor="#f3f9fd" >
+        <Box {...handlers} display="flex" alignItems="center" justifyContent="center" width="100vw" height="calc(100vh - 64px)" bgcolor="#f3f9fd" >
             <Paper sx={{
                 bgcolor: '#fdfdfd',
                 borderRadius: '25px',
@@ -64,15 +92,10 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                                 {showDate.month}
                             </Button>
                         </Fade>
-
                         <Fade timeout={1000} in={!showMonth} key={showDate.year} color="secondary.main" >
                             <Box display="flex" justifyContent="space-between" alignItems="center" >
                                 <IconButton sx={{ mx: "0px", color: 'secondary.main' }}
-                                    onClick={() => {
-                                        const newDate = new Date(showDate.date);
-                                        newDate.setFullYear(newDate.getFullYear() - 1);
-                                        setShowDate(getShowDate(newDate));
-                                    }
+                                    onClick={() => { changeYear(-1) }
                                     }>
                                     <ArrowBackIosNewIcon />
                                 </IconButton>
@@ -81,18 +104,13 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                                     fontWeight: "600",
                                 }}  >{showDate.year}</Typography>
                                 <IconButton sx={{ mx: "0px", color: 'secondary.main' }}
-                                    onClick={() => {
-                                        const newDate = new Date(showDate.date);
-                                        newDate.setFullYear(newDate.getFullYear() + 1);
-                                        setShowDate(getShowDate(newDate));
-                                    }}
+                                    onClick={() => { changeYear(1); }}
                                 >
                                     <ArrowForwardIosIcon />
                                 </IconButton>
                             </Box>
                         </Fade>
                     </Box>
-
                     {/* Body of calendar */}
                     <Box sx={{
                         display: 'grid',
@@ -133,7 +151,7 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
-                                        width: { mobile: '40px', tablet: '70px',laptop:'85px' },
+                                        width: { mobile: '40px', tablet: '70px', laptop: '85px' },
                                         minWidth: '40px',
                                         minHeight: '40px',
                                         aspectRatio: '1/1',
