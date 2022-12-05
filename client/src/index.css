@@ -19,3 +19,7 @@ code {
 .MuiMenu-paper {
   transition-duration: 0 !important;
 }
+
+.rolldate-mask {
+  pointer-events: none;
+}

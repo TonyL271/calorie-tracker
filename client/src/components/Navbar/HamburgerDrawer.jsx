@@ -44,13 +44,12 @@ const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
             onClose={() => setOpen(false)}
             disableSwipeToOpen={true}
             sx={{
-                zIndex: 0,
+                zIndex: 1,
             }}
         >
             <Box minWidth="300px">
-                <List>
-                    <ListItem sx={{ height: '65px' }} >
-                    </ListItem>
+                <List sx={{ marginTop: '70px' }}>
+                    {/* Show sign in Button if user is not logged in */}
                     {!user && (
                         <ListItem >
                             <ListItemButton onClick={() => { navigate('/sign-in') }}>

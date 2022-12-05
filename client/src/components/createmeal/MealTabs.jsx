@@ -62,7 +62,7 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal }, ro
                     sx={{
                         bgcolor: 'primary.main',
                         mt: '1.5rem',
-                        height: {smallest: '40px',mobile:'50px'},
+                        height: { smallest: '40px', mobile: '50px' },
                         minHeight: '40px',
                         '& button.MuiButtonBase-root:first-of-type': {
                             borderLeft: 'solid 10px white',
@@ -118,9 +118,9 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal }, ro
                             key={idx}
                             label={<Box component="span" sx={{ fontSize: { smallest: '0.5rem', mobile: '0.7rem' } }} >{mealType}</Box>}
                             value={idx.toString()}
-                            icon={(idx.toString() === value) || !warn ? '' : emptyMeal[idx] ? <PriorityHighIcon sx={{
-
-                            }} fontSize="4px" /> : <CheckIcon />}
+                            icon={(idx.toString() === value) || !warn ? '' : emptyMeal[idx] ?
+                                <PriorityHighIcon fontSize="4px" /> :
+                                <CheckIcon fontSize="4px" />}
                             sx={{ color: emptyMeal[idx] ? 'red' : ' #000000' }}
                         />
                     ))}

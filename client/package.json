@@ -9,7 +9,7 @@
     "@fontsource/roboto": "^4.5.7",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
-    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.8.4",
     "@mui/lab": "^5.0.0-alpha.92",
@@ -25,6 +25,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-swipeable": "^7.0.0",
+    "rolldate-full": "^3.2.3",
     "use-local-storage": "^2.3.6",
     "web-vitals": "^2.1.4"
   },

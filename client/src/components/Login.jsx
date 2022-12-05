@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import UserContext from '../context/UserContext'
-import { Box, Typography, TextField, Button, styled, Alert, Collapse } from '@mui/material'
+import { Box, Typography, TextField, Button, styled, Stack } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../apiCalls'
 
@@ -50,7 +50,7 @@ const MobileLogin = () => {
                     borderRadius: '10px',
                     padding: '0.5rem'
                 }}>
-                <Typography variant="h3" component="h1" align='center' sx={{ my: '0.9rem', lineHeight: '0.8', marginBottom: '4rem' }}>Login</Typography>
+                <Typography variant="h4" component="h1" align='center' sx={{ fontWeight: '500', my: '0.9rem', lineHeight: '0.8', marginBottom: '4rem' }}>Login</Typography>
                 <Box component="form" onSubmit={handleLogin}
                     sx={{
                         height: '250px',
@@ -59,20 +59,31 @@ const MobileLogin = () => {
                         alignItems: 'center',
                         flexDirection: 'column'
                     }}>
-                    <TextFieldStyled
-                        label="Username"
-                        name="username"
-                        variant="outlined"
-                        size="small"
-                    />
-                    <TextFieldStyled
-                        label="Password"
-                        name="password"
-                        variant="outlined"
-                        size="small"
-                        type="password"
-                    />
-                    <Button type="submit" variant="contained" color="secondary" sx={{ mb: '1rem' }} >Sign In</Button>
+                    <Stack sx={{
+                        width: '80%',
+                    }}>
+
+                        <Stack >
+                            <TextFieldStyled
+                                className="Mui-focused"
+                                label="Username"
+                                name="username"
+                                variant="outlined"
+                                size="small"
+                            />
+                            <TextFieldStyled
+                                label="Password"
+                                name="password"
+                                variant="outlined"
+                                size="small"
+                                type="password"
+                            />
+                        </Stack>
+                        <Stack flexDirection="row" justifyContent="space-around" width="100%">
+                            <Button type="submit" variant="contained" color="secondary" sx={{ mb: '1rem' }} >Sign In</Button>
+                            <Button type="submit" variant="contained" color="secondary" sx={{ mb: '1rem' }} >Create Account</Button>
+                        </Stack>
+                    </Stack>
                 </Box>
             </Box>
         </Box >

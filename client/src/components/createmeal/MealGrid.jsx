@@ -11,7 +11,7 @@ const MealGrid = ({ foodList, setFoodList, viewport, deletable }) => {
 
     const [showFoods, setShowFoods] = useState(foodList);
     const [showPagination, setShowPagination] = useState(false);
-    const maxItems = Math.floor((viewport.height - 480) / 48);
+    const maxItems = Math.floor((viewport.height - 606) / 48);
     const maxPage = Math.ceil(foodList.length / maxItems);
     const [page, setPage] = useState(0);
     const start = page * maxItems;

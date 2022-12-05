@@ -58,7 +58,7 @@ function App() {
           <Routes>
             <Route path="/"
               element={
-                <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: 'background.main', margin: 'auto' }}>
+                <Box sx={{ display: 'flex',height:`calc(${window.innerHeight}px)`, flexDirection: 'column',  bgcolor: 'background.main', margin: 'auto' }}>
                   <Navbar />
                   <Outlet />
                 </Box>
