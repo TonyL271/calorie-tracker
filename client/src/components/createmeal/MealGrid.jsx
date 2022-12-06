@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { Box, Typography, Divider, Pagination, useMediaQuery, } from '@mui/material'
+import React, { useState, useEffect, createRef } from 'react'
+import { Box, Typography, Divider, Pagination, useMediaQuery, Collapse, } from '@mui/material'
 import { useTheme } from '@emotion/react';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import NutrientLabel from '../NutrientLabel/NutrientLabel';
+import './animations.css'
 
-const MealGrid = ({ foodList, setFoodList, viewport, deletable }) => {
-
+const MealGrid = ({ foodList, handleRemoveItem, viewport, deletable, }) => {
     const theme = useTheme();
     const smallScreen = useMediaQuery(theme.breakpoints.down('laptop'));
 
@@ -45,8 +45,8 @@ const MealGrid = ({ foodList, setFoodList, viewport, deletable }) => {
             <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { smallest: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, gridColumn: '-2/-1' }} ></Typography>
             {/* Food list */}
             {
-                showFoods.map((food, index) =>
-                    <React.Fragment key={index}>
+                showFoods.map((food, index) => (
+                    <Box className={`grid-row id-${food.uuid}`} sx={{ display: 'contents' }} key={food.uuid} >
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '2rem' }}>
                             <Box component="img" alt="The house from the offer." src={food.photo.thumb} sx={{ width: '2.0rem', }} />
                         </Box>
@@ -69,9 +69,8 @@ const MealGrid = ({ foodList, setFoodList, viewport, deletable }) => {
                                 }
                             }}
                             onClick={(e) => {
-                                const idx = e.currentTarget.getAttribute('list-id');
-                                foodList.pop(idx + start)
-                                setFoodList([...foodList])
+                                const idx = +e.currentTarget.getAttribute('list-id');
+                                handleRemoveItem(idx + start)
                             }}>
                             <ClearRoundedIcon sx={{
                                 color: 'red',
@@ -80,10 +79,11 @@ const MealGrid = ({ foodList, setFoodList, viewport, deletable }) => {
                             }}
                             />
                         </Box>
-                    </React.Fragment>
-                )
+                    </Box>
+                ))
             }
-            {foodList.length > 0 &&
+            {
+                foodList.length > 0 &&
                 <>
                     <Box align='center' sx={{ width: '100%', gridColumn: deletable ? '-4/-3' : '-3/-2' }} >
                         <Divider sx={{ mt: '0.5rem', borderBottomWidth: 2, bgcolor: 'black' }}></Divider>
@@ -104,7 +104,8 @@ const MealGrid = ({ foodList, setFoodList, viewport, deletable }) => {
                         justifyContent: 'center',
                     }
                 }} />
-        </Box>
+        </Box >
+
     )
 }
 

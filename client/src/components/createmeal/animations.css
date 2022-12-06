@@ -1,0 +1,36 @@
+.remove-btn {
+    margin-right: 0.5rem;
+}
+
+.item-enter {
+    opacity: 0;
+}
+
+.item-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.item-exit {
+    opacity: 1;
+}
+
+.item-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+}
+
+.MuiCollapse-root, .MuiCollapse-wrapper, .MuiCollapse-wrapperInner {
+    display: contents;
+}
+
+.grid-row>* {
+    opacity: 0;
+    transform: translateX(300px);
+    transition: all 0.6s ease-out;
+}
+
+.grid-row>.show {
+    opacity: 1;
+    transform: translateX(0);
+}
