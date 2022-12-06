@@ -4,8 +4,8 @@ const router = express.Router();
 const dbo = require('./db/calApp');
 
 router.post('/login', async (req, res, next) => {
-    const col = dbo.getDb().collection("users");
-    const user = await col.findOne({ username: req.body.username });
+    const collection = dbo.getDb().collection("users");
+    const user = await collection.findOne({ username: req.body.username });
     try {
         if (!user) {
             res.send({ success: false, message: 'User not found' });
@@ -23,10 +23,10 @@ router.post('/login', async (req, res, next) => {
 })
 
 router.post('/register', async (req, res, next) => {
-    const col = dbo.getDb().collection("users");
+    const collection = dbo.getDb().collection("users");
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        await col.insertOne({ username: req.body.username, password: hashedPassword, dailyMeals: [] })
+        await collection.insertOne({ username: req.body.username, password: hashedPassword, dailyMeals: [] })
         res.send({ success: true, msg: 'sucessful registration' });
     } catch (error) {
         if (error.code === 11000) {
@@ -38,11 +38,11 @@ router.post('/register', async (req, res, next) => {
 });
 
 router.patch('/addMeal', async (req, res, next) => {
-    console.log(req.body);
-    const col = dbo.getDb().collection("users");
+    const collection = dbo.getDb().collection("users");
     try {
-        col.updateOne({ username: req.body.username }, { $push: { dailyMeals: req.body.dailyMeal } });
-        res.send({ success: true, msg: 'meal added' });
+        await collection.updateOne({ username: req.body.username }, { $push: { dailyMeals: req.body.dailyMeal } });
+        const user = await collection.findOne({ username: req.body.username,});
+        res.send({ success: true, user, msg: 'meal added' });
     } catch (error) {
         res.send({ success: false, error, msg: 'internal server error' });
     }

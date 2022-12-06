@@ -82,7 +82,7 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
                             borderRadius: '10px',
                             fontSize: { smallest: '0.7rem', mobile: '0.8rem', tablet: '1rem' },
                         }} key={idx}>
-                            <MealGrid foodList={meal} viewport={viewport} deletable={false} />
+                            <MealGrid foodList={meal} viewport={viewport} mutable={false} />
                         </Box>
                     ))}
                 </MealTabs>

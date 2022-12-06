@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { MealForm, MealFormMobile } from './';
 import { DailyMeal } from './DailyMeal';
 import UserContext from '../../context/UserContext';
-import { addMeal} from '../../apiCalls';
+import { addMeal } from '../../apiCalls';
 
 const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
@@ -77,6 +77,7 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
   const saveDailyMeal = () => {
     if (user) {
       addMeal(user.username, breakfast, lunch, dinner, snacks, date)
+        .then(result => { result.success && saveUser(result.user) })
         .catch(err => console.log(err.message))
     } else {
       setDailyMeals([...dailyMeals, new DailyMeal([...date], [...breakfast], [...lunch], [...dinner], [...snacks])]);

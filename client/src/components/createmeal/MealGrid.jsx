@@ -5,7 +5,7 @@ import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import NutrientLabel from '../NutrientLabel/NutrientLabel';
 import './animations.css'
 
-const MealGrid = ({ foodList, handleRemoveItem, viewport, deletable, }) => {
+const MealGrid = ({ foodList, handleRemoveItem, viewport, mutable, }) => {
     const theme = useTheme();
     const smallScreen = useMediaQuery(theme.breakpoints.down('laptop'));
 
@@ -34,7 +34,7 @@ const MealGrid = ({ foodList, handleRemoveItem, viewport, deletable, }) => {
             width: '100%',
             display: 'grid',
             gridGap: '4px',
-            gridTemplateColumns: deletable ? 'repeat(6,auto)' : 'repeat(5,auto)',
+            gridTemplateColumns: mutable ? 'repeat(6,auto)' : 'repeat(5,auto)',
             gridRowGap: '0.20rem',
             minHeight: '130px',
         }}>
@@ -46,7 +46,7 @@ const MealGrid = ({ foodList, handleRemoveItem, viewport, deletable, }) => {
             {/* Food list */}
             {
                 showFoods.map((food, index) => (
-                    <Box className={`grid-row id-${food.uuid}`} sx={{ display: 'contents' }} key={food.uuid} >
+                    <Box className={`${mutable ? "grid-row id-" + food.uuid : ""}`} sx={{ display: 'contents' }} key={food.uuid} >
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '2rem' }}>
                             <Box component="img" alt="The house from the offer." src={food.photo.thumb} sx={{ width: '2.0rem', }} />
                         </Box>
@@ -57,7 +57,7 @@ const MealGrid = ({ foodList, handleRemoveItem, viewport, deletable, }) => {
                         <Box
                             list-id={index}
                             sx={{
-                                display: deletable ? 'flex' : 'none',
+                                display: mutable ? 'flex' : 'none',
                                 zIndex: '0',
                                 justifyContent: 'center',
                                 alignContent: 'center',
@@ -85,11 +85,11 @@ const MealGrid = ({ foodList, handleRemoveItem, viewport, deletable, }) => {
             {
                 foodList.length > 0 &&
                 <>
-                    <Box align='center' sx={{ width: '100%', gridColumn: deletable ? '-4/-3' : '-3/-2' }} >
+                    <Box align='center' sx={{ width: '100%', gridColumn: mutable ? '-4/-3' : '-3/-2' }} >
                         <Divider sx={{ mt: '0.5rem', borderBottomWidth: 2, bgcolor: 'black' }}></Divider>
                     </Box>
-                    <Typography sx={{ gridColumn: deletable ? '-5/-4' : '-4/-3', textAlign: 'center', fontWeight: '700' }}>Sum: </Typography>
-                    <Typography sx={{ gridColumn: deletable ? '-4/-3' : '-3,-2', textAlign: 'center', fontWeight: '700' }}>
+                    <Typography sx={{ gridColumn: mutable ? '-5/-4' : '-4/-3', textAlign: 'center', fontWeight: '700' }}>Sum: </Typography>
+                    <Typography sx={{ gridColumn: mutable ? '-4/-3' : '-3,-2', textAlign: 'center', fontWeight: '700' }}>
                         {
                             foodList.reduce((prev, curr) => prev + curr.nf_calories_scaled, 0).toFixed(0) + ' cal'
                         }</Typography>

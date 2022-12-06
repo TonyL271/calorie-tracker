@@ -84,7 +84,7 @@ const MealCard = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood, 
           </Box>
         </Box>
       </Box>
-      <MealGrid foodList={foodList} handleRemoveItem={handleRemoveItem} viewport={viewport} deletable={true} />
+      <MealGrid foodList={foodList} handleRemoveItem={handleRemoveItem} viewport={viewport} mutable={true} />
       <AddFoodMenu addFood={addFood} setAddFood={setAddFood} handleAddFood={handleAddFood} />
     </Box >
   )

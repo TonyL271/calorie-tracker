@@ -53,6 +53,7 @@ const guestLogin = () => (
     }).then(res => res.json())
 )
 
+// (username,password) => Promise(User)
 const login = (username, password) => (
     fetch('/api/login', {
         method: 'POST',
