@@ -13,12 +13,11 @@ const MealCard = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood, 
       row.childNodes.forEach((child) => {
         child.classList.add('show');
       })
-    }, 100);
+    }, 200);
   }
 
   const handleRemoveItem = (index) => {
     const uuid = foodList[index].uuid;
-
     const row = document.getElementsByClassName(`id-${uuid}`)[0]
     row.childNodes.forEach((child) => {
       child.classList.remove('show');

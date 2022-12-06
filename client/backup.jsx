@@ -1,18 +1,15 @@
-import { Box, Typography, Divider, Select, MenuItem, FormControl, InputLabel, Button, TextField,Collapse } from '@mui/material'
+import { Box, Typography, Divider, Select, MenuItem, FormControl, InputLabel, Button, TextField, Collapse, Fade } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Nutrients } from '../../../apiCalls';
 import CloseIcon from '@mui/icons-material/Close';
 import NutrientLabel from '../../NutrientLabel/NutrientLabel';
 import { styled } from '@mui/system';
 import { v4 as uuidv4 } from 'uuid';
-import Slide from "@mui/material/Slide";
-
 
 const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
    const [foodInfo, setFoodInfo] = useState({});
    const [foodQty, setFoodQty] = useState(1);
    const [selectedUnit, setSelectedUnit] = useState('');
-   const open = Boolean(Object.entries(foodInfo).length);
    const StyledSelect = styled(Select)(({ theme }) => ({
       "& fieldset": {
          borderColor: theme.palette.primary.lightContrast,
@@ -82,16 +79,15 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
 
    return (
       //check if selected food exists
-
       <Box onClick={(e) => clearFood()}
          sx={{
             position: 'fixed',
+            opacity: '0.99',
             transformOrigin: '0 0',
             top: '0',
             left: '0',
-            backgroundColor: `rgba(0,0,0,${open ? 0.4 : 0})`,
-            display: 'flex',
-            pointerEvents: open ? 'auto' : 'none',
+            backgroundColor: 'rgba(0,0,0,0.4)',
+            display: addFood.length ? 'flex' : 'none',
             justifyContent: 'center',
             alignItems: 'center',
             width: '100vw',
@@ -99,7 +95,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
             zIndex: 11,
 
          }}>
-         <Collapse direction="up" in={open} mountOnEnter unmountOnExit>
+         <Collapse in={Object.entries(addFood).length > 0} >
             <Box onClick={(e) => e.stopPropagation()}
                sx={{
                   display: 'flex',
@@ -115,7 +111,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
 
                }}>
                <Box>
-                  <CloseIcon onClick={(e) => clearFood()} sx={{ position: 'absolute', top: 0, right: 0, m: '0.2rem', color: 'secondary.main' }} />
+                  <CloseIcon onClick={(e) => setAddFood('')} sx={{ position: 'absolute', top: 0, right: 0, m: '0.2rem', color: 'secondary.main' }} />
                   <Typography variant="h4" component="h2" textAlign="center" sx={{ mt: '1rem', color: 'secondary.main', textTransform: 'uppercase', fontWeight: '900' }}>Add Item</Typography>
                </Box>
                <Divider sx={{ mb: '1rem', bgcolor: 'secondary.main' }} />
@@ -155,28 +151,25 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                      </FormControl>
                   </Box>
                </Box>
-               {foodInfo.nf_calories_scaled && <React.Fragment>
-                  <Box sx={{ width: '100%', display: 'flex', mb: '1rem' }}>
-                     <Typography sx={{ mr: '0.5rem', fontWeight: '700' }}>Total Calories: </Typography>
-                     <Typography >{`${foodInfo.nf_calories_scaled.toFixed(0)} `}</Typography>
-                  </Box>
-                  <Box sx={{ display: 'grid', mb: '1rem', gridTemplateColumns: '1fr 1fr 1fr 1fr', columnGap: '1rem' }}>
-                     <Typography fontWeight="700" textAlign='left' >{`Protein: `}</Typography>
-                     <Typography textAlign='right' >{`${foodInfo.nf_protein_scaled.toFixed(1)}g`}</Typography>
-                     <Typography fontWeight="700" textAlign='left' >{`Carbs: `}</Typography>
-                     <Typography textAlign='right'>{`${foodInfo.nf_total_carbohydrate_scaled.toFixed(1)}g`}</Typography>
-                     <Typography fontWeight="700" textAlign='left' >{`Fat: g`}</Typography>
-                     <Typography textAlign='right'>{`${foodInfo.nf_total_fat_scaled.toFixed(1)}`}</Typography>
-                     <Typography fontWeight="700" textAlign='left' >{`Sodium: `}</Typography>
-                     <Typography textAlign='right'>{`${foodInfo.nf_sodium_scaled.toFixed(1)}mg`}</Typography>
-                  </Box>
-                  <NutrientLabel food={foodInfo} />
-                  <Button sx={{ marginBottom: '1rem', bgcolor: 'primary.main', color: 'primary.contrast' }} variant="contained" onClick={() => {
-                     handleAddFood(foodInfo);
-                     clearFood();
-                  }}>Add</Button>
-               </React.Fragment>
-               }
+               <Box sx={{ width: '100%', display: 'flex', mb: '1rem' }}>
+                  <Typography sx={{ mr: '0.5rem', fontWeight: '700' }}>Total Calories: </Typography>
+                  <Typography >{`${foodInfo.nf_calories_scaled && foodInfo.nf_calories_scaled.toFixed(0)} `}</Typography>
+               </Box>
+               <Box sx={{ display: 'grid', mb: '1rem', gridTemplateColumns: '1fr 1fr 1fr 1fr', columnGap: '1rem' }}>
+                  <Typography fontWeight="700" textAlign='left' >{`Protein: `}</Typography>
+                  <Typography textAlign='right' >{`${foodInfo.nf_protein_scaled && foodInfo.nf_protein_scaled.toFixed(1)}g`}</Typography>
+                  <Typography fontWeight="700" textAlign='left' >{`Carbs: `}</Typography>
+                  <Typography textAlign='right'>{`${foodInfo.nf_total_carbohydrate_scaled && foodInfo.nf_total_carbohydrate_scaled.toFixed(1)}g`}</Typography>
+                  <Typography fontWeight="700" textAlign='left' >{`Fat: g`}</Typography>
+                  <Typography textAlign='right'>{`${foodInfo.nf_total_fat_scaled && foodInfo.nf_total_fat_scaled.toFixed(1)}`}</Typography>
+                  <Typography fontWeight="700" textAlign='left' >{`Sodium: `}</Typography>
+                  <Typography textAlign='right'>{`${foodInfo.nf_sodium_scaled && foodInfo.nf_sodium_scaled.toFixed(1)}mg`}</Typography>
+               </Box>
+               {foodInfo.nf_calories_scaled && <NutrientLabel food={foodInfo} />}
+               <Button sx={{ marginBottom: '1rem', bgcolor: 'primary.main', color: 'primary.contrast' }} variant="contained" onClick={() => {
+                  handleAddFood(foodInfo);
+                  clearFood();
+               }}>Add</Button>
             </Box>
          </Collapse>
       </Box >
