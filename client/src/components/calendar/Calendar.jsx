@@ -31,7 +31,6 @@ const sameDay = (date1, date2) => (
     date1.getFullYear() === date2.getFullYear()
 )
 
-
 function Calendar({ dailyMeals, setDailyMeals }) {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [showDate, setShowDate] = useState(getShowDate(currentDate));

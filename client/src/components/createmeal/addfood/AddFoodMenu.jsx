@@ -82,7 +82,6 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
 
    return (
       //check if selected food exists
-
       <Box onClick={(e) => clearFood()}
          sx={{
             position: 'fixed',

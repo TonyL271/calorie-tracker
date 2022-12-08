@@ -1,9 +1,12 @@
-import React, { useRef } from 'react'
-import { Box } from '@mui/material';
+import React, { useRef, useContext } from 'react'
+import { Box, Button, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import MealTabs from '../createmeal/MealTabs';
 import { useState, useEffect } from 'react';
 import { MealGrid } from '../createmeal';
+import UserContext from '../../context/UserContext';
+import { deleteMeal } from '../../apiCalls';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
     let totalCalories = 0;
@@ -14,6 +17,7 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
         totalCalories += showDietPlan.snacks.reduce((total, food) => food.nf_calories_scaled + total, 0)
     }
 
+    const { user, saveUser } = useContext(UserContext);
     const mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snacks']
     const dailyMeal = [showDietPlan.breakfast, showDietPlan.lunch, showDietPlan.dinner, showDietPlan.snacks]
 
@@ -56,7 +60,7 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
                     border: 'solid 7px #4EDC8E',
                     borderRadius: '10px',
                     padding: '0.5rem',
-                    margin:'0.5rem',
+                    margin: '0.5rem',
                 }}>
                 <CloseIcon
                     onClick={() => { setShowDietPlan({}) }}
@@ -86,6 +90,24 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
                         </Box>
                     ))}
                 </MealTabs>
+                <Box display="flex" justifyContent="center" paddingTop="1.0rem" paddingBottom="0.5rem">
+                    <Button
+                        variant="contained"
+                        size="large"
+                        color="secondary"
+                        startIcon={<DeleteForeverIcon />}
+                        onClick={() => {
+                            deleteMeal(user.username, showDietPlan.date).then((res) => {
+                                if (res?.success) {
+                                    saveUser(res.user)
+                                }
+                                setShowDietPlan({});
+                            })
+                        }}
+                    >
+                        Delete Plan
+                    </Button>
+                </Box>
             </Box>
         </Box >
     )

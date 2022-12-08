@@ -27,8 +27,6 @@ const MealForm = ({
         addSnacks, setAddSnacks
     },
 }) => {
-    const [showAlert, setShowAlert] = useState(false);
-
     return (
         <Box sx={{ minHeight: 'calc(100vh - 65px)', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', py: { smallest: 0, tablet: '1rem', laptop: '1rem', } }}>
             <Fade in={true} timeout={1500}>
@@ -129,11 +127,6 @@ const MealForm = ({
                             <Button sx={{ color: 'primary.contrast', fontWeight: 900, width: '160px', height: '55px' }} variant="contained"
                                 onClick={() => {
                                     saveDailyMeal();
-                                    handleClear();
-                                    setShowAlert(true);
-                                    setTimeout(() => {
-                                        setShowAlert(false);
-                                    }, 1000);
                                 }}
                             >
                                 Add To planner</Button>
@@ -141,7 +134,6 @@ const MealForm = ({
                     </Box>
                 </Box>
             </Fade>
-            <CustomAlert showAlert={showAlert} message="Meal added to planner" />
         </Box >
     )
 }

@@ -96,4 +96,33 @@ const addMeal = (username, breakfast, lunch, dinner, snacks, date) => (
         .then(res => res.json())
 )
 
-export { Search, Nutrients, guestLogin, login, register, addMeal }
+const deleteMeal = (username, date) => (
+    fetch('/api/deleteMeal', {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            date: date
+        })
+    })
+        .then(res => res.json())
+)
+
+const overwriteMeal = (username, breakfast, lunch, dinner, snacks, date) => (
+    fetch('/api/overwriteMeal', {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username,
+            dailyMeal: new DailyMeal(date, breakfast, lunch, dinner, snacks),
+            date: date,
+        })
+    })
+        .then(res => res.json())
+)
+
+export { Search, Nutrients, guestLogin, login, register, addMeal, deleteMeal, overwriteMeal }
