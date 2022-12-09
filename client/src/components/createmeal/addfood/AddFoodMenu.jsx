@@ -1,11 +1,10 @@
-import { Box, Typography, Divider, Select, MenuItem, FormControl, InputLabel, Button, TextField,Collapse } from '@mui/material'
+import { Box, Typography, Divider, Select, MenuItem, FormControl, InputLabel, Button, TextField, Collapse } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Nutrients } from '../../../apiCalls';
 import CloseIcon from '@mui/icons-material/Close';
 import NutrientLabel from '../../NutrientLabel/NutrientLabel';
 import { styled } from '@mui/system';
 import { v4 as uuidv4 } from 'uuid';
-import Slide from "@mui/material/Slide";
 
 
 const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
@@ -38,14 +37,10 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
       let scaleAmount;
       food.qty = foodQty;
       food.selectedUnit = selectedUnit;
-      if (selectedUnit === food.serving_unit) {
-         scaleAmount = foodQty;
-      } else {
-         const servingWeight = food.alt_measures.filter(
-            (altMeasure) => altMeasure.measure === selectedUnit
-         )[0];
-         scaleAmount = foodQty * servingWeight.serving_weight / food.serving_weight_grams / servingWeight.qty;
-      }
+      const servingWeight = food.all_measures.find(({ measure }) => measure === selectedUnit)
+      const weightGrams = servingWeight.serving_weight * foodQty;
+      scaleAmount = weightGrams / food.serving_weight_grams / servingWeight.qty;
+
       let newFood = { ...food };
       newFood.uuid = uuidv4();
       // Add scaled nutrients to food
@@ -55,15 +50,25 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
       nutrientKeys.forEach((key) => {
          newFood[key + '_scaled'] = food[key] * scaleAmount;
       })
+      newFood.weightGrams = weightGrams;
       setFoodInfo(newFood);
    }
 
    useEffect(() => {
       if (Object.entries(foodInfo).length && !selectedUnit.length) {
+         //check if default serving unit is in alt_measures
+         const contained = foodInfo.alt_measures.some((altMeasure) => altMeasure.measure === foodInfo.serving_unit);
+         foodInfo.all_measures = [...foodInfo.alt_measures];
+         if (!contained) {
+            const measure = { serving_weight: foodInfo.serving_weight_grams, measure: foodInfo.serving_unit, qty: 1 }
+            foodInfo.all_measures.push(measure);
+         }
+         // Set default serving unit
          setSelectedUnit(foodInfo.serving_unit)
       }
    }, [foodInfo, selectedUnit])
 
+   // Scale food nutrients according to selected unit and quantity
    useEffect(() => {
       if (Object.entries(foodInfo) && selectedUnit.length) {
          scaleFood(foodInfo);
@@ -96,7 +101,6 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
             width: '100vw',
             height: '100vh',
             zIndex: 11,
-
          }}>
          <Collapse direction="up" in={open} mountOnEnter unmountOnExit>
             <Box onClick={(e) => e.stopPropagation()}
@@ -111,7 +115,6 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                   border: 'solid 4px',
                   borderColor: 'primary.lightContrast',
                   borderRadius: '10px',
-
                }}>
                <Box>
                   <CloseIcon onClick={(e) => clearFood()} sx={{ position: 'absolute', top: 0, right: 0, m: '0.2rem', color: 'secondary.main' }} />
@@ -121,7 +124,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                <Typography variant='h5' component="h5" sx={{ color: 'primary.lightContrast', textTransform: 'capitalize', fontWeight: '500' }}>{addFood}</Typography>
                <Box sx={{ display: 'flex', mb: '2rem' }}>
                   <Box sx={{ height: '3rem', mr: '1rem' }} component="img" src={Object.keys(foodInfo).length > 0 ? foodInfo.photo.thumb : ''} />
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                      <TextField variant="outlined" label="qty"
                         sx={{
                            width: '3rem',
@@ -134,9 +137,9 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                            },
                         }}
                         defaultValue={1} onChange={(e) => setFoodQty(parseInt(e.currentTarget.value))} />
-                     <FormControl >
+                     <FormControl sx={{ml:'0.5rem'}} >
                         <InputLabel sx={{ color: 'primary.lightContrast' }} id="demo-simple-select-label">Unit</InputLabel>
-                        {foodInfo.alt_measures &&
+                        {foodInfo.all_measures &&
                            <StyledSelect
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
@@ -146,7 +149,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                                  setSelectedUnit(e.target.value)
                               }}
                            >
-                              {foodInfo.alt_measures.map((elem, idx) => (
+                              {foodInfo.all_measures.map((elem, idx) => (
                                  <MenuItem key={idx} value={elem.measure}>{elem.measure}</MenuItem>
                               ))}
                            </StyledSelect>
@@ -154,12 +157,14 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                      </FormControl>
                   </Box>
                </Box>
-               {foodInfo.nf_calories_scaled && <React.Fragment>
-                  <Box sx={{ width: '100%', display: 'flex', mb: '1rem' }}>
-                     <Typography sx={{ mr: '0.5rem', fontWeight: '700' }}>Total Calories: </Typography>
-                     <Typography >{`${foodInfo.nf_calories_scaled.toFixed(0)} `}</Typography>
-                  </Box>
+               {(foodInfo.nf_calories_scaled != null) && <React.Fragment>
                   <Box sx={{ display: 'grid', mb: '1rem', gridTemplateColumns: '1fr 1fr 1fr 1fr', columnGap: '1rem' }}>
+
+                     <Typography sx={{ mr: '0.5rem', mb: '1rem', fontWeight: '700' }}>Total Calories: </Typography>
+                     <Typography >{`${foodInfo.nf_calories_scaled.toFixed(0)} `}</Typography>
+                     <Typography sx={{ mr: '0.5rem', mb: '1rem', fontWeight: '700' }}>Weight:</Typography>
+                     <Typography >{`${foodInfo.weightGrams}g `}</Typography>
+
                      <Typography fontWeight="700" textAlign='left' >{`Protein: `}</Typography>
                      <Typography textAlign='right' >{`${foodInfo.nf_protein_scaled.toFixed(1)}g`}</Typography>
                      <Typography fontWeight="700" textAlign='left' >{`Carbs: `}</Typography>
