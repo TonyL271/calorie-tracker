@@ -38,7 +38,10 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
     return (
         Boolean(Object.entries(showDietPlan).length) &&
         <Box
-            onClick={() => { setShowDietPlan({}) }}
+            onPointerDown={(e) => {
+                e.stopPropagation()
+                setShowDietPlan({})
+            }}
             sx={{
                 display: 'flex',
                 position: 'absolute',
@@ -51,7 +54,7 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
                 bgcolor: 'rgba(0,0,0,0.3)',
             }}>
             <Box
-                onClick={(e) => { e.stopPropagation() }}
+                onPointerDown={(e) => { e.stopPropagation() }}
                 ref={tabContainer}
                 sx={{
                     position: 'relative',

@@ -13,8 +13,7 @@ const sameDay = (date1, date2) => (
 )
 
 
-const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
-   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
+const CreateMeal = ({ dailyMeals, setDailyMeals,viewport }) => {
    const breakpoint = 1024;
 
    const { user, saveUser } = useContext(UserContext);
@@ -46,15 +45,6 @@ const CreateMeal = ({ dailyMeals, setDailyMeals }) => {
 
    const [date, setDate] = useState(new Date());
 
-   useEffect(() => {
-      const handleResizeWindow = () => setViewport({ width: window.innerWidth, height: window.innerHeight });
-      // subscribe to window resize event "onComponentDidMount"
-      window.addEventListener("resize", handleResizeWindow);
-      return () => {
-         // unsubscribe "onComponentDestroy"
-         window.removeEventListener("resize", handleResizeWindow);
-      };
-   }, []);
 
    const handleClear = () => {
       setBreakfast([]);

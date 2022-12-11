@@ -79,7 +79,7 @@ const MealFormMobile = ({
          trigger: 'tap',
          beginYear: currentYear,
          endYear: currentYear + 100,
-         value: `${currentYear}-${currentMonth}-${currentDate}`,
+         value: `${currentYear}-${currentMonth + 1}-${currentDate}`,
          lang: {
             title: 'Select Date',
             cancel: 'Cancel',
@@ -87,15 +87,19 @@ const MealFormMobile = ({
             year: '',
             month: '',
             day: '',
+         },
+         confirm: function (date) {
+            const [year, month, day] = date.split('-');
+            // To correct for inconsistent date zero idexing for month
+            setDate(new Date(year, month - 1, day));
          }
       })
-
    }, [])
 
    return (
       <Fade in={true} timeout={1500}>
-         <Box ref={tabContainer} sx={{
-            height: `calc(${window.innerHeight}px - 65px)`,
+         <Box ref={tabContainer} className="look" sx={{
+            height: `calc(${viewport.height}px - 65px)`,
             display: 'flex',
             flexDirection: 'column',
             overFlowX: 'hidden',
@@ -124,7 +128,7 @@ const MealFormMobile = ({
                   ))
                }
             </MealTabs>
-            <Box display="flex" justifyContent="space-between" sx={{ marginTop: '1rem',padding:'0 1rem 1rem 1rem', flexDirection: { smallest: 'column', tablet: 'row', } }}>
+            <Box display="flex" justifyContent="space-between" sx={{ marginTop: '1rem', padding: '0 1rem 1rem 1rem', flexDirection: { smallest: 'column', tablet: 'row', } }}>
                <Box display="grid" gridTemplateColumns="140px 1fr 140px" width="100%">
                   <Box flexDirection="row" sx={{
                      justifyContent: 'space-between',
@@ -149,23 +153,23 @@ const MealFormMobile = ({
                         input: { color: 'white' },
                         width: '130px',
                         mb: '0.5rem'
-                     }} label="Date" color="secondary" focused type="text" id="example" placeholder="" />
+                     }} onChange={(e) => { console.log(e) }} label="Date" color="secondary" focused type="text" id="example" placeholder="" />
                   </Box>
                </Box>
                <Box onPointerDown={(e) => { e.stopPropagation() }} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Button
-                     onPointerDown={(e) => { e.preventDefault(); }}
+                     onPointerDown={(e) => { handleClear() }}
                      sx={{
                         bgcolor: 'red',
                         height: '50px',
                         color: 'primary.contrast',
                         fontWeight: '700',
-                        margin:{smallest:'0 1rem 0 0',tablet:'0 1rem 0 1rem'},
+                        margin: { smallest: '0 1rem 0 0', tablet: '0 1rem 0 1rem' },
                      }}>
                      clear all
                   </Button>
                   <Button
-                     onPointerDown={(e) => { e.preventDefault(); }}
+                     onPointerDown={(e) => { saveDailyMeal() }}
                      sx={{
                         bgcolor: 'primary.main',
                         height: '50px',

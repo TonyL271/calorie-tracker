@@ -44,6 +44,12 @@ function Calendar({ dailyMeals, setDailyMeals }) {
         setShowDate(getShowDate(newDate));
     }
 
+    const changeMonth = (change) => {
+        const newDate = new Date(showDate.date);
+        newDate.setMonth(newDate.getMonth() + change);
+        setShowDate(getShowDate(newDate));
+    }
+
     // Allows swiping calendar to switch years
     const config = {
         delta: 10,                             // min distance(px) before a swipe starts. *See Notes*
@@ -57,8 +63,10 @@ function Calendar({ dailyMeals, setDailyMeals }) {
 
     const handlers = useSwipeable({
         onSwiped: (eventData) => {
-            const inc = eventData.dir === "Left" ? 1 : -1;
-            changeYear(inc)
+            if (!Object.entries(showDietPlan).length) {
+                const inc = eventData.dir === "Left" ? 1 : -1;
+                changeMonth(inc)
+            }
         },
         ...config,
     });

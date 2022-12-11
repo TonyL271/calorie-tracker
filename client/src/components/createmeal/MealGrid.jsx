@@ -9,10 +9,9 @@ const MealGrid = ({ foodList, handleRemoveItem, viewport, mutable, }) => {
     const theme = useTheme();
     const smallScreen = useMediaQuery(theme.breakpoints.down('laptop'));
 
-    const [showFoods, setShowFoods] = useState(foodList);
     const [showPagination, setShowPagination] = useState(false);
-    const maxItems = Math.floor((viewport.height - 606) / 48);
-    const maxPage = Math.ceil(foodList.length / maxItems);
+    const maxItems = Math.floor((viewport.height - 450) / 48);
+    const maxPage = Math.ceil(foodList.length / (maxItems || 1));
     const [page, setPage] = useState(0);
     const start = page * maxItems;
     const end = Math.min(start + maxItems, foodList.length);
@@ -20,14 +19,6 @@ const MealGrid = ({ foodList, handleRemoveItem, viewport, mutable, }) => {
     useEffect(() => {
         setShowPagination(smallScreen && foodList.length > maxItems);
     }, [foodList, viewport])
-
-    useEffect(() => {
-        if (showPagination)
-            setShowFoods(foodList.slice(start, end));
-        else {
-            setShowFoods(foodList);
-        }
-    }, [foodList, page, showPagination])
 
     return (
         <Box sx={{
@@ -45,8 +36,11 @@ const MealGrid = ({ foodList, handleRemoveItem, viewport, mutable, }) => {
             <Typography variant="p" component="p" align='center' sx={{ color: 'secondary.main', fontSize: { smallest: '0.8rem', tablet: '1.1rem' }, fontWeight: 700, gridColumn: '-2/-1' }} ></Typography>
             {/* Food list */}
             {
-                showFoods.map((food, index) => (
-                    <Box className={`${mutable ? "grid-row id-" + food.uuid : ""}`} sx={{ display: 'contents' }} key={food.uuid} >
+                foodList.map((food, index) => (
+                    <Box
+                        key={food.uuid}
+                        className={`${mutable ? "grid-row id-" + food.uuid : ""}`}
+                        sx={{ display: index >= start && index < end ? 'contents' : 'none' }}  >
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '2rem' }}>
                             <Box component="img" alt="The house from the offer." src={food.photo.thumb} sx={{ width: '2.0rem', }} />
                         </Box>

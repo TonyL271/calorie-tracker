@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CreateMeal } from "./components/createmeal";
 import { Navbar } from "./components/Navbar"
 import { Box } from "@mui/material";
@@ -45,6 +45,18 @@ const light = createTheme({
 function App() {
   const [dailyMeals, setDailyMeals] = useState([])
 
+  const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
+
+  useEffect(() => {
+    const handleResizeWindow = () => setViewport({ width: window.innerWidth, height: window.innerHeight });
+    // subscribe to window resize event "onComponentDidMount"
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      // unsubscribe "onComponentDestroy"
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
+
   // disable mobile zoom
   document.addEventListener(
     'touchmove',
@@ -58,12 +70,12 @@ function App() {
           <Routes>
             <Route path="/"
               element={
-                <Box sx={{ display: 'flex',height:`calc(${window.innerHeight}px)`, flexDirection: 'column',  bgcolor: 'background.main', margin: 'auto' }}>
+                <Box sx={{ display: 'flex', height: `calc(${window.innerHeight}px)`, flexDirection: 'column', bgcolor: 'background.main', margin: 'auto' }}>
                   <Navbar />
                   <Outlet />
                 </Box>
               }>
-              <Route index element={<CreateMeal dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} />} />
+              <Route index element={<CreateMeal dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} viewport={viewport} />} />
               <Route path="calendar" element={<Calendar dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} />} />
               <Route path="register" element={<CreateAccount />} />
               <Route path="sign-in" element={<MobileLogin />} />
