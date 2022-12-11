@@ -166,13 +166,13 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                      <Typography >{`${foodInfo.weightGrams}g `}</Typography>
 
                      <Typography fontWeight="700" textAlign='left' >{`Protein: `}</Typography>
-                     <Typography textAlign='right' >{`${foodInfo.nf_protein_scaled.toFixed(1)}g`}</Typography>
+                     <Typography textAlign='right' >{`${foodInfo.nf_protein_scaled?.toFixed(1) || 0}g`}</Typography>
                      <Typography fontWeight="700" textAlign='left' >{`Carbs: `}</Typography>
-                     <Typography textAlign='right'>{`${foodInfo.nf_total_carbohydrate_scaled.toFixed(1)}g`}</Typography>
+                     <Typography textAlign='right'>{`${foodInfo.nf_total_carbohydrate_scaled?.toFixed(1) || 0}g`}</Typography>
                      <Typography fontWeight="700" textAlign='left' >{`Fat: g`}</Typography>
-                     <Typography textAlign='right'>{`${foodInfo.nf_total_fat_scaled.toFixed(1)}`}</Typography>
+                     <Typography textAlign='right'>{`${foodInfo.nf_total_fat_scaled?.toFixed(1) || 0}`}</Typography>
                      <Typography fontWeight="700" textAlign='left' >{`Sodium: `}</Typography>
-                     <Typography textAlign='right'>{`${foodInfo.nf_sodium_scaled.toFixed(1)}mg`}</Typography>
+                     <Typography textAlign='right'>{`${foodInfo.nf_sodium_scaled?.toFixed(1) || 0}mg`}</Typography>
                   </Box>
                   <NutrientLabel food={foodInfo} />
                   <Button sx={{ marginBottom: '1rem', bgcolor: 'primary.main', color: 'primary.contrast' }} variant="contained" onClick={() => {

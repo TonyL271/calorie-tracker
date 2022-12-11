@@ -57,9 +57,9 @@ const NutrientLabel = ({ food }) => {
                },
                '& > .MuiPaper-root': {
                   bgcolor: '#fff',
-                  border:'solid 3px',
-                  borderColor:'black',
-                  borderRadius:'10px'
+                  border: 'solid 3px',
+                  borderColor: 'black',
+                  borderRadius: '10px'
                }
 
             }}
@@ -83,7 +83,7 @@ const NutrientLabel = ({ food }) => {
                   top: '0.25rem', right: '0.25rem',
                   color: 'red', cursor: 'pointer'
                }} onClick={handleClose} />
-               <TableContainer component={Paper} sx={{ width: '300px', height: '100%', padding: '8px', boxShadow:'none', }}>
+               <TableContainer component={Paper} sx={{ width: '300px', height: '100%', padding: '8px', boxShadow: 'none', }}>
                   <Box component="header" borderBottom="solid 10px black" width='100%' >
                      <Typography variant="h1" sx={{ fontSize: '2rem', my: '0', fontWeight: 'bold', letterSpacing: '-1' }} >Nutrition Facts</Typography>
                      <Typography variant="body" display="block" sx={{}} >{`Serving Size ${food.serving_unit} (${food.serving_weight_grams}g)`}</Typography>
@@ -174,9 +174,11 @@ const NutrientLabel = ({ food }) => {
                         </TableRow>
                         {Object.entries(nutrients.microNutrients).length === 0 ?
                            (
-                              <TableRow>
-                                 <StyledTableCell component="th" scope="row" colSpan={3} sx={{ borderBottom: 'solid 10px black' }} >
-                                    Not a significant source of other nutrients
+                              <TableRow sx={{ height: '41px' }}>
+                                 <StyledTableCell component="th" scope="row" colSpan={3} sx={{border:0, padding: 0 }} >
+                                    <Typography fontWeight="" fontSize="0.875rem" px="12px" >
+                                       No other significant sources of nutrients
+                                    </Typography>
                                  </StyledTableCell>
                               </TableRow>
                            )
