@@ -7,7 +7,6 @@ const MealCard = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood, 
 
   const handleAddFood = (food) => {
     setFoodList([...foodList, food]);
-    setAddFood('');
     setTimeout(() => {
       const row = document.getElementsByClassName(`id-${food.uuid}`)[0]
       row.childNodes.forEach((child) => {

@@ -80,6 +80,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
          if (addFood.length > 0) {
             Nutrients(addFood).then((foodInfo) => {
                setFoodInfo(foodInfo);
+               setAddFood('');
             })
          }
       }
@@ -106,8 +107,8 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
             <Box onClick={(e) => e.stopPropagation()}
                sx={{
                   display: 'flex',
-                  minWidth: '350px',
-                  height: '400px',
+                  minWidth: '320px',
+                  height: '430px',
                   backgroundColor: '#FFFFFF',
                   flexDirection: 'column',
                   px: '1rem',
@@ -115,6 +116,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                   border: 'solid 4px',
                   borderColor: 'primary.lightContrast',
                   borderRadius: '10px',
+                  padding: '1.5rem',
                }}>
                <Box>
                   <CloseIcon onClick={(e) => clearFood()} sx={{ position: 'absolute', top: 0, right: 0, m: '0.2rem', color: 'secondary.main' }} />
@@ -137,7 +139,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                            },
                         }}
                         defaultValue={1} onChange={(e) => setFoodQty(parseInt(e.currentTarget.value))} />
-                     <FormControl sx={{ml:'0.5rem'}} >
+                     <FormControl sx={{ ml: '0.5rem' }} >
                         <InputLabel sx={{ color: 'primary.lightContrast' }} id="demo-simple-select-label">Unit</InputLabel>
                         {foodInfo.all_measures &&
                            <StyledSelect
@@ -174,7 +176,9 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                      <Typography fontWeight="700" textAlign='left' >{`Sodium: `}</Typography>
                      <Typography textAlign='right'>{`${foodInfo.nf_sodium_scaled?.toFixed(1) || 0}mg`}</Typography>
                   </Box>
-                  <NutrientLabel food={foodInfo} />
+                  <Box mb="0.5rem">
+                     <NutrientLabel food={foodInfo} />
+                  </Box>
                   <Button sx={{ marginBottom: '1rem', bgcolor: 'primary.main', color: 'primary.contrast' }} variant="contained" onClick={() => {
                      handleAddFood(foodInfo);
                      clearFood();

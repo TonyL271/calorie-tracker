@@ -85,7 +85,7 @@ const AddToggle = ({ setAddFood }) => {
                <InputBase
                   sx={{ ml: 1, flex: 1, height: '100%', color: 'secondary.main' }}
                   placeholder="Search food"
-                  inputProps={{ 'aria-label': 'search google maps' }}
+                  inputProps={{ 'aria-label': 'search foods' }}
                   onChange={getSearchSuggestion}
                />
                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
