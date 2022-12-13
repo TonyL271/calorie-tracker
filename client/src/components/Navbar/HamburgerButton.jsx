@@ -1,8 +1,9 @@
 import { Box } from '@mui/material'
+import { useEffect } from 'react';
 import { useState, useRef } from 'react'
 import HamburgerMenu from './HamburgerDrawer';
 
-const HamburgerButton = () => {
+const HamburgerButton = ({setMode}) => {
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
 
@@ -55,7 +56,7 @@ const HamburgerButton = () => {
                     backgroundColor: 'white',
                 }
             }} />
-            {<HamburgerMenu anchorRef={anchorRef} open={open} setOpen={setOpen} />}
+            {<HamburgerMenu anchorRef={anchorRef} open={open} setOpen={setOpen} setMode={setMode} />}
         </Box>
     )
 }

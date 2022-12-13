@@ -179,7 +179,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                   <Box mb="0.5rem">
                      <NutrientLabel food={foodInfo} />
                   </Box>
-                  <Button sx={{ marginBottom: '1rem', bgcolor: 'primary.main', color: 'primary.contrast' }} variant="contained" onClick={() => {
+                  <Button sx={{ marginBottom: '1rem', bgcolor: 'primary.main', color: 'background.foreground' }} variant="contained" onClick={() => {
                      handleAddFood(foodInfo);
                      clearFood();
                   }}>Add</Button>

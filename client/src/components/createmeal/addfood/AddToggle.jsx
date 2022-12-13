@@ -45,7 +45,7 @@ const AddToggle = ({ setAddFood }) => {
             height: '2.5rem',
             width: '2.5rem',
             mx: { smallest: '1rem', tablet: '2rem' },
-            color: 'primary.contrast',
+            color: 'background.foreground',
             margin: 'auto',
          }}
             onClick={handleClick}

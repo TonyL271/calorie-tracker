@@ -33,7 +33,7 @@ const NutrientLabel = ({ food }) => {
       <Box sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
          <Box
             sx={{
-               color: 'primary.contrast',
+               color: 'background.foreground',
                padding: '0.25rem',
                paddingRight: { smallest: '0.25rem', tablet: '0.6rem' },
                bgcolor: 'secondary.main',
@@ -175,7 +175,7 @@ const NutrientLabel = ({ food }) => {
                         {Object.entries(nutrients.microNutrients).length === 0 ?
                            (
                               <TableRow sx={{ height: '41px' }}>
-                                 <StyledTableCell component="th" scope="row" colSpan={3} sx={{border:0, padding: 0 }} >
+                                 <StyledTableCell component="th" scope="row" colSpan={3} sx={{ border: 0, padding: 0 }} >
                                     <Typography fontWeight="" fontSize="0.875rem" px="12px" >
                                        No other significant sources of nutrients
                                     </Typography>

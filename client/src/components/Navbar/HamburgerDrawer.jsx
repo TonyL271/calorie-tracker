@@ -1,4 +1,4 @@
-import { Box, SwipeableDrawer, List, ListItem, ListItemButton, ListItemText, Slider, Typography, Divider } from "@mui/material"
+import { Box, Drawer, List, ListItem, ListItemButton, ListItemText, Slider, Typography, Divider } from "@mui/material"
 import { useState, useContext } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
@@ -8,10 +8,11 @@ import { useTheme } from '@mui/material/styles';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import UserContext from "../../context/UserContext";
 import FeedbackIcon from '@mui/icons-material/Feedback';
+import { useEffect } from "react";
 
 
 
-const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
+const HamburgerMenu = ({ anchorRef, open, setOpen, setMode }) => {
     const { breakpoints } = useTheme();
     const location = useLocation();
     const navigate = useNavigate();
@@ -34,15 +35,14 @@ const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
     }
 
 
+
     return (
-        <SwipeableDrawer
+        <Drawer
             id="hamburger-menu"
             anchor={window.innerWidth < breakpoints.values.tablet ? 'right' : 'left'}
             open={open}
             onClick={handleClick}
-            onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
-            disableSwipeToOpen={true}
             sx={{
                 zIndex: 1,
             }}
@@ -90,8 +90,11 @@ const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
                                 }}
 
                                 marks={
-                                    [{ value: 0, label: 'light' }, { value: 1, label: 'dark' }]
+                                    [{ value: 0, label: 'Original' }, { value: 1, label: 'Simple' }]
                                 }
+                                onChange={(e, value) => {
+                                    setMode(value  === 0 ? 'original' : 'simple');
+                                }}
                                 min={0}
                                 max={1}
                                 step={1}
@@ -109,7 +112,7 @@ const HamburgerMenu = ({ anchorRef, open, setOpen }) => {
                     </ListItem>
                 </List>
             </Box>
-        </SwipeableDrawer>
+        </Drawer>
     )
 }
 

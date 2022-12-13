@@ -60,7 +60,7 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
                     position: 'relative',
                     bgcolor: 'white',
                     width: '97vw',
-                    border: 'solid 7px #4EDC8E',
+                    // border: 'solid 7px primary.main',
                     borderRadius: '10px',
                     padding: '0.5rem',
                     margin: '0.5rem',

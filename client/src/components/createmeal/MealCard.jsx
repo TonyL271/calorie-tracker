@@ -76,7 +76,7 @@ const MealCard = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood, 
             justifyContent: 'center',
             mx: 'auto',
           }}>
-            <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center',color:'background.foreground' }}>
               {Icon}
               <Typography variant='h4' component="h2" align='center' sx={{ fontWeight: '800', }}>{mealType}</Typography>
             </Box>

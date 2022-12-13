@@ -79,7 +79,7 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal }, ro
                             minWidth: '0',
                             color: 'white',
                             padding: '5px',
-                            bgcolor: "#222222",
+                            bgcolor: "background.tab",
                         },
                         '& button:after': {
                             content: '""',
@@ -95,6 +95,7 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal }, ro
                         },
                         '& button': {
                             bgcolor: 'primary.main',
+                            color:'primary.tabContrast',
                             height: '100%',
                             minHeight: '0px',
                             minWidth: '0',
@@ -121,7 +122,7 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal }, ro
                             icon={(idx.toString() === value) || !warn ? '' : emptyMeal[idx] ?
                                 <PriorityHighIcon fontSize="4px" /> :
                                 <CheckIcon fontSize="4px" />}
-                            sx={{ color: emptyMeal[idx] ? 'red' : ' #000000' }}
+                            sx={{ color: emptyMeal[idx] ? 'red' : 'tabContrast' }}
                         />
                     ))}
                 </TabList>
@@ -134,7 +135,7 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal }, ro
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        bgcolor: '#222222',
+                        bgcolor: 'background.tab',
                         borderRadius: rounded ? '5px 5px 0 0 ' : '0',
                         height: '2.5rem',
                         '& div.MuiMobileStepper-dot': {
@@ -146,7 +147,7 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal }, ro
                     }}
                 />
             </TabContext>
-            <Box sx={{ flexGrow: 1, bgcolor: '#222222', borderRadius: rounded ? '0 0 5px 5px' : '0' }}>
+            <Box sx={{ flexGrow: 1, bgcolor: 'background.tab', borderRadius: rounded ? '0 0 5px 5px' : '0' }}>
                 <Box
                     ref={scroller}
                     sx={{

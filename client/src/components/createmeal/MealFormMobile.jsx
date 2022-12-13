@@ -103,7 +103,7 @@ const MealFormMobile = ({
             display: 'flex',
             flexDirection: 'column',
             overFlowX: 'hidden',
-            bgcolor: "#222222",
+            bgcolor: "background.tab",
          }}>
             <MealTabs value={value} setValue={setValue} mealTypes={mealTypes} warning={{ warn: true, emptyMeal }} >
                {
@@ -162,7 +162,7 @@ const MealFormMobile = ({
                      sx={{
                         bgcolor: 'red',
                         height: '50px',
-                        color: 'primary.contrast',
+                        color: 'background.foreground',
                         fontWeight: '700',
                         margin: { smallest: '0 1rem 0 0', tablet: '0 1rem 0 1rem' },
                      }}>
@@ -173,7 +173,7 @@ const MealFormMobile = ({
                      sx={{
                         bgcolor: 'primary.main',
                         height: '50px',
-                        color: 'primary.contrast',
+                        color: 'background.foreground',
                         fontWeight: '700',
                      }}>
                      add to planner

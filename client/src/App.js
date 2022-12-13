@@ -14,19 +14,21 @@ import CreateAccount from "./components/User/CreateAccount";
 import { UserProvider } from "./context/UserContext";
 import MobileLogin from "./components/Login";
 
-const light = createTheme({
+const original = createTheme({
   palette: {
     primary: {
       main: '#4EDC8E',
       opaque: 'rgba(0, 0, 0, 0.025)',
-      contrast: '#FFFFFF',
       lightContrast: '#000000',
+      contrast: '#000000',
+      tabContrast: '#000000'
     },
     secondary: {
       main: '#FF248E',
     },
     background: {
       main: '#E1E1E1',
+      tab: '#222222',
       foreground: '#FFFFFF'
     }
   },
@@ -42,8 +44,42 @@ const light = createTheme({
   },
 })
 
+const simple = createTheme({
+  palette: {
+    primary: {
+      main: '#000000',
+      opaque: 'rgba(0, 0, 0, 0.025)',
+      lightContrast: '#000000',
+      contrast: 'cyan',
+      tabContrast: '#FF248E'
+    },
+    secondary: {
+      main: '#FF248E',
+    },
+    background: {
+      main: '#E1E1E1',
+      tab: '#333333',
+      foreground: '#FFFFFF'
+    }
+  },
+
+  breakpoints: {
+    values: {
+      smallest: 0,
+      mobile: 400,
+      tablet: 650,
+      laptop: 1024,
+      desktop: 1300,
+    },
+  },
+})
+
+
 function App() {
   const [dailyMeals, setDailyMeals] = useState([])
+  const [mode, setMode] = useState('original')
+
+
 
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
 
@@ -65,13 +101,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ThemeProvider theme={light} >
+      <ThemeProvider theme={mode === "original" ? original : simple} >
         <UserProvider>
           <Routes>
             <Route path="/"
               element={
                 <Box sx={{ display: 'flex', height: `calc(${window.innerHeight}px)`, flexDirection: 'column', bgcolor: 'background.main', margin: 'auto' }}>
-                  <Navbar />
+                  <Navbar setMode={setMode} />
                   <Outlet />
                 </Box>
               }>
