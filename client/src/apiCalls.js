@@ -125,4 +125,19 @@ const overwriteMeal = (username, breakfast, lunch, dinner, snacks, date) => (
         .then(res => res.json())
 )
 
-export { Search, Nutrients, guestLogin, login, register, addMeal, deleteMeal, overwriteMeal }
+const sendFeedback = (from, subject, feedback,) => (
+    fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            from,
+            subject,
+            feedback,
+        })
+    })
+        .then(res => res.json())
+)
+
+export { Search, Nutrients, guestLogin, login, register, addMeal, deleteMeal, overwriteMeal, sendFeedback }

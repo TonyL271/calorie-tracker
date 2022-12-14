@@ -62,7 +62,7 @@ const MealGrid = ({ foodList, handleRemoveItem, viewport, mutable, }) => {
                                     transform: 'scale(1.5)'
                                 }
                             }}
-                            onClick={(e) => {
+                            onPointerDown={(e) => {
                                 const idx = +e.currentTarget.getAttribute('list-id');
                                 handleRemoveItem(idx + start)
                             }}>

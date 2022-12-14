@@ -86,7 +86,7 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                             <Button
                                 variant="text"
                                 endIcon={<ArrowDropDownIcon sx={{ width: '30px', height: '30px' }} />}
-                                onClick={() => setShowMonth(!showMonth)}
+                                onPointerDown={() => setShowMonth(!showMonth)}
                                 sx={{
                                     color: 'primary.main',
                                     bgcolor: 'primary.opaque',
@@ -102,7 +102,7 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                         <Fade timeout={1000} in={!showMonth} key={showDate.year} color="secondary.main" >
                             <Box display="flex" justifyContent="space-between" alignItems="center" >
                                 <IconButton sx={{ mx: "0px", color: 'secondary.main' }}
-                                    onClick={() => { changeYear(-1) }
+                                    onPointerDown={() => { changeYear(-1) }
                                     }>
                                     <ArrowBackIosNewIcon />
                                 </IconButton>
@@ -111,7 +111,7 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                                     fontWeight: "600",
                                 }}  >{showDate.year}</Typography>
                                 <IconButton sx={{ mx: "0px", color: 'secondary.main' }}
-                                    onClick={() => { changeYear(1); }}
+                                    onPointerDown={() => { changeYear(1); }}
                                 >
                                     <ArrowForwardIosIcon />
                                 </IconButton>
@@ -183,7 +183,7 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                                         }
                                     }}
                                     >
-                                        <button onClick={() => { schedule.length && setShowDietPlan(schedule[0]) }} >
+                                        <button onPointerDown={() => { schedule.length && setShowDietPlan(schedule[0]) }} >
                                             {date.getDate()}
                                         </button>
                                     </Box>
@@ -209,7 +209,7 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                             <Zoom key={month} in={showMonth} timeout={500}>
                                 <Stack justifyContent="center">
                                     <Button
-                                        onClick={() => {
+                                        onPointerDown={() => {
                                             setShowDate(getShowDate(new Date(showDate.year, idx, 1)));
                                             setShowMonth(false);
                                         }}

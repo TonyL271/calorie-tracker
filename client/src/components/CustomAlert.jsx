@@ -51,7 +51,7 @@ const CustomAlert = ({ alert, setAlert,overwriteMeal }) => {
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={() => overwriteMeal() && setAlert(null) }
+                            onPointerDown={() => overwriteMeal() && setAlert(null) }
                         >
                             Yes
                         </Button>
@@ -59,7 +59,7 @@ const CustomAlert = ({ alert, setAlert,overwriteMeal }) => {
                         <Button
                             variant="contained"
                             color="secondary"
-                            onClick={() => setAlert(null)}
+                            onPointerDown={() => setAlert(null)}
                         >
                             No
                         </Button>

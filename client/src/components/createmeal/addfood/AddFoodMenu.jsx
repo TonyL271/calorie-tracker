@@ -88,7 +88,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
 
    return (
       //check if selected food exists
-      <Box onClick={(e) => clearFood()}
+      <Box onPointerDown={(e) => clearFood()}
          sx={{
             position: 'fixed',
             transformOrigin: '0 0',
@@ -104,7 +104,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
             zIndex: 11,
          }}>
          <Collapse direction="up" in={open} mountOnEnter unmountOnExit>
-            <Box onClick={(e) => e.stopPropagation()}
+            <Box onPointerDown={(e) => e.stopPropagation()}
                sx={{
                   display: 'flex',
                   minWidth: '320px',
@@ -119,7 +119,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                   padding: '1.5rem',
                }}>
                <Box>
-                  <CloseIcon onClick={(e) => clearFood()} sx={{ position: 'absolute', top: 0, right: 0, m: '0.2rem', color: 'secondary.main' }} />
+                  <CloseIcon onPointerDown={(e) => clearFood()} sx={{ position: 'absolute', top: 0, right: 0, m: '0.2rem', color: 'secondary.main' }} />
                   <Typography variant="h4" component="h2" textAlign="center" sx={{ mt: '1rem', color: 'secondary.main', textTransform: 'uppercase', fontWeight: '900' }}>Add Item</Typography>
                </Box>
                <Divider sx={{ mb: '1rem', bgcolor: 'secondary.main' }} />
@@ -179,7 +179,7 @@ const AddFoodMenu = ({ addFood, setAddFood, handleAddFood }) => {
                   <Box mb="0.5rem">
                      <NutrientLabel food={foodInfo} />
                   </Box>
-                  <Button sx={{ marginBottom: '1rem', bgcolor: 'primary.main', color: 'background.foreground' }} variant="contained" onClick={() => {
+                  <Button sx={{ marginBottom: '1rem', bgcolor: 'primary.main', color: 'background.foreground' }} variant="contained" onPointerDown={() => {
                      handleAddFood(foodInfo);
                      clearFood();
                   }}>Add</Button>

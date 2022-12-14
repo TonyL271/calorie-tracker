@@ -3,18 +3,20 @@ import { useEffect } from 'react';
 import { useState, useRef } from 'react'
 import HamburgerMenu from './HamburgerDrawer';
 
-const HamburgerButton = ({setMode}) => {
+const HamburgerButton = ({ setMode }) => {
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
 
     return (
         <Box
-            onClick={() => setOpen(!open)}
+            onPointerDown={() => {
+                setOpen(!open)
+            }}
             ref={anchorRef}
             sx={{
                 position: 'absolute',
-                left: {smallest:"auto",tablet:"2rem"},
-                right: {smallest:"1rem",tablet:"auto"},
+                left: { smallest: "auto", tablet: "2rem" },
+                right: { smallest: "1rem", tablet: "auto" },
                 width: '40px',
                 height: '40px',
                 display: 'flex',

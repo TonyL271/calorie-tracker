@@ -48,7 +48,7 @@ const AddToggle = ({ setAddFood }) => {
             color: 'background.foreground',
             margin: 'auto',
          }}
-            onClick={handleClick}
+            onPointerDown={handleClick}
          >
             <AddCircleTwoToneIcon size='large' sx={{ position: 'absolute', height: '100%', width: '100%', }} />
          </IconButton>

@@ -4,7 +4,7 @@ const FoodMenuItem = ({ food, setAddFood, handleClose }) => {
         <Box sx={{
             "& hr": { borderColor: 'black' }
         }}>
-            <MenuItem onClick={(e) => {
+            <MenuItem onPointerDown={(e) => {
                 setAddFood(food.food_name);
                 handleClose();
             }} sx={{

@@ -31,7 +31,7 @@ const Navbar = ({ setMode }) => {
             <Toolbar sx={{ position: 'relative', width: '100%', height: '100%', alignItems: 'center', justifyContent: { tablet: 'center', smallest: 'flex-start', } }}>
                 <HamburgerButton setMode={setMode} />
                 <Box sx={{}}>
-                    <Button onClick={() => { navigate('/') }} variant="h1" component="h1"
+                    <Button onPointerDown={() => { navigate('/') }} variant="h1" component="h1"
                         sx={{
                             display: 'flex',
                             justifyContent: 'center',

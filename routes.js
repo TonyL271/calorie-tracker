@@ -4,9 +4,9 @@ const router = express.Router();
 const dbo = require('./db/calApp');
 
 router.post('/login', async (req, res, next) => {
-    const collection = dbo.getDb().collection("users");
-    const user = await collection.findOne({ username: req.body.username });
     try {
+        const collection = dbo.getDb().collection("users");
+        const user = await collection.findOne({ username: req.body.username });
         if (!user) {
             res.send({ success: false, message: 'User not found' });
             return;
@@ -18,13 +18,13 @@ router.post('/login', async (req, res, next) => {
             res.send({ sucess: false, msg: 'incorrect password' });
         }
     } catch (err) {
-        console.log(err)
+        res.send({ sucess: false, err });
     }
 })
 
 router.post('/register', async (req, res, next) => {
-    const collection = dbo.getDb().collection("users");
     try {
+        const collection = dbo.getDb().collection("users");
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         await collection.insertOne({ username: req.body.username, password: hashedPassword, dailyMeals: [] })
         res.send({ success: true, msg: 'sucessful registration' });
@@ -38,8 +38,8 @@ router.post('/register', async (req, res, next) => {
 });
 
 async function handleAddMeal(req, res, next) {
-    const collection = dbo.getDb().collection("users");
     try {
+        const collection = dbo.getDb().collection("users");
         console.log("req.body", req.body);
         await collection.updateOne({ username: req.body.username }, { $push: { dailyMeals: req.body.dailyMeal } });
         const user = await collection.findOne({ username: req.body.username, });
@@ -49,9 +49,8 @@ async function handleAddMeal(req, res, next) {
     }
 }
 async function handleDeleteMeal(req, res, next) {
-    const collection = dbo.getDb().collection("users");
-
     try {
+        const collection = dbo.getDb().collection("users");
         const updateStatus = await collection.updateOne(
             { username: req.body.username },
             {
@@ -91,6 +90,21 @@ router.patch('/overwriteMeal', async (req, res, next) => {
         res.send({ success: false, msg: 'internal server error' });
     }
 });
+
+router.post('/feedback', async (req, res, next) => {
+    try {
+        const {from, subject, feedback} = req.body;
+        const collection = dbo.getDb().collection("feedback");
+        const success = await collection.insertOne({ from, subject, feedback })
+        if (!success) {
+            res.send({ success: false, message: 'Feedback upload failed internal server error' });
+            return;
+        }
+        res.send({ success: true, message: 'Feedback sucessfully recieved' });
+    } catch (err) {
+        res.send({ success: false, message: err });
+    }
+})
 
 
 

@@ -66,7 +66,7 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
                     margin: '0.5rem',
                 }}>
                 <CloseIcon
-                    onClick={() => { setShowDietPlan({}) }}
+                    onPointerDown={() => { setShowDietPlan({}) }}
                     sx={{
                         position: 'absolute',
                         color: 'red',
@@ -99,7 +99,7 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
                         size="large"
                         color="secondary"
                         startIcon={<DeleteForeverIcon />}
-                        onClick={() => {
+                        onPointerDown={() => {
                             deleteMeal(user.username, showDietPlan.date).then((res) => {
                                 if (res?.success) {
                                     saveUser(res.user)

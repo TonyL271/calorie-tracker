@@ -13,7 +13,7 @@ const sameDay = (date1, date2) => (
 )
 
 
-const CreateMeal = ({ dailyMeals, setDailyMeals,viewport }) => {
+const CreateMeal = ({ dailyMeals, setDailyMeals, viewport }) => {
    const breakpoint = 1024;
 
    const { user, saveUser } = useContext(UserContext);

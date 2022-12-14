@@ -45,7 +45,7 @@ const NutrientLabel = ({ food }) => {
                },
             }}
             onMouseOver={handleHover}
-            onClick={handleHover}
+            onPointerDown={handleHover}
          >
             <FontAwesomeIcon icon={faHandPointer} />
             Details
@@ -82,7 +82,7 @@ const NutrientLabel = ({ food }) => {
                   position: 'absolute', stroke: "red", strokeWidth: '2',
                   top: '0.25rem', right: '0.25rem',
                   color: 'red', cursor: 'pointer'
-               }} onClick={handleClose} />
+               }} onPointerDown={handleClose} />
                <TableContainer component={Paper} sx={{ width: '300px', height: '100%', padding: '8px', boxShadow: 'none', }}>
                   <Box component="header" borderBottom="solid 10px black" width='100%' >
                      <Typography variant="h1" sx={{ fontSize: '2rem', my: '0', fontWeight: 'bold', letterSpacing: '-1' }} >Nutrition Facts</Typography>
