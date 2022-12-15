@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Typography, Button, Box, Slide } from '@mui/material';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { HamburgerButton } from './';
+import { HamburgerButton } from '.';
 import { useContext, useEffect } from 'react';
 
 

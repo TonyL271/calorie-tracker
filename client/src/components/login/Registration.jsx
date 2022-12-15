@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Box, Typography, TextField, Button, styled, Alert, Collapse } from '@mui/material'
 import { register } from '../../apiCalls'
 
-const CreateAccount = () => {
+const Registration = () => {
     const handleRegister = (e) => {
         setAlert('')
         e.preventDefault();
@@ -97,4 +97,4 @@ const CreateAccount = () => {
     )
 }
 
-export default CreateAccount
+export default Registration

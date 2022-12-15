@@ -44,7 +44,7 @@ const HamburgerMenu = ({ anchorRef, open, setOpen, setMode }) => {
                         {/* Show sign in Button if user is not logged in */}
                         {!user && (
                             <ListItem >
-                                <ListItemButton onPointerDown={() => { navigate('/sign-in') }}>
+                                <ListItemButton onPointerDown={() => { navigate('/login-page') }}>
                                     <LockOpenIcon sx={{ mr: '1rem', color: 'orange' }} />
                                     <ListItemText primary={"Sign-in"} />
                                 </ListItemButton>

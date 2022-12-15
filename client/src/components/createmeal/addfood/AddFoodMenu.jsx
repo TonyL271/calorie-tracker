@@ -2,7 +2,7 @@ import { Box, Typography, Divider, Select, MenuItem, FormControl, InputLabel, Bu
 import React, { useEffect, useState } from 'react'
 import { Nutrients } from '../../../apiCalls';
 import CloseIcon from '@mui/icons-material/Close';
-import NutrientLabel from '../../NutrientLabel/NutrientLabel';
+import NutrientLabel from '../../nutrientLabel/NutrientLabel';
 import { styled } from '@mui/system';
 import { v4 as uuidv4 } from 'uuid';
 

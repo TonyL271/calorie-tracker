@@ -2,7 +2,7 @@ import React, { useState, useEffect, createRef } from 'react'
 import { Box, Typography, Divider, Pagination, useMediaQuery, Collapse, } from '@mui/material'
 import { useTheme } from '@emotion/react';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
-import NutrientLabel from '../NutrientLabel/NutrientLabel';
+import NutrientLabel from '../nutrientLabel/NutrientLabel';
 import './animations.css'
 
 const MealGrid = ({ foodList, handleRemoveItem, viewport, mutable, }) => {
@@ -68,7 +68,7 @@ const MealGrid = ({ foodList, handleRemoveItem, viewport, mutable, }) => {
                             }}>
                             <ClearRoundedIcon sx={{
                                 color: 'red',
-                                stroke: "red",
+                                stroke: 'red',
                                 strokeWidth: 1,
                             }}
                             />

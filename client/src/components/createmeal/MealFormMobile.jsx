@@ -158,20 +158,24 @@ const MealFormMobile = ({
                </Box>
                <Box onPointerDown={(e) => { e.stopPropagation() }} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Button
+                     variant="contained"
                      onPointerDown={(e) => { handleClear() }}
+                     color="error"
                      sx={{
-                        bgcolor: 'red',
                         height: '50px',
-                        color: 'background.foreground',
                         fontWeight: '700',
                         margin: { smallest: '0 1rem 0 0', tablet: '0 1rem 0 1rem' },
                      }}>
                      clear all
                   </Button>
                   <Button
-                     onPointerDown={(e) => { saveDailyMeal() }}
+                     variant="contained"
+                     onPointerDown={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        // saveDailyMeal()
+                     }}
                      sx={{
-                        bgcolor: 'primary.main',
                         height: '50px',
                         color: 'background.foreground',
                         fontWeight: '700',
