@@ -81,11 +81,7 @@ const simple = createTheme({
 
 
 function App() {
-   const [dailyMeals, setDailyMeals] = useState([])
    const [mode, setMode] = useState('original')
-
-
-
    const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
 
    useEffect(() => {
@@ -116,8 +112,8 @@ function App() {
                            <Outlet />
                         </Box>
                      }>
-                     <Route index element={<CreateMeal dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} viewport={viewport} />} />
-                     <Route path="calendar" element={<Calendar dailyMeals={dailyMeals} setDailyMeals={setDailyMeals} />} />
+                     <Route index element={<CreateMeal viewport={viewport} />} />
+                     <Route path="calendar" element={<Calendar />} />
                      <Route path="login-page" element={<LoginPage/>} />
                   </Route>
                </Routes>

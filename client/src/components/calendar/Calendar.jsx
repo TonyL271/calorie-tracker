@@ -1,5 +1,5 @@
 import { Box, Typography, Button, IconButton, Paper, Stack, Grow, Zoom, Fade } from "@mui/material";
-import { useEffect, useState, useContext, } from "react";
+import { useState, useContext, } from "react";
 import { useSwipeable } from "react-swipeable";
 import MealPlan from './MealPlan';
 import UserContext from '../../context/UserContext';
@@ -31,7 +31,7 @@ const sameDay = (date1, date2) => (
     date1.getFullYear() === date2.getFullYear()
 )
 
-function Calendar({ dailyMeals, setDailyMeals }) {
+function Calendar({ }) {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [showDate, setShowDate] = useState(getShowDate(currentDate));
     const [showMonth, setShowMonth] = useState(false);
@@ -144,10 +144,9 @@ function Calendar({ dailyMeals, setDailyMeals }) {
                         {/* Dates of the month */}
                         {showDate.daysOfMonth.map((date, idx) => {
                             const isToday = sameDay(currentDate, new Date(date.getFullYear(), date.getMonth(), date.getDate()));
-                            // If user has a meal schedule on this date
+                            // If user is logged in, get their schedule, otherwise get the schedule from the store
                             const schedule = user ?
-                                user?.dailyMeals?.filter((meal) => sameDay(new Date(meal.date), date)) :
-                                dailyMeals.filter((meal) => sameDay(meal.getDate(), date));
+                                user?.dailyMeals?.filter((meal) => sameDay(new Date(meal.date), date)) : []
                             const startingWeek = showDate.date.getDay() + 1;
 
                             return (

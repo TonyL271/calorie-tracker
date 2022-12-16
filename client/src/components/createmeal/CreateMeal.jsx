@@ -4,7 +4,7 @@ import UserContext from '../../context/UserContext';
 import { addMeal } from '../../utils/apiCalls';
 import { CustomAlert } from '../../utils';
 import { overwriteMeal } from '../../utils/apiCalls';
-import { Typography,Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
 // see if day is the same regardles of time of day
 const sameDay = (date1, date2) => (
@@ -14,7 +14,7 @@ const sameDay = (date1, date2) => (
 )
 
 
-const CreateMeal = ({ dailyMeals, setDailyMeals, viewport }) => {
+const CreateMeal = ({ viewport }) => {
    const breakpoint = 1024;
 
    const { user, saveUser } = useContext(UserContext);
@@ -81,7 +81,13 @@ const CreateMeal = ({ dailyMeals, setDailyMeals, viewport }) => {
          } else {
             setAlert({
                icon: 'failure',
-               msg: 'You must be signed in to save your meal plan.',
+               msg: (
+                  <Box my="0.5rem" textAlign="center">
+                     You must be signed in to save your meal plan. 
+                     <br></br>
+                     {<HighlightedText sx={{fontSize:'0.7rem'}} > (You can register without an email) </HighlightedText>}
+                  </Box>
+               ),
                type: 'confirm',
                handleYes: () => { setAlert(null); reject() },
             });
