@@ -1,4 +1,4 @@
-class DailyMeal{
+export default class DailyMeal{
     constructor(date,breakfast,lunch,dinner,snacks){
         this.date = date;
         this.breakfast = breakfast;
@@ -24,5 +24,3 @@ class DailyMeal{
         return this.snacks;
     }
 }
-
-export {DailyMeal};

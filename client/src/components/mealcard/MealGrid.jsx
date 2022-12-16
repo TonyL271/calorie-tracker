@@ -1,5 +1,5 @@
-import React, { useState, useEffect, createRef } from 'react'
-import { Box, Typography, Divider, Pagination, useMediaQuery, Collapse, } from '@mui/material'
+import React, { useState, useEffect } from 'react'
+import { Box, Typography, Divider, Pagination, useMediaQuery, } from '@mui/material'
 import { useTheme } from '@emotion/react';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import NutrientLabel from '../nutrientLabel/NutrientLabel';

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Box, Button, Typography, Fade, TextField } from "@mui/material"
-import MealCard from "./MealCard";
-import MealTabs from "./MealTabs";
+import MealCard from "../mealcard/MealCard";
+import MealTabs from "../../utils/MealTabs";
 import Rolldate from "rolldate-full";
 //icons
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';

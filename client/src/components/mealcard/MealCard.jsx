@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
-import { AddToggle, AddFoodMenu } from './addfood';
+import { AddToggle, AddFoodMenu } from '../createmeal/addfood';
 import MealGrid from './MealGrid';
 
 const MealCard = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood, viewport }) => {

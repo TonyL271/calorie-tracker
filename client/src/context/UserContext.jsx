@@ -1,6 +1,6 @@
 import { useState, createContext, useEffect } from 'react'
 import useLocalStorage from "use-local-storage";
-import { guestLogin } from '../apiCalls';
+import { guestLogin } from '../utils/apiCalls';
 
 
 const UserContext = createContext();

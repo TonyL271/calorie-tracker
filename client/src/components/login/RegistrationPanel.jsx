@@ -1,7 +1,7 @@
 
 
 import { Box, Typography, TextField, Button, styled, Stack, } from '@mui/material'
-import { register } from '../../apiCalls'
+import { register } from '../../utils/apiCalls'
 import UserContext from '../../context/UserContext';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom'

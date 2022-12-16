@@ -2,7 +2,7 @@ import { Box, Button, FormControl, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import CloseIcon from '@mui/icons-material/Close';
-import { sendFeedback } from '../../apiCalls';
+import { sendFeedback } from '../../utils/apiCalls';
 
 const customStyles = {
     overlay: {

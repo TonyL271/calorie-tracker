@@ -86,7 +86,6 @@ const HamburgerMenu = ({ anchorRef, open, setOpen, setMode }) => {
                                         [{ value: 0, label: 'Original' }, { value: 1, label: 'Simple' }]
                                     }
                                     onChange={(e, value) => {
-                                        console.log(value)
                                         setMode(themes[value]);
                                         setValue(value);
                                     }}

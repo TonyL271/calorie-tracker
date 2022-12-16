@@ -1,9 +1,9 @@
 import React, { useState, useContext, } from 'react';
 import { MealForm, MealFormMobile } from './';
 import UserContext from '../../context/UserContext';
-import { addMeal } from '../../apiCalls';
-import { CustomAlert } from './'
-import { overwriteMeal } from '../../apiCalls';
+import { addMeal } from '../../utils/apiCalls';
+import { CustomAlert } from '../../utils';
+import { overwriteMeal } from '../../utils/apiCalls';
 import { Typography,Box } from '@mui/material';
 import { styled } from '@mui/system';
 // see if day is the same regardles of time of day

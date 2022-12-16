@@ -1,4 +1,4 @@
-import { DailyMeal } from "./components/createmeal/DailyMeal";
+import DailyMeal from "./DailyMeal";
 const api_id = "ccc0b1b6"
 const api_key = "27f1de2a5f6da08f5c5239d25f745909"
 const url = 'https://trackapi.nutritionix.com/v2';

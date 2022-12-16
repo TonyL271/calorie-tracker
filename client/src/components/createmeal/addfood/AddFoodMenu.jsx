@@ -1,6 +1,6 @@
 import { Box, Typography, Divider, Select, MenuItem, FormControl, InputLabel, Button, TextField, Collapse } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { Nutrients } from '../../../apiCalls';
+import { Nutrients } from '../../../utils/apiCalls';
 import CloseIcon from '@mui/icons-material/Close';
 import NutrientLabel from '../../nutrientLabel/NutrientLabel';
 import { styled } from '@mui/system';

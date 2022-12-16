@@ -120,7 +120,7 @@ const MealTabs = ({ mealTypes, value, setValue, warning: { warn, emptyMeal }, ro
                             label={<Box component="span" sx={{ fontSize: { smallest: '0.5rem', mobile: '0.7rem' } }} >{mealType}</Box>}
                             value={idx.toString()}
                             icon={(idx.toString() === value) || !warn ? '' : emptyMeal[idx] ?
-                                <PriorityHighIcon fontSize="4px" /> :
+                                <PriorityHighIcon sx={{color:"error.main"}} fontSize="4px" /> :
                                 <CheckIcon fontSize="4px" />}
                             sx={{ color: emptyMeal[idx] ? 'red' : 'tabContrast' }}
                         />

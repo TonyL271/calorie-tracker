@@ -1,11 +1,11 @@
 import React, { useRef, useContext } from 'react'
-import { Box, Button, IconButton } from '@mui/material';
+import { Box, Button,} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import MealTabs from '../createmeal/MealTabs';
+import MealTabs from '../../utils/MealTabs';
 import { useState, useEffect } from 'react';
-import { MealGrid } from '../createmeal';
+import { MealGrid } from '../mealcard'
 import UserContext from '../../context/UserContext';
-import { deleteMeal } from '../../apiCalls';
+import { deleteMeal } from '../../utils/apiCalls';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const MealPlan = ({ showDietPlan, setShowDietPlan }) => {

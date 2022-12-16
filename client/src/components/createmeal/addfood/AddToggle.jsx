@@ -2,7 +2,7 @@ import { useState, Fragment } from 'react'
 import { Box, Typography, IconButton, Menu, InputBase, Divider, } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
-import { Search } from '../../../apiCalls'
+import { Search } from '../../../utils/apiCalls'
 import { FoodMenuItem } from './';
 
 const AddToggle = ({ setAddFood }) => {

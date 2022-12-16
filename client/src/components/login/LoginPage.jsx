@@ -3,7 +3,7 @@ import { Box, Tabs, Tab, Paper } from '@mui/material'
 import LoginPanel from './LoginPanel'
 import RegistrationPanel from './RegistrationPanel'
 import { useSwipeable } from "react-swipeable";
-import CustomAlert from '../CustomAlert';
+import { CustomAlert } from '../../utils';
 
 const LoginPage = () => {
     const [tabValue, setTabValue] = useState(0);

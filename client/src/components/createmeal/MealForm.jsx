@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { Box, Typography, Button, TextField, Fade } from '@mui/material';
-import { MealCard, CustomAlert } from './'
+import { MealCard } from '../mealcard';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 //importing icons from mui icons
