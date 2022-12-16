@@ -1,7 +1,11 @@
 import DailyMeal from "./DailyMeal";
-const api_id = "ccc0b1b6"
-const api_key = "27f1de2a5f6da08f5c5239d25f745909"
+const api_id = process.env.REACT_APP_NUTRITIONIX_APP_ID || "ccc0b1b6"
+const api_key = process.env.REACT_APP_NUTRITIONIX_APP_KEY || "27f1de2a5f6da08f5c5239d25f745909"
 const url = 'https://trackapi.nutritionix.com/v2';
+
+console.log(api_id);
+console.log(process.env.REACT_APP_TEST);
+console.log(process.env);
 
 const headers = {
     'x-app-id': api_id,
