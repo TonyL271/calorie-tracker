@@ -1,20 +1,25 @@
 import { useEffect } from "react";
 import { Box } from "@mui/system"
+import { Button, Paper, Typography } from "@mui/material";
+import PropTypes from 'prop-types';
+
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, Typography } from "@mui/material";
+import WarningIcon from '@mui/icons-material/Warning';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
-const CustomAlert = ({ alert, setAlert,overwriteMeal }) => {
+
+
+const CustomAlert = ({ alert, setAlert, }) => {
     // Show alert for the duration of timeout
     useEffect(() => {
-        if (alert?.timeout) {
+        if (alert?.type === "timeout") {
             const timer = setTimeout(() => {
                 alert && setAlert(null)
-            }, alert.timeout);
+            }, alert.timeoutDuration);
             return () => clearTimeout(timer);
         }
     }, [alert])
-
 
     return (
         alert &&
@@ -30,7 +35,7 @@ const CustomAlert = ({ alert, setAlert,overwriteMeal }) => {
             bgcolor: 'rgba(0,0,0,0.5)',
             zIndex: alert ? 100 : -1,
         }}>
-            <Box sx={{
+            <Paper elevation={4} sx={{
                 width: '300px',
                 backgroundColor: 'white',
                 display: 'flex',
@@ -39,36 +44,64 @@ const CustomAlert = ({ alert, setAlert,overwriteMeal }) => {
                 flexDirection: 'column',
                 padding: '1.5rem',
             }}>
-                {alert.success ?
+                {alert.icon === "success" ?
                     <CheckIcon sx={{ fontSize: 80, color: '#00d400' }} /> :
-                    <CloseIcon sx={{ fontSize: 80, color: '#ff0000' }} />
+                    alert.icon === "failure" ?
+                        <CloseIcon sx={{ fontSize: 80, color: '#ff0000' }} /> :
+                        alert.icon === "warning" ?
+                            <WarningIcon sx={{ fontSize: 80, color: 'orange' }} /> :
+                            false
                 }
-                <Typography my="0.5rem" textAlign="center">
-                    {alert.msg}
-                </Typography>
-                {!alert.timeout ?
+                {typeof alert.msg === "string" ?
+                    <Typography my="0.5rem" textAlign="center">
+                        {alert.msg}
+                    </Typography> :
+                    alert.msg
+                }
+                {alert.type === "askUser" ?
                     <Box display="flex" width="100%" justifyContent="space-around">
                         <Button
                             variant="contained"
                             color="primary"
-                            onPointerDown={() => overwriteMeal() && setAlert(null) }
+                            onPointerDown={() => alert.handleYes() && setAlert(null)}
                         >
                             Yes
                         </Button>
-
                         <Button
                             variant="contained"
                             color="secondary"
-                            onPointerDown={() => setAlert(null)}
+                            onPointerDown={() => alert.handleNo() && setAlert(null)}
                         >
                             No
                         </Button>
                     </Box> :
-                    <div />
+                    alert.type === "confirm" ?
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onPointerDown={() => alert.handleYes() && setAlert(null)}
+                        >
+                            Okay
+                        </Button> :
+                        false
                 }
-            </Box>
+            </Paper>
         </Box>
     )
 }
+
+CustomAlert.Prototype = {
+    alert: {
+        success: PropTypes.bool,
+        msg: PropTypes.string,
+        type: PropTypes.string, // timeout, askUser, confirm
+        timeoutDuration: PropTypes.number,
+        handleYes: PropTypes.func,
+        handleNo: PropTypes.func,
+    },
+    setAlert: PropTypes.func,
+}
+
+
 
 export default CustomAlert

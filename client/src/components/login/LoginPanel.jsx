@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react'
+import { useContext, } from 'react'
 import UserContext from '../../context/UserContext'
-import { Box, Typography, TextField, Button, styled, Stack, Tabs, Tab } from '@mui/material'
+import { Box, Typography, TextField, Button, styled, Stack, } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../apiCalls'
 
-const LoginPanel = ({ children, value, index, ...other }) => {
+const LoginPanel = ({ children, value, index, setAlert, ...other }) => {
     const { user, saveUser } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -19,19 +19,29 @@ const LoginPanel = ({ children, value, index, ...other }) => {
     const handleLogin = (e) => {
         e.preventDefault()
         login(e.target.username.value, e.target.password.value)
-            .then(data => {
-                if (data.success) {
-                    saveUser({ ...data.user })
+            .then(({ success, msg, user }) => {
+                if (success) {
+                    saveUser({ ...user })
                     navigate('/')
                 } else {
-                    alert(data.message)
+                    setAlert({
+                        icon: success ? 'success' : 'failure',
+                        msg,
+                        type: 'timeout',
+                        timeoutDuration: 2000,
+                    })
                 }
             })
-            .catch(err => console.log(err.message))
+            .catch(({ success, msg }) => setAlert({
+                icon: success ? 'success' : 'failure',
+                msg,
+                type: 'timeout',
+                timeoutDuration: 2000,
+            }))
     }
 
     return (
-        <Box hidden={value !== index} sx={{my:'auto'}}>
+        <Box hidden={value !== index} sx={{ my: 'auto' }}>
             {value === index && (
                 <Box sx={{}}>
                     <Typography variant="h4" component="h1" align='center' sx={{
@@ -72,6 +82,7 @@ const LoginPanel = ({ children, value, index, ...other }) => {
                                 type="submit"
                                 variant="contained"
                                 color="secondary"
+                                onPointerDown={(e) => { e.preventDefault() }}
                                 sx={{
                                     my: '1.5rem',
                                     width: '150px',

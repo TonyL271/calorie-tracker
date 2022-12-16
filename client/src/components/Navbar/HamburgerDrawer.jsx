@@ -25,6 +25,7 @@ const HamburgerMenu = ({ anchorRef, open, setOpen, setMode }) => {
 
     const handleLogout = () => {
         saveUser(null)
+        setOpen(false)
     }
 
     return (
@@ -44,7 +45,7 @@ const HamburgerMenu = ({ anchorRef, open, setOpen, setMode }) => {
                         {/* Show sign in Button if user is not logged in */}
                         {!user && (
                             <ListItem >
-                                <ListItemButton onPointerDown={() => { navigate('/login-page') }}>
+                                <ListItemButton onPointerDown={() => { navigate('/login-page'); setOpen(false) }}>
                                     <LockOpenIcon sx={{ mr: '1rem', color: 'orange' }} />
                                     <ListItemText primary={"Sign-in"} />
                                 </ListItemButton>
@@ -53,11 +54,11 @@ const HamburgerMenu = ({ anchorRef, open, setOpen, setMode }) => {
                         }
                         <ListItem >
                             {location.pathname === '/' ? (
-                                <ListItemButton onPointerDown={() => { navigate('/calendar') }}>
+                                <ListItemButton onPointerDown={() => { navigate('/calendar'); setOpen(false) }}>
                                     <CalendarMonthIcon sx={{ mr: "1rem", color: 'primary.main' }} />
                                     <ListItemText primary={"View Planner"} />
                                 </ListItemButton>) : (
-                                <ListItemButton onPointerDown={() => { navigate('/') }}>
+                                <ListItemButton onPointerDown={() => { navigate('/'); setOpen(false) }}>
                                     <FastfoodIcon sx={{ mr: "1rem", color: 'primary.main' }} />
                                     <ListItemText primary={"Add Food"} />
                                 </ListItemButton>
@@ -66,7 +67,7 @@ const HamburgerMenu = ({ anchorRef, open, setOpen, setMode }) => {
                         </ListItem>
                         {user && (
                             <ListItem >
-                                <ListItemButton onPointerDown={() => { handleLogout() }}>
+                                <ListItemButton onPointerDown={() => { handleLogout(); }}>
                                     <LockIcon sx={{ mr: '1rem', color: 'orange' }} />
                                     <ListItemText primary={"Sign-out"} />
                                 </ListItemButton>

@@ -8,7 +8,7 @@ router.post('/login', async (req, res, next) => {
         const collection = dbo.getDb().collection("users");
         const user = await collection.findOne({ username: req.body.username });
         if (!user) {
-            res.send({ success: false, message: 'User not found' });
+            res.send({ success: false, msg: 'User not found' });
             return;
         }
         const match = await bcrypt.compare(req.body.password, user.password);
@@ -18,7 +18,7 @@ router.post('/login', async (req, res, next) => {
             res.send({ sucess: false, msg: 'incorrect password' });
         }
     } catch (err) {
-        res.send({ sucess: false, err });
+        res.send({ sucess: false, msg, err, });
     }
 })
 
@@ -27,7 +27,8 @@ router.post('/register', async (req, res, next) => {
         const collection = dbo.getDb().collection("users");
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         await collection.insertOne({ username: req.body.username, password: hashedPassword, dailyMeals: [] })
-        res.send({ success: true, msg: 'sucessful registration' });
+        const user = await collection.findOne({ username: req.body.username });
+        res.send({ success: true, msg: 'sucessful registration', user });
     } catch (error) {
         if (error.code === 11000) {
             res.send({ success: false, msg: 'username already exists' });
@@ -93,7 +94,7 @@ router.patch('/overwriteMeal', async (req, res, next) => {
 
 router.post('/feedback', async (req, res, next) => {
     try {
-        const {from, subject, feedback} = req.body;
+        const { from, subject, feedback } = req.body;
         const collection = dbo.getDb().collection("feedback");
         const success = await collection.insertOne({ from, subject, feedback })
         if (!success) {

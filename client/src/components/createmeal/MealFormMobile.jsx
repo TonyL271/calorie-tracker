@@ -173,7 +173,7 @@ const MealFormMobile = ({
                      onPointerDown={(e) => {
                         e.stopPropagation();
                         e.preventDefault();
-                        // saveDailyMeal()
+                        saveDailyMeal()
                      }}
                      sx={{
                         height: '50px',

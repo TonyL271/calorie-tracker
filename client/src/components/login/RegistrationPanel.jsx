@@ -1,28 +1,39 @@
 
 
-import { useContext, useState } from 'react'
-import UserContext from '../../context/UserContext'
-import { Box, Typography, TextField, Button, styled, Stack, Tabs, Tab } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { Box, Typography, TextField, Button, styled, Stack, } from '@mui/material'
 import { register } from '../../apiCalls'
+import UserContext from '../../context/UserContext';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom'
 
-const RegistrationPanel = ({ children, value, index, ...other }) => {
+const RegistrationPanel = ({ children, value, index, setAlert, ...other }) => {
+    const { user, saveUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const handleRegister = (e) => {
-        console.log(e);
-        // setAlert('')
         e.preventDefault();
         // post to server only if passwords match
         if (e.target.password.value !== e.target.confirmPassword.value) {
-            // setAlert('Passwords do not match');
+            setAlert({
+                icon: 'failure',
+                msg: 'Passwords do not match',
+                type: 'timeout',
+                timeoutDuration: 2000,
+            });
             return;
         }
         register(e.target.username.value, e.target.password.value)
-            .then(data => {
-                if (data.success) {
-                    // setAlert('Account created successfully')
+            .then(({ success, msg, user }) => {
+                if (success) {
+                    saveUser({ ...user })
+                    navigate('/')
                 } else {
-                    // setAlert(data.msg)
+                    setAlert({
+                        icon: 'failure',
+                        msg,
+                        type: 'timeout',
+                        timeoutDuration: 2000,
+                    });
                 }
             })
             .catch(err => console.log(err))

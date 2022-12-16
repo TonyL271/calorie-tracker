@@ -126,6 +126,7 @@ const MealForm = ({
                             <Button variant="contained" sx={{ bgcolor: 'red', height: '55px', mr: '1rem', width: '70px', color: 'background.foreground', fontWeight: 900 }} onPointerDown={handleClear}>Clear</Button>
                             <Button sx={{ color: 'background.foreground', fontWeight: 900, width: '160px', height: '55px' }} variant="contained"
                                 onPointerDown={() => {
+                                    console.log("pointerDown")
                                     saveDailyMeal();
                                 }}
                             >

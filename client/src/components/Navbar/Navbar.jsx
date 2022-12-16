@@ -10,7 +10,6 @@ import UserContext from '../../context/UserContext';
 
 const Navbar = ({ setMode }) => {
     const navigate = useNavigate();
-    const location = useLocation();
     const { user, saveUser } = useContext(UserContext);
     const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 

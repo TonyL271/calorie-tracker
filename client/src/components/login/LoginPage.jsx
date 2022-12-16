@@ -3,9 +3,11 @@ import { Box, Tabs, Tab, Paper } from '@mui/material'
 import LoginPanel from './LoginPanel'
 import RegistrationPanel from './RegistrationPanel'
 import { useSwipeable } from "react-swipeable";
+import CustomAlert from '../CustomAlert';
 
 const LoginPage = () => {
-    const [tabValue, setTabValue] = useState(0)
+    const [tabValue, setTabValue] = useState(0);
+    const [alert, setAlert] = useState(null);
 
     const config = {
         delta: 10,                             // min distance(px) before a swipe starts. *See Notes*
@@ -15,7 +17,7 @@ const LoginPage = () => {
         rotationAngle: 0,                      // set a rotation angle
         swipeDuration: Infinity,               // allowable duration of a swipe (ms). *See Notes*
         touchEventOptions: { passive: true },  // options for touch listeners (*See Details*)
-    }
+    };
 
     const handlers = useSwipeable({
         onSwiped: (eventData) => {
@@ -57,8 +59,9 @@ const LoginPage = () => {
                     <Tab label="login" id="login" />
                     <Tab label="sign-up" id="registration" />
                 </Tabs>
-                <LoginPanel value={tabValue} index={0} />
-                <RegistrationPanel value={tabValue} index={1} />
+                <LoginPanel value={tabValue} index={0} setAlert={setAlert} />
+                <RegistrationPanel value={tabValue} index={1} setAlert={setAlert}/>
+                <CustomAlert alert={alert} setAlert={setAlert}/>
             </Paper>
         </Box >
     )
