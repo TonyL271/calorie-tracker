@@ -86,7 +86,7 @@ const register = (username, password) => (
 )
 
 const addMeal = (username, breakfast, lunch, dinner, snacks, date) => (
-    fetch('${apiBaseUrl}/api/addMeal', {
+    fetch(`${apiBaseUrl}/api/addMeal`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -100,7 +100,7 @@ const addMeal = (username, breakfast, lunch, dinner, snacks, date) => (
 )
 
 const deleteMeal = (username, date) => (
-    fetch('${apiBaseUrl}/api/deleteMeal', {
+    fetch(`${apiBaseUrl}/api/deleteMeal`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -114,7 +114,7 @@ const deleteMeal = (username, date) => (
 )
 
 const overwriteMeal = (username, breakfast, lunch, dinner, snacks, date) => (
-    fetch('${apiBaseUrl}/api/overwriteMeal', {
+    fetch(`${apiBaseUrl}/api/overwriteMeal`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -129,7 +129,7 @@ const overwriteMeal = (username, breakfast, lunch, dinner, snacks, date) => (
 )
 
 const sendFeedback = (from, subject, feedback,) => (
-    fetch('${apiBaseUrl}/api/feedback', {
+    fetch(`${apiBaseUrl}/api/feedback`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
