@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { CreateMeal } from "./components/createmeal";
 import { Navbar } from "./components/navbar"
 import { Box } from "@mui/material";
@@ -12,6 +12,7 @@ import Calendar from "./components/calendar/Calendar";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
 import LoginPage from "./components/login/LoginPage";
+import { WindowSizeProvider } from './context/WindowSizeContext';
 
 const original = createTheme({
    palette: {
@@ -82,17 +83,6 @@ const simple = createTheme({
 
 function App() {
    const [mode, setMode] = useState('original')
-   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
-
-   useEffect(() => {
-      const handleResizeWindow = () => setViewport({ width: window.innerWidth, height: window.innerHeight });
-      // subscribe to window resize event "onComponentDidMount"
-      window.addEventListener("resize", handleResizeWindow);
-      return () => {
-         // unsubscribe "onComponentDestroy"
-         window.removeEventListener("resize", handleResizeWindow);
-      };
-   }, []);
 
    // disable mobile zoom
    document.addEventListener(
@@ -104,19 +94,21 @@ function App() {
       <BrowserRouter>
          <ThemeProvider theme={mode === "original" ? original : simple} >
             <UserProvider>
-               <Routes>
-                  <Route path="/"
-                     element={
-                        <Box sx={{ display: 'flex', height: `calc(${window.innerHeight}px)`, flexDirection: 'column', bgcolor: 'background.main', margin: 'auto' }}>
-                           <Navbar setMode={setMode} />
-                           <Outlet />
-                        </Box>
-                     }>
-                     <Route index element={<CreateMeal viewport={viewport} />} />
-                     <Route path="calendar" element={<Calendar />} />
-                     <Route path="login-page" element={<LoginPage/>} />
-                  </Route>
-               </Routes>
+               <WindowSizeProvider>
+                  <Routes>
+                     <Route path="/"
+                        element={
+                           <Box sx={{ display: 'flex', height: `calc(${window.height}px)`, flexDirection: 'column', bgcolor: 'background.main', margin: 'auto' }}>
+                              <Navbar setMode={setMode} />
+                              <Outlet />
+                           </Box>
+                        }>
+                        <Route index element={<CreateMeal />} />
+                        <Route path="calendar" element={<Calendar />} />
+                        <Route path="login-page" element={<LoginPage />} />
+                     </Route>
+                  </Routes>
+               </WindowSizeProvider>
             </UserProvider>
          </ThemeProvider>
       </BrowserRouter>

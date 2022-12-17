@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect,useContext } from "react";
+import WindowSizeContext from "../../context/WindowSizeContext";
 import { Box, Button, Typography, Fade, TextField } from "@mui/material"
 import MealCard from "../mealcard/MealCard";
 import MealTabs from "../../utils/MealTabs";
@@ -12,7 +13,7 @@ import IcecreamIcon from '@mui/icons-material/Icecream';
 const MealFormMobile = ({
    date, setDate,
    handleClear, saveDailyMeal,
-   totalCals, viewport,
+   totalCals,
    mealProps: {
       breakfast, setBreakfast,
       lunch, setLunch,
@@ -26,6 +27,7 @@ const MealFormMobile = ({
       addSnacks, setAddSnacks
    },
 }) => {
+   const {windowSize} = useContext(WindowSizeContext);
    const emptyMeal = [!breakfast.length, !lunch.length, !dinner.length, !snacks.length];
    const [value, setValue] = useState('0');
    const tabContainer = useRef(null);
@@ -99,7 +101,7 @@ const MealFormMobile = ({
    return (
       <Fade in={true} timeout={1500}>
          <Box ref={tabContainer} className="look" sx={{
-            height: `calc(${viewport.height}px - 65px)`,
+            height: `calc(${windowSize.height}px - 65px)`,
             display: 'flex',
             flexDirection: 'column',
             overFlowX: 'hidden',
@@ -122,7 +124,6 @@ const MealFormMobile = ({
                            addFood={props.addFood}
                            setFoodList={props.setFoodList}
                            setAddFood={props.setAddFood}
-                           viewport={viewport}
                         />
                      </Box>
                   ))

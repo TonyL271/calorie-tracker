@@ -1,6 +1,7 @@
 import React, { useState, useContext, } from 'react';
 import { MealForm, MealFormMobile } from './';
 import UserContext from '../../context/UserContext';
+import WindowSizeContext from '../../context/WindowSizeContext';
 import { addMeal } from '../../utils/apiCalls';
 import { CustomAlert } from '../../utils';
 import { overwriteMeal } from '../../utils/apiCalls';
@@ -14,10 +15,11 @@ const sameDay = (date1, date2) => (
 )
 
 
-const CreateMeal = ({ viewport }) => {
+const CreateMeal = ({ }) => {
    const breakpoint = 1024;
 
    const { user, saveUser } = useContext(UserContext);
+   const { windowSize } = useContext(WindowSizeContext)
 
    const [breakfast, setBreakfast] = useState([])
    const [lunch, setLunch] = useState([])
@@ -83,9 +85,9 @@ const CreateMeal = ({ viewport }) => {
                icon: 'failure',
                msg: (
                   <Box my="0.5rem" textAlign="center">
-                     You must be signed in to save your meal plan. 
+                     You must be signed in to save your meal plan.
                      <br></br>
-                     {<HighlightedText sx={{fontSize:'0.7rem'}} > (You can register without an email) </HighlightedText>}
+                     {<HighlightedText sx={{ fontSize: '0.7rem' }} > (You can register without an email) </HighlightedText>}
                   </Box>
                ),
                type: 'confirm',
@@ -173,19 +175,19 @@ const CreateMeal = ({ viewport }) => {
 
    return (
       <React.Fragment>
-         {viewport.width > breakpoint ?
+         {windowSize.width > breakpoint ?
             (
                <MealForm
                   date={date} setDate={setDate}
                   handleClear={handleClear} saveDailyMeal={saveDailyMeal}
-                  totalCals={totalCals} viewport={viewport}
+                  totalCals={totalCals}
                   {...{ mealProps, addFoodProps }} />
             ) :
             (
                <MealFormMobile
                   date={date} setDate={setDate}
                   handleClear={handleClear} saveDailyMeal={saveDailyMeal}
-                  totalCals={totalCals} viewport={viewport}
+                  totalCals={totalCals}
                   {...{ mealProps, addFoodProps }} />
             )
          }

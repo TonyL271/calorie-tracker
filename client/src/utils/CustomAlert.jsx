@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import WarningIcon from '@mui/icons-material/Warning';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-
 
 
 const CustomAlert = ({ alert, setAlert, }) => {
@@ -92,7 +90,7 @@ const CustomAlert = ({ alert, setAlert, }) => {
 
 CustomAlert.Prototype = {
     alert: {
-        success: PropTypes.bool,
+        icon: PropTypes.string, // success, failure, warning
         msg: PropTypes.string,
         type: PropTypes.string, // timeout, askUser, confirm
         timeoutDuration: PropTypes.number,

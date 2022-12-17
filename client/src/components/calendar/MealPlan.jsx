@@ -23,17 +23,6 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
 
     const [value, setValue] = useState('0')
     const tabContainer = useRef(null)
-    const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
-
-    useEffect(() => {
-        const handleResizeWindow = () => setViewport({ width: window.innerWidth, height: window.innerHeight });
-        // subscribe to window resize event "onComponentDidMount"
-        window.addEventListener("resize", handleResizeWindow);
-        return () => {
-            // unsubscribe "onComponentDestroy"
-            window.removeEventListener("resize", handleResizeWindow);
-        };
-    }, []);
 
     return (
         Boolean(Object.entries(showDietPlan).length) &&
@@ -89,7 +78,7 @@ const MealPlan = ({ showDietPlan, setShowDietPlan }) => {
                             borderRadius: '10px',
                             fontSize: { smallest: '0.7rem', mobile: '0.8rem', tablet: '1rem' },
                         }} key={idx}>
-                            <MealGrid foodList={meal} viewport={viewport} mutable={false} />
+                            <MealGrid foodList={meal} mutable={false} />
                         </Box>
                     ))}
                 </MealTabs>

@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material'
 import { AddToggle, AddFoodMenu } from '../createmeal/addfood';
 import MealGrid from './MealGrid';
 
-const MealCard = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood, viewport }) => {
+const MealCard = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood }) => {
 
   const handleAddFood = (food) => {
     setFoodList([...foodList, food]);
@@ -83,7 +83,7 @@ const MealCard = ({ mealType, foodList, Icon, addFood, setFoodList, setAddFood, 
           </Box>
         </Box>
       </Box>
-      <MealGrid foodList={foodList} handleRemoveItem={handleRemoveItem} viewport={viewport} mutable={true} />
+      <MealGrid foodList={foodList} handleRemoveItem={handleRemoveItem} mutable={true} />
       <AddFoodMenu addFood={addFood} setAddFood={setAddFood} handleAddFood={handleAddFood} />
     </Box >
   )

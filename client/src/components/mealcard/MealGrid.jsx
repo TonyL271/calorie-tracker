@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, {useContext, useState, useEffect } from 'react'
+import WindowSizeContext from '../../context/WindowSizeContext';
 import { Box, Typography, Divider, Pagination, useMediaQuery, } from '@mui/material'
 import { useTheme } from '@emotion/react';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import NutrientLabel from '../nutrientLabel/NutrientLabel';
 import './animations.css'
 
-const MealGrid = ({ foodList, handleRemoveItem, viewport, mutable, }) => {
+const MealGrid = ({ foodList, handleRemoveItem,  mutable, }) => {
+    const {windowSize} = useContext(WindowSizeContext);
     const theme = useTheme();
     const smallScreen = useMediaQuery(theme.breakpoints.down('laptop'));
 
     const [showPagination, setShowPagination] = useState(false);
-    const maxItems = Math.floor((viewport.height - 450) / 48);
+    const maxItems = Math.floor((windowSize.height - 450) / 48);
     const maxPage = Math.ceil(foodList.length / (maxItems || 1));
     const [page, setPage] = useState(0);
     const start = page * maxItems;
@@ -18,7 +20,7 @@ const MealGrid = ({ foodList, handleRemoveItem, viewport, mutable, }) => {
 
     useEffect(() => {
         setShowPagination(smallScreen && foodList.length > maxItems);
-    }, [foodList, viewport])
+    }, [foodList, windowSize])
 
     return (
         <Box sx={{

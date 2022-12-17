@@ -3,39 +3,46 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import CloseIcon from '@mui/icons-material/Close';
 import { sendFeedback } from '../../utils/apiCalls';
+import { useContext } from 'react';
+import WindowSizeContext from '../../context/WindowSizeContext';
+import { CustomAlert } from '../../utils';
 
-const customStyles = {
-    overlay: {
-        display: 'fixed',
-        height: `${window.innerHeight - 65}px`,
-        top: '65px',
-        zIndex: '1',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-
-    },
-    content: {
-        position: 'relative',
-        inset: 0,
-        background: 'white',
-        width: '300px',
-        opacity: '1',
-        padding: 0,
-        border: 0,
-    },
-};
 
 Modal.setAppElement('#root');
 
 function Feedback({ modalIsOpen, setIsOpen }) {
+    const { windowSize } = useContext(WindowSizeContext);
     const [name, setName] = useState('');
     const [subject, setSubject] = useState('');
     const [feedback, setFeedback] = useState('');
+    const [alert, setAlert] = useState(null);
 
     function closeModal() {
         setIsOpen(false);
     }
+
+    const customStyles = {
+        overlay: {
+            display: 'fixed',
+            height: `${windowSize.height - 65}px`,
+            top: '65px',
+            zIndex: '1',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+
+        },
+        content: {
+            position: 'relative',
+            inset: 0,
+            background: 'white',
+            width: '300px',
+            opacity: '1',
+            padding: 0,
+            border: 0,
+        },
+    };
+
 
     return (
         <Box onPointerDown={(e) => { e.stopPropagation() }} sx={{
@@ -97,14 +104,22 @@ function Feedback({ modalIsOpen, setIsOpen }) {
                         onPointerDown={() => {
                             sendFeedback(name, subject, feedback)
                                 .then((res) => {
-                                    console.log(res);
-                                });
+                                    closeModal();
+                                    setAlert({
+                                        icon:'success',
+                                        type: 'timeout',
+                                        msg: 'Feedback sent successfully',
+                                        timeoutDuration: 2000,
+                                    });
+                                })
                         }}
                     >Submit</Button>
                 </FormControl>
             </Modal>
+            <CustomAlert alert={alert} setAlert={setAlert} />
         </Box>
     );
+
 }
 
 export default Feedback;

@@ -12,7 +12,7 @@ import IcecreamIcon from '@mui/icons-material/Icecream';
 const MealForm = ({
     date, setDate,
     handleClear, saveDailyMeal,
-    totalCals, viewport,
+    totalCals, 
     mealProps: {
         breakfast, setBreakfast,
         lunch, setLunch,
@@ -59,7 +59,6 @@ const MealForm = ({
                         addFood={addBreakFast}
                         setFoodList={setBreakfast}
                         setAddFood={setAddBreakFast}
-                        viewport={viewport}
                     />
                     <MealCard
                         mealType="Lunch"
@@ -68,7 +67,6 @@ const MealForm = ({
                         addFood={addLunch}
                         setFoodList={setLunch}
                         setAddFood={setAddLunch}
-                        viewport={viewport}
                     />
                     <MealCard
                         mealType="Dinner"
@@ -77,7 +75,6 @@ const MealForm = ({
                         addFood={addDinner}
                         setFoodList={setDinner}
                         setAddFood={setAddDinner}
-                        viewport={viewport}
                     />
                     <MealCard
                         mealType="Snacks"
@@ -86,7 +83,6 @@ const MealForm = ({
                         addFood={addSnacks}
                         setFoodList={setSnacks}
                         setAddFood={setAddSnacks}
-                        viewport={viewport}
                     />
                     <Box sx={{ minHeight: '100px', gridColumn: '1/-1', display: 'flex', justifyContent: 'space-between', }}>
                         <Typography sx={{ mt: '1rem', fontWeight: '700', color: '#f50057', mb: { smallest: '1rem', tablet: '0' } }}>{`Daily total: ${totalCals.toPrecision(3)} calories`}</Typography>
@@ -125,7 +121,6 @@ const MealForm = ({
                             <Button variant="contained" sx={{ bgcolor: 'red', height: '55px', mr: '1rem', width: '70px', color: 'background.foreground', fontWeight: 900 }} onPointerDown={handleClear}>Clear</Button>
                             <Button sx={{ color: 'background.foreground', fontWeight: 900, width: '160px', height: '55px' }} variant="contained"
                                 onPointerDown={() => {
-                                    console.log("pointerDown")
                                     saveDailyMeal();
                                 }}
                             >
