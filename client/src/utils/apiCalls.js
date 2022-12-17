@@ -1,11 +1,8 @@
 import DailyMeal from "./DailyMeal";
 const api_id = process.env.REACT_APP_NUTRITIONIX_APP_ID || "ccc0b1b6"
 const api_key = process.env.REACT_APP_NUTRITIONIX_APP_KEY || "27f1de2a5f6da08f5c5239d25f745909"
-const url = 'https://trackapi.nutritionix.com/v2';
-
-console.log(api_id);
-console.log(process.env.REACT_APP_TEST);
-console.log(process.env);
+const nutritionUrl = 'https://trackapi.nutritionix.com/v2';
+const apiBaseUrl = process.env.REACT_APP_BASE_URL || ''
 
 const headers = {
     'x-app-id': api_id,
@@ -13,7 +10,7 @@ const headers = {
 }
 
 const Search = async (query) => {
-    return fetch(url + '/search/instant' + `?query=${query}`, { headers })
+    return fetch(nutritionUrl + '/search/instant' + `?query=${query}`, { headers })
         .then((response) => {
             return response.json();
         })
@@ -26,7 +23,7 @@ const Search = async (query) => {
 
 const Nutrients = async (query) => {
     const head = { ...headers, 'x-remote-user-id': '0', "Content-Type": "application/json", 'Accept': 'application/json' }
-    const nutrients = await fetch(url + '/natural/nutrients', {
+    const nutrients = await fetch(nutritionUrl + '/natural/nutrients', {
         method: 'POST', headers: head, body: JSON.stringify({ query: query })
     })
     const nutrientsJson = await nutrients.json()
@@ -45,7 +42,7 @@ const Nutrients = async (query) => {
 }
 
 const guestLogin = () => (
-    fetch(`/api/login`, {
+    fetch(`${apiBaseUrl}/api/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -60,7 +57,7 @@ const guestLogin = () => (
 // (username,password) => Promise(User)
 const login = (username, password) => (
     username = username.toLowerCase(),
-    fetch('/api/login', {
+    fetch('${apiBaseUrl}/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -74,7 +71,7 @@ const login = (username, password) => (
 
 const register = (username, password) => (
     username = username.toLowerCase(),
-    fetch('/api/register', {
+    fetch('${apiBaseUrl}/api/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -89,7 +86,7 @@ const register = (username, password) => (
 )
 
 const addMeal = (username, breakfast, lunch, dinner, snacks, date) => (
-    fetch('/api/addMeal', {
+    fetch('${apiBaseUrl}/api/addMeal', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -103,7 +100,7 @@ const addMeal = (username, breakfast, lunch, dinner, snacks, date) => (
 )
 
 const deleteMeal = (username, date) => (
-    fetch('/api/deleteMeal', {
+    fetch('${apiBaseUrl}/api/deleteMeal', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -117,7 +114,7 @@ const deleteMeal = (username, date) => (
 )
 
 const overwriteMeal = (username, breakfast, lunch, dinner, snacks, date) => (
-    fetch('/api/overwriteMeal', {
+    fetch('${apiBaseUrl}/api/overwriteMeal', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -132,7 +129,7 @@ const overwriteMeal = (username, breakfast, lunch, dinner, snacks, date) => (
 )
 
 const sendFeedback = (from, subject, feedback,) => (
-    fetch('/api/feedback', {
+    fetch('${apiBaseUrl}/api/feedback', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
