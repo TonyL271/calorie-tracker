@@ -57,7 +57,7 @@ const guestLogin = () => (
 // (username,password) => Promise(User)
 const login = (username, password) => (
     username = username.toLowerCase(),
-    fetch('${apiBaseUrl}/api/login', {
+    fetch(`${apiBaseUrl}/api/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ const login = (username, password) => (
 
 const register = (username, password) => (
     username = username.toLowerCase(),
-    fetch('${apiBaseUrl}/api/register', {
+    fetch(`${apiBaseUrl}/api/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
